@@ -28,12 +28,20 @@
   -webkit-font-smoothing: antialiased;
 }
 
+html,
+body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  overflow-x: hidden;
+  position: relative;
+}
+
 body {
   background-color: var(--bg-color);
   color: var(--text-primary);
   font-family: var(--font-main);
   line-height: 1.5;
-  overflow-x: hidden;
 }
 
 .container {
