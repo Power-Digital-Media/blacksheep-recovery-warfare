@@ -81,79 +81,44 @@ function Episodes() {
                 </div>
             </section>
 
-            <div className="container" style={{ marginTop: '8rem' }}>
+            <div className="container" style={{ marginTop: 'clamp(3rem, 10vw, 8rem)' }}>
                 <div className="bento-grid">
                     {episodes.map((eps, index) => {
-                        // PRECISE BENTO MAPPING
+                        // PRECISE BENTO MAPPING (Handled by global CSS on mobile)
                         let gridClass = 'span-4 row-4';
-                        if (index === 0) gridClass = 'span-8 row-6'; // FEATURED
-                        else if (index === 1 || index === 2) gridClass = 'span-4 row-3'; // TOP RIGHT STACK
-                        else if (index === 3) gridClass = 'span-4 row-5'; // BOTTOM LEFT - VERTICAL
-                        else if (index === 4) gridClass = 'span-4 row-4'; // BOTTOM MIDDLE
-                        else if (index === 5) gridClass = 'span-4 row-3'; // BOTTOM RIGHT - 16:9 FORM
+                        if (index === 0) gridClass = 'span-8 row-6';
+                        else if (index === 1 || index === 2) gridClass = 'span-4 row-3';
+                        else if (index === 3) gridClass = 'span-4 row-5';
+                        else if (index === 4) gridClass = 'span-4 row-4';
+                        else if (index === 5) gridClass = 'span-4 row-3';
 
                         return (
-                            <div key={eps.id} className={`${gridClass} bento-card reveal`} style={{ display: 'flex', flexDirection: 'column' }}>
-                                {/* THUMBNAIL CONTAINER - ROBUST FIX */}
-                                <div style={{
-                                    width: '100%',
-                                    marginBottom: '1.5rem',
-                                    position: 'relative'
-                                }}>
+                            <div key={eps.id} className={`${gridClass} bento-card reveal episode-card`}>
+                                <div className="video-thumb-container">
                                     <a
                                         href={`https://www.youtube.com/watch?v=${eps.ytId}`}
                                         target="_blank"
                                         rel="noopener noreferrer"
-                                        style={{
-                                            display: 'block',
-                                            width: '100%',
-                                            aspectRatio: '16/9',
-                                            backgroundColor: '#000',
-                                            borderRadius: '16px',
-                                            border: '1px solid rgba(255,255,255,0.1)',
-                                            overflow: 'hidden',
-                                            position: 'relative',
-                                            cursor: 'pointer',
-                                            textDecoration: 'none'
-                                        }}
-                                        className="thumb-hover"
+                                        className="thumb-hover video-link"
                                     >
                                         <img
                                             src={`https://img.youtube.com/vi/${eps.ytId}/maxresdefault.jpg`}
                                             alt={eps.title}
-                                            style={{
-                                                width: '100%',
-                                                height: '100%',
-                                                objectFit: 'contain',
-                                                display: 'block'
-                                            }}
+                                            className="video-thumb"
                                         />
                                         <div className="play-overlay">
-                                            <Play fill="var(--emergency-red)" color="var(--emergency-red)" size={index === 0 ? 48 : 32} />
+                                            <Play fill="white" color="white" size={index === 0 ? 44 : 32} />
                                         </div>
                                     </a>
                                 </div>
 
-                                {/* CONTENT */}
-                                <div style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
-                                    <span className="emergency-text" style={{ fontSize: '0.7rem', marginBottom: '0.5rem' }}>{eps.date}</span>
-                                    <h2 style={{
-                                        marginBottom: '0.5rem',
-                                        lineHeight: 1.2
-                                    }}>
-                                        {eps.title}
-                                    </h2>
-                                    <p style={{
-                                        color: 'var(--text-secondary)',
-                                        marginBottom: index === 0 ? '1.5rem' : '1rem',
-                                        fontStyle: 'italic',
-                                        fontSize: '0.9rem'
-                                    }}>
-                                        Featuring {eps.guest}
-                                    </p>
+                                <div className="episode-content">
+                                    <span className="emergency-text episode-date">{eps.date}</span>
+                                    <h2 className="episode-title">{eps.title}</h2>
+                                    <p className="episode-guest">Featuring {eps.guest}</p>
 
                                     {index === 0 && (
-                                        <p className="narrative-text" style={{ marginTop: '0', marginBottom: '2rem' }}>
+                                        <p className="narrative-text episode-desc">
                                             {eps.desc}
                                         </p>
                                     )}
@@ -162,16 +127,7 @@ function Episodes() {
                                         href={`https://www.youtube.com/watch?v=${eps.ytId}`}
                                         target="_blank"
                                         rel="noopener noreferrer"
-                                        className="nav-link"
-                                        style={{
-                                            marginTop: 'auto',
-                                            display: 'flex',
-                                            alignItems: 'center',
-                                            gap: '0.5rem',
-                                            color: 'var(--text-primary)',
-                                            fontWeight: 700,
-                                            letterSpacing: '0.05em'
-                                        }}
+                                        className="nav-link episode-cta"
                                     >
                                         WATCH NOW <ArrowRight size={18} />
                                     </a>
@@ -181,29 +137,15 @@ function Episodes() {
                     })}
 
                     {/* WATCH ALL CTA */}
-                    <div className="span-full" style={{ textAlign: 'center', padding: '6rem 0' }}>
+                    <div className="span-full watch-all-container">
                         <div className="reveal">
-                            <h3 style={{ fontSize: '2rem', marginBottom: '2rem' }}>Ready for more warfare?</h3>
-                            <div style={{
-                                display: 'flex',
-                                gap: '1.5rem',
-                                justifyContent: 'center',
-                                flexWrap: 'wrap'
-                            }}>
+                            <h3 className="watch-all-title">Ready for more warfare?</h3>
+                            <div className="watch-all-buttons">
                                 <a
                                     href="https://www.youtube.com/@Brother_Phoenix/videos"
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="donate-btn"
-                                    style={{
-                                        fontSize: '1.2rem',
-                                        padding: '18px 40px',
-                                        display: 'inline-flex',
-                                        alignItems: 'center',
-                                        gap: '1rem',
-                                        backgroundColor: '#ff0000',
-                                        border: 'none'
-                                    }}
+                                    className="donate-btn youtube-btn"
                                 >
                                     <Youtube size={24} /> WATCH ALL EPISODES
                                 </a>
@@ -212,16 +154,7 @@ function Episodes() {
                                     href="https://open.spotify.com"
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="donate-btn"
-                                    style={{
-                                        fontSize: '1.2rem',
-                                        padding: '18px 40px',
-                                        display: 'inline-flex',
-                                        alignItems: 'center',
-                                        gap: '1rem',
-                                        backgroundColor: '#1db954',
-                                        border: 'none'
-                                    }}
+                                    className="donate-btn spotify-btn"
                                 >
                                     <Radio size={24} /> LISTEN ON SPOTIFY
                                 </a>
@@ -230,6 +163,33 @@ function Episodes() {
                     </div>
                 </div>
             </div>
+
+            <style>{`
+                .episode-card { display: flex; flex-direction: column; }
+                .video-thumb-container { width: 100%; margin-bottom: 1.5rem; position: relative; }
+                .video-link { display: block; width: 100%; aspect-ratio: 16/9; background: #000; border-radius: 16px; border: 1px solid rgba(255,255,255,0.1); overflow: hidden; position: relative; cursor: pointer; text-decoration: none; }
+                .video-thumb { width: 100%; height: 100%; object-fit: contain; display: block; }
+                .episode-content { flex: 1; display: flex; flex-direction: column; }
+                .episode-date { font-size: 0.7rem; margin-bottom: 0.5rem; }
+                .episode-title { margin-bottom: 0.5rem; line-height: 1.2; }
+                .episode-guest { color: var(--text-secondary); margin-bottom: 1rem; font-style: italic; font-size: 0.9rem; }
+                .episode-desc { margin-top: 0; margin-bottom: 2rem; font-size: 0.95rem; }
+                .episode-cta { margin-top: auto; display: flex; align-items: center; gap: 0.5rem; color: var(--text-primary); font-weight: 700; letter-spacing: 0.05em; font-size: 0.8rem; }
+                
+                .watch-all-container { text-align: center; padding: 6rem 0; width: 100%; }
+                .watch-all-title { font-size: 2rem; margin-bottom: 2rem; }
+                .watch-all-buttons { display: flex; gap: 1.5rem; justify-content: center; flex-wrap: wrap; }
+                .youtube-btn { background-color: #ff0000 !important; border: none; font-size: 1.1rem; padding: 18px 40px; }
+                .spotify-btn { background-color: #1db954 !important; border: none; font-size: 1.1rem; padding: 18px 40px; }
+
+                @media (max-width: 768px) {
+                    .watch-all-container { padding: 4rem 0; }
+                    .watch-all-title { font-size: 1.5rem; }
+                    .watch-all-buttons { flex-direction: column; width: 100%; }
+                    .youtube-btn, .spotify-btn { width: 100%; justify-content: center; font-size: 1rem; }
+                    .episode-title { font-size: 1.4rem; }
+                }
+            `}</style>
         </div>
     )
 }

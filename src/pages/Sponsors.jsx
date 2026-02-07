@@ -174,39 +174,11 @@ function Sponsors() {
                 </div>
             </section>
 
-            <div className="container" style={{ marginTop: '-4rem', paddingBottom: '12rem', maxWidth: '1400px' }}>
-                {/* 5-3 GRID LAYOUT */}
-                <div style={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    alignItems: 'center',
-                    gap: '3rem'
-                }}>
-                    {/* Top row of 5 */}
-                    <div style={{
-                        display: 'flex',
-                        flexWrap: 'wrap',
-                        justifyContent: 'center',
-                        gap: '2.5rem',
-                        width: '100%'
-                    }}>
-                        {sponsors.slice(0, 5).map((s) => (
-                            <ShieldItem key={s.id} sponsor={s} />
-                        ))}
-                    </div>
-
-                    {/* Bottom row of 3 */}
-                    <div style={{
-                        display: 'flex',
-                        flexWrap: 'wrap',
-                        justifyContent: 'center',
-                        gap: '2.5rem',
-                        width: '100%'
-                    }}>
-                        {sponsors.slice(5, 8).map((s) => (
-                            <ShieldItem key={s.id} sponsor={s} />
-                        ))}
-                    </div>
+            <div className="container" style={{ marginTop: '-4rem', paddingBottom: '12rem' }}>
+                <div className="sponsor-grid">
+                    {sponsors.map((s) => (
+                        <ShieldItem key={s.id} sponsor={s} />
+                    ))}
                 </div>
 
                 {/* FOOTER TEXT */}
@@ -225,6 +197,15 @@ function Sponsors() {
             </div>
 
             <style>{`
+                .sponsor-grid {
+                    display: grid;
+                    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+                    gap: 3rem;
+                    width: 100%;
+                    max-width: 1400px;
+                    margin: 0 auto;
+                }
+
                 .shield-interaction-wrapper:hover {
                     transform: translateY(-8px);
                 }
@@ -232,6 +213,23 @@ function Sponsors() {
                     background: rgba(29, 185, 84, 0.2);
                     border-color: #1db954;
                     box-shadow: 0 0 20px rgba(29, 185, 84, 0.1);
+                }
+
+                @media (max-width: 1024px) {
+                    .sponsor-grid {
+                        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+                        gap: 2rem;
+                    }
+                }
+
+                @media (max-width: 600px) {
+                    .sponsor-grid {
+                        grid-template-columns: 1fr;
+                        gap: 1.5rem;
+                    }
+                    .shield-interaction-wrapper {
+                        max-width: 100% !important;
+                    }
                 }
             `}</style>
         </div>

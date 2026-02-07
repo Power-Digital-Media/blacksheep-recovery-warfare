@@ -30,12 +30,12 @@ function Donate() {
                 </div>
             </section>
 
-            <div className="container" style={{ marginTop: '8rem' }}>
+            <div className="container" style={{ marginTop: 'clamp(3rem, 10vw, 8rem)' }}>
                 <div className="bento-grid">
                     {/* MAIN DONATION MODULE */}
-                    <div className="bento-card span-8 row-6 reveal">
-                        <div style={{ marginBottom: '2rem' }}>
-                            <Heart size={32} color="var(--emergency-red)" style={{ marginBottom: '1.5rem' }} />
+                    <div className="bento-card span-8 row-6 reveal donate-card">
+                        <div className="donate-intro">
+                            <Heart size={32} color="var(--emergency-red)" className="donate-icon" />
                             <h2>Ministry Operations</h2>
                             <p className="donate-description">
                                 Your financial support allows us to continue sharing stories of
@@ -49,7 +49,7 @@ function Donate() {
                             <p className="donation-subtext">Contributions are processed securely via PayPal.</p>
 
                             <a href="#" className="donate-btn donation-cta">
-                                DONATE VIA PAYPAL <ExternalLink size={18} style={{ marginLeft: '10px' }} />
+                                DONATE VIA PAYPAL <ExternalLink size={18} />
                             </a>
 
                             <div className="donation-footer">
@@ -60,26 +60,52 @@ function Donate() {
                     </div>
 
                     <style>{`
-                        .donate-description { fontSize: 1.1rem; marginBottom: 2rem; }
-                        .donation-container { marginTop: auto; padding: clamp(1.5rem, 5vw, 3rem); background: rgba(255,255,255,0.02); borderRadius: 24px; border: 1px solid rgba(255,255,255,0.05); textAlign: center; }
-                        .donation-container h3 { marginBottom: 1rem; fontSize: clamp(1.2rem, 3vw, 1.5rem); }
-                        .donation-subtext { color: var(--text-secondary); marginBottom: 2.5rem; }
-                        .donation-cta { fontSize: 1.1rem; padding: 15px 40px !important; display: inline-flex; }
-                        .donation-footer { display: flex; justifyContent: center; gap: 2rem; marginTop: 3rem; opacity: 0.5; fontSize: 0.8rem; }
+                        .donate-card { display: flex; flex-direction: column; }
+                        .donate-icon { margin-bottom: 1.5rem; }
+                        .donate-intro { margin-bottom: 2rem; }
+                        .donate-description { font-size: 1.1rem; margin-bottom: 2rem; line-height: 1.6; }
+                        .donation-container { 
+                            margin-top: auto; 
+                            padding: clamp(1.5rem, 5vw, 3rem); 
+                            background: rgba(255,255,255,0.02); 
+                            border-radius: 24px; 
+                            border: 1px solid rgba(255,255,255,0.05); 
+                            text-align: center; 
+                        }
+                        .donation-container h3 { margin-bottom: 1rem; font-size: clamp(1.2rem, 3vw, 1.5rem); }
+                        .donation-subtext { color: var(--text-secondary); margin-bottom: 2.5rem; }
+                        .donation-cta { 
+                            font-size: 1.1rem; 
+                            padding: 18px 45px !important; 
+                            display: inline-flex; 
+                            align-items: center;
+                            gap: 12px;
+                            text-decoration: none;
+                        }
+                        .donation-footer { 
+                            display: flex; 
+                            justify-content: center; 
+                            gap: 2rem; 
+                            margin-top: 3rem; 
+                            opacity: 0.5; 
+                            font-size: 0.8rem; 
+                            letter-spacing: 1px;
+                        }
 
-                        @media (max-width: 600px) {
+                        @media (max-width: 768px) {
                             .donation-container { padding: 1.5rem; }
-                            .donation-cta { width: 100%; }
+                            .donation-cta { width: 100%; justify-content: center; }
+                            .donation-footer { gap: 1rem; }
                         }
                     `}</style>
 
                     {/* SCRIPTURE PILLAR */}
-                    <div className="bento-card span-4 row-2 reveal">
+                    <div className="bento-card span-4 row-2 reveal scripture-card">
                         <span className="emergency-text">The Foundation</span>
-                        <p style={{ fontSize: '1.1rem', fontStyle: 'italic', color: 'var(--text-primary)' }}>
+                        <p className="scripture-text">
                             "But he was pierced for our transgressions, he was crushed for our iniquities..."
                         </p>
-                        <div style={{ marginTop: 'auto', fontWeight: 'bold' }}>ISAIAH 53</div>
+                        <div className="scripture-ref">ISAIAH 53</div>
                     </div>
 
                     {/* IMPACT PILLAR */}
@@ -92,15 +118,23 @@ function Donate() {
                     </div>
 
                     {/* CONTACT PILLAR */}
-                    <div className="bento-card span-4 row-2 reveal" style={{ background: 'var(--charcoal)' }}>
+                    <div className="bento-card span-4 row-2 reveal contact-pillar">
                         <h2>Other Ways to Give</h2>
-                        <p style={{ fontSize: '0.9rem' }}>
+                        <p className="contact-text">
                             For corporate sponsorship or physical donations, reach out directly at
                             contact@blacksheeprecoverywarfare.org
                         </p>
                     </div>
                 </div>
             </div>
+
+            <style>{`
+                .scripture-card { display: flex; flex-direction: column; }
+                .scripture-text { font-size: 1.1rem; font-style: italic; color: var(--text-primary); line-height: 1.5; }
+                .scripture-ref { margin-top: auto; font-weight: bold; letter-spacing: 2px; font-size: 0.9rem; }
+                .contact-pillar { background: var(--charcoal); }
+                .contact-text { font-size: 0.9rem; line-height: 1.5; }
+            `}</style>
         </div>
     )
 }

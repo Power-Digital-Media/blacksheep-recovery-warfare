@@ -126,36 +126,142 @@ function Home() {
             </div>
 
             <style>{`
-                .hero-button-container { display: flex; gap: 2rem; }
-                .large-cta { fontSize: 1.1rem; padding: 15px 40px !important; }
-                .mission-description { fontSize: 1.2rem; marginBottom: 2rem; }
-                .mission-stats { marginTop: auto; display: flex; gap: 3rem; }
-                .stat-value { fontWeight: 900; fontSize: 2rem; display: block; }
-                .stat-label { opacity: 0.5; }
-                .warfare-report-card { background: var(--warfare-red); }
-                .card-icon { marginBottom: 1.5rem; color: white; }
-                .card-icon.red { color: var(--emergency-red); }
-                .card-description { color: rgba(255,255,255,0.8); fontSize: 1.1rem; }
-                .podcast-player-mock { marginTop: auto; width: 100%; height: 120px; background: rgba(0,0,0,0.2); borderRadius: 20px; display: flex; alignItems: center; justifyContent: center; }
-                .emergency-text.light { color: white; }
-                .massive-heading { fontSize: clamp(2rem, 6vw, 4rem); color: white; maxWidth: 800px; line-height: 1.1; }
-                .narrative-sub { color: rgba(255,255,255,0.7); }
-                .card-text { fontSize: 1.1rem; }
-                .card-link { marginTop: auto; display: flex; alignItems: center; gap: 8px; fontWeight: bold; cursor: pointer; }
-                .intel-list { listStyle: none; }
-                .intel-list li { padding: 1rem 0; borderBottom: 1px solid rgba(255,255,255,0.05); }
-                .intel-list li:last-child { borderBottom: none; }
-                .footer-cta-card { background: var(--charcoal); padding: 5rem; text-align: center; }
-                .footer-heart { margin: 0 auto 2rem; }
-                .footer-cta-text { fontSize: 1.5rem; maxWidth: 800px; margin: 0 auto 3rem; color: var(--text-secondary); }
-                .footer-button-container { display: flex; justifyContent: center; gap: 2rem; }
-                .xl-cta { padding: 20px 60px !important; fontSize: 1.2rem; }
+                .hero-button-container { 
+                    display: flex; 
+                    gap: 1.5rem; 
+                }
+                .large-cta { 
+                    font-size: 1.1rem; 
+                    padding: 15px 40px !important; 
+                }
+                .mission-description { 
+                    font-size: 1.1rem; 
+                    margin-bottom: 2rem; 
+                    line-height: 1.6;
+                }
+                .mission-stats { 
+                    margin-top: auto; 
+                    display: flex; 
+                    gap: 2.5rem; 
+                }
+                .stat-value { 
+                    font-weight: 900; 
+                    font-size: 1.8rem; 
+                    display: block; 
+                }
+                .stat-label { 
+                    opacity: 0.5; 
+                    font-size: 0.8rem;
+                }
+                .warfare-report-card { 
+                    background: var(--warfare-red); 
+                }
+                .card-icon { 
+                    margin-bottom: 1.5rem; 
+                    color: white; 
+                }
+                .card-icon.red { 
+                    color: var(--emergency-red); 
+                }
+                .card-description { 
+                    color: rgba(255,255,255,0.8); 
+                    font-size: 1.05rem; 
+                    line-height: 1.5;
+                }
+                .podcast-player-mock { 
+                    margin-top: 2.5rem; 
+                    width: 100%; 
+                    height: 100px; 
+                    background: rgba(0,0,0,0.2); 
+                    border-radius: 20px; 
+                    display: flex; 
+                    align-items: center; 
+                    justify-content: center; 
+                }
+                .emergency-text.light { 
+                    color: white; 
+                }
+                .massive-heading { 
+                    font-size: clamp(1.8rem, 6vw, 4rem); 
+                    color: white; 
+                    max-width: 800px; 
+                    line-height: 1.1; 
+                }
+                .narrative-sub { 
+                    color: rgba(255,255,255,0.7); 
+                    font-size: 1rem;
+                }
+                .card-text { 
+                    font-size: 1.05rem; 
+                    line-height: 1.5;
+                }
+                .card-link { 
+                    margin-top: auto; 
+                    display: flex; 
+                    align-items: center; 
+                    gap: 8px; 
+                    font-weight: bold; 
+                    cursor: pointer; 
+                }
+                .intel-list { 
+                    list-style: none; 
+                    padding: 0;
+                }
+                .intel-list li { 
+                    padding: 1rem 0; 
+                    border-bottom: 1px solid rgba(255,255,255,0.05); 
+                }
+                .intel-list li:last-child { 
+                    border-bottom: none; 
+                }
+                .footer-cta-card { 
+                    background: var(--charcoal); 
+                    padding: 4rem 2rem; 
+                    text-align: center; 
+                }
+                .footer-heart { 
+                    margin: 0 auto 1.5rem; 
+                }
+                .footer-cta-text { 
+                    font-size: 1.2rem; 
+                    max-width: 800px; 
+                    margin: 0 auto 2.5rem; 
+                    color: var(--text-secondary); 
+                }
+                .footer-button-container { 
+                    display: flex; 
+                    justify-content: center; 
+                    gap: 1.5rem; 
+                }
+                .xl-cta { 
+                    padding: 18px 45px !important; 
+                    font-size: 1.1rem; 
+                }
 
                 @media (max-width: 768px) {
-                    .hero-button-container, .footer-button-container { justify-content: center; }
-                    .mission-stats { flex-direction: column; gap: 1rem; }
-                    .footer-cta-card { padding: 3rem 1.5rem; }
-                    .footer-cta-text { fontSize: 1.1rem; }
+                    .hero-button-container, .footer-button-container { 
+                        justify-content: center; 
+                        flex-direction: column;
+                        width: 100%;
+                    }
+                    .donate-btn {
+                        width: 100%;
+                        text-align: center;
+                    }
+                    .mission-stats { 
+                        flex-direction: column; 
+                        gap: 1.5rem; 
+                        margin-top: 2rem;
+                    }
+                    .footer-cta-card { 
+                        padding: 3rem 1.25rem; 
+                    }
+                    .footer-cta-text { 
+                        font-size: 1rem; 
+                    }
+                    .massive-heading {
+                        font-size: 1.8rem;
+                    }
                 }
             `}</style>
         </div>

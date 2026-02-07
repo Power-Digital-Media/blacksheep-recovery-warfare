@@ -37,18 +37,18 @@ function Resources() {
                 </div>
             </section>
 
-            <div className="container" style={{ marginTop: '8rem' }}>
+            <div className="container" style={{ marginTop: 'clamp(3rem, 10vw, 8rem)' }}>
                 <div className="bento-grid">
                     {/* RESOURCE LIST */}
                     {resources.map((res, idx) => (
-                        <div key={idx} className="bento-card span-6 row-3 reveal">
-                            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
-                                <span className="emergency-text" style={{ fontSize: '0.65rem' }}>{res.type}</span>
-                                <span style={{ fontSize: '0.65rem', opacity: 0.4, textTransform: 'uppercase', letterSpacing: '1px' }}>{res.impact}</span>
+                        <div key={idx} className="bento-card span-6 row-3 reveal resource-card">
+                            <div className="resource-header">
+                                <span className="emergency-text resource-type">{res.type}</span>
+                                <span className="resource-impact">{res.impact}</span>
                             </div>
-                            <h2>{res.name}</h2>
-                            <p style={{ fontSize: '1.1rem', color: 'var(--text-secondary)' }}>By {res.author}</p>
-                            <div style={{ marginTop: 'auto', display: 'flex', alignItems: 'center', gap: '8px', fontWeight: 'bold', color: 'var(--emergency-red)' }}>
+                            <h2 className="resource-name">{res.name}</h2>
+                            <p className="resource-author">By {res.author}</p>
+                            <div className="resource-link">
                                 OPEN RESOURCE <ExternalLink size={14} />
                             </div>
                         </div>
@@ -74,31 +74,40 @@ function Resources() {
                     </div>
 
                     <style>{`
+                        .resource-card { display: flex; flex-direction: column; }
+                        .resource-header { display: flex; justify-content: space-between; align-items: flex-start; }
+                        .resource-type { font-size: 0.65rem; }
+                        .resource-impact { font-size: 0.65rem; opacity: 0.4; text-transform: uppercase; letter-spacing: 1px; }
+                        .resource-name { margin-top: 1rem; margin-bottom: 0.5rem; font-size: 1.4rem; }
+                        .resource-author { font-size: 1.05rem; color: var(--text-secondary); margin-bottom: 2rem; }
+                        .resource-link { margin-top: auto; display: flex; alignItems: center; gap: 8px; font-weight: bold; color: var(--emergency-red); font-size: 0.85rem; letter-spacing: 1px; }
+
                         .featured-intel-card { background: var(--charcoal); border-left: 4px solid var(--emergency-red); }
-                        .card-icon { marginBottom: 1.5rem; }
+                        .card-icon { margin-bottom: 1.5rem; }
                         .featured-intel-container { display: flex; justify-content: space-between; align-items: flex-end; gap: 2rem; }
-                        .featured-intel-content { maxWidth: 700px; }
-                        .featured-title { font-size: clamp(1.8rem, 4vw, 2.5rem); marginBottom: 1rem; }
-                        .featured-desc { font-size: 1.2rem; }
-                        .featured-cta { border: none; cursor: pointer; padding: 18px 45px !important; }
+                        .featured-intel-content { max-width: 700px; }
+                        .featured-title { font-size: clamp(1.6rem, 4vw, 2.5rem); margin-bottom: 1rem; line-height: 1.1; }
+                        .featured-desc { font-size: 1.1rem; color: var(--text-secondary); line-height: 1.5; }
+                        .featured-cta { border: none; cursor: pointer; padding: 18px 45px !important; white-space: nowrap; }
 
                         @media (max-width: 900px) {
-                            .featured-intel-container { flex-direction: column; align-items: flex-start; }
-                            .featured-title { font-size: 1.8rem; }
+                            .featured-intel-container { flex-direction: column; align-items: flex-start; gap: 1.5rem; }
+                            .featured-intel-content { max-width: 100%; }
                             .featured-cta { width: 100%; text-align: center; }
+                            .resource-name { font-size: 1.25rem; }
                         }
                     `}</style>
 
                     {/* CORE PILLAR */}
                     <div className="bento-card span-4 row-2 reveal">
-                        <BookOpen size={24} color="var(--emergency-red)" style={{ marginBottom: '1rem' }} />
+                        <BookOpen size={24} color="var(--emergency-red)" className="pillar-icon" />
                         <h2>The Word</h2>
                         <p>The ultimate strategic manual for every recovered soul. Daily grounding in scripture.</p>
                     </div>
 
                     {/* SUPPORT PILLAR */}
                     <div className="bento-card span-4 row-2 reveal">
-                        <ShieldCheck size={24} color="var(--emergency-red)" style={{ marginBottom: '1rem' }} />
+                        <ShieldCheck size={24} color="var(--emergency-red)" className="pillar-icon" />
                         <h2>Verified Partners</h2>
                         <p>Connecting you with vetted, faith-based recovery hubs across the nation.</p>
                     </div>
@@ -109,6 +118,10 @@ function Resources() {
                     </div>
                 </div>
             </div>
+
+            <style>{`
+                .pillar-icon { margin-bottom: 1rem; }
+            `}</style>
         </div>
     )
 }

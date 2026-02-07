@@ -30,67 +30,89 @@ function Events() {
                 </div>
             </section>
 
-            <div className="container" style={{ marginTop: '8rem' }}>
+            <div className="container" style={{ marginTop: 'clamp(3rem, 10vw, 8rem)' }}>
                 <div className="bento-grid">
                     {/* MAIN FEATURED EVENT */}
-                    <div className="bento-card span-8 row-6 reveal" style={{ background: 'var(--warfare-red)', border: 'none' }}>
-                        <span className="emergency-text" style={{ color: 'white', opacity: 0.8 }}>SEPTEMBER 13, 2025</span>
-                        <h1 style={{ color: 'white', lineHeight: '0.9', margin: '1rem 0' }}>NIGHT OF HOPE</h1>
-                        <p style={{ color: 'rgba(255,255,255,0.9)', fontSize: '1.25rem', maxWidth: '600px', marginBottom: '3rem' }}>
+                    <div className="bento-card span-8 row-6 reveal featured-event-card">
+                        <span className="emergency-text event-date">SEPTEMBER 13, 2025</span>
+                        <h1 className="event-title">NIGHT OF HOPE</h1>
+                        <p className="event-description">
                             A powerful evening of raw testimonies, worship, and real talk
                             about recovery and the relentless grace of Jesus Christ.
                             Live speakers from the Black Sheep community.
                         </p>
 
-                        <div style={{ display: 'flex', gap: '3rem', marginTop: 'auto' }}>
-                            <div>
-                                <h3 style={{ color: 'white', fontSize: '1.1rem', marginBottom: '0.5rem' }}>WORSHIP</h3>
-                                <p style={{ color: 'rgba(255,255,255,0.7)', fontSize: '0.9rem' }}>Live Music & Spiritual Warfare</p>
+                        <div className="event-details-row">
+                            <div className="detail-item">
+                                <h3 className="detail-title">WORSHIP</h3>
+                                <p className="detail-text">Live Music & Spiritual Warfare</p>
                             </div>
-                            <div>
-                                <h3 style={{ color: 'white', fontSize: '1.1rem', marginBottom: '0.5rem' }}>COMMUNITY</h3>
-                                <p style={{ color: 'rgba(255,255,255,0.7)', fontSize: '0.9rem' }}>Connection & Direct Mentorship</p>
+                            <div className="detail-item">
+                                <h3 className="detail-title">COMMUNITY</h3>
+                                <p className="detail-text">Connection & Direct Mentorship</p>
                             </div>
                         </div>
 
-                        <button style={{
-                            marginTop: '4rem',
-                            background: 'white',
-                            color: 'black',
-                            border: 'none',
-                            padding: '18px 45px',
-                            borderRadius: '30px',
-                            fontWeight: '900',
-                            fontSize: 'clamp(0.9rem, 1.5vw, 1rem)',
-                            cursor: 'pointer',
-                            display: 'flex',
-                            alignItems: 'center',
-                            gap: '12px'
-                        }}>
+                        <button className="event-cta">
                             JOIN THE FRONT <ArrowRight size={20} />
                         </button>
                     </div>
 
                     {/* LOGISTICS */}
-                    <div className="bento-card span-4 row-2 reveal">
-                        <MapPin size={24} color="var(--emergency-red)" style={{ marginBottom: '1rem' }} />
+                    <div className="bento-card span-4 row-2 reveal logistics-card">
+                        <MapPin size={24} color="var(--emergency-red)" className="logistics-icon" />
                         <h2>Location</h2>
                         <p>Central Mississippi. Check back for specific venue details soon.</p>
                     </div>
 
-                    <div className="bento-card span-4 row-2 reveal">
-                        <Users size={24} color="var(--emergency-red)" style={{ marginBottom: '1rem' }} />
+                    <div className="bento-card span-4 row-2 reveal logistics-card">
+                        <Users size={24} color="var(--emergency-red)" className="logistics-icon" />
                         <h2>Open Enlistment</h2>
                         <p>Come as you are. Whether in recovery or looking to support, there is a place for you.</p>
                     </div>
 
-                    <div className="bento-card span-4 row-2 reveal" style={{ background: 'var(--charcoal)' }}>
-                        <Calendar size={24} style={{ marginBottom: '1rem' }} />
+                    <div className="bento-card span-4 row-2 reveal logistics-card secondary-card">
+                        <Calendar size={24} className="logistics-icon" />
                         <h2>Past Deployments</h2>
                         <p>Relive the impact of previous Night of Hope gatherings.</p>
                     </div>
                 </div>
             </div>
+
+            <style>{`
+                .featured-event-card { background: var(--warfare-red); border: none; }
+                .event-date { color: white; opacity: 0.8; }
+                .event-title { color: white; line-height: 0.9; margin: 1rem 0; font-size: clamp(2rem, 8vw, 4.5rem); }
+                .event-description { color: rgba(255,255,255,0.9); fontSize: 1.1rem; max-width: 600px; margin-bottom: 2.5rem; line-height: 1.5; }
+                .event-details-row { display: flex; gap: 3rem; margin-top: auto; }
+                .detail-title { color: white; font-size: 1.1rem; margin-bottom: 0.5rem; }
+                .detail-text { color: rgba(255,255,255,0.7); font-size: 0.9rem; }
+                .event-cta {
+                    margin-top: 3rem;
+                    background: white;
+                    color: black;
+                    border: none;
+                    padding: 16px 40px;
+                    border-radius: 30px;
+                    font-weight: 900;
+                    font-size: 1rem;
+                    cursor: pointer;
+                    display: flex;
+                    align-items: center;
+                    gap: 12px;
+                    width: fit-content;
+                }
+                .logistics-icon { margin-bottom: 1rem; }
+                .secondary-card { background: var(--charcoal); }
+
+                @media (max-width: 768px) {
+                    .event-title { font-size: 2.5rem; }
+                    .event-description { font-size: 1rem; margin-bottom: 1.5rem; }
+                    .event-details-row { flex-direction: column; gap: 1.5rem; }
+                    .event-cta { width: 100%; justify-content: center; margin-top: 2rem; }
+                    .featured-event-card { padding: 1.5rem !important; }
+                }
+            `}</style>
         </div>
     )
 }
