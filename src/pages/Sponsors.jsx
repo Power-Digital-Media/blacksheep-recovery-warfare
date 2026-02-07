@@ -20,7 +20,7 @@ const ShieldItem = ({ sponsor }) => {
             <div style={{
                 position: 'relative',
                 width: '100%',
-                height: sponsor.id.startsWith('EL') || sponsor.id.startsWith('MH') || sponsor.id.startsWith('ST') || sponsor.id.startsWith('MA') || sponsor.id.startsWith('ES') ? '280px' : '150px',
+                height: '280px',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
