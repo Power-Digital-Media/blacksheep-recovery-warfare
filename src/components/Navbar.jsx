@@ -1,23 +1,27 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
+import { Menu, X } from 'lucide-react'
 
 function Navbar() {
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
+
     return (
-        <nav style={{ padding: '1.5rem 0', display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem' }}>
-            <Link to="/" style={{ textDecoration: 'none', color: 'inherit' }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-                    <img src="/logo.png" alt="Logo" style={{ height: '40px' }} />
-                    <span className="stencil-text" style={{ fontSize: '1.2rem', fontWeight: '900' }}>BLACK SHEEP</span>
-                </div>
+        <nav className="animate-in mobile-nav-container">
+            <Link to="/" style={{ textDecoration: 'none' }}>
+                <img src="/logo.png" alt="Black Sheep Logo" className="nav-logo" />
             </Link>
 
-            <div style={{ display: 'flex', gap: '2rem' }}>
-                <Link to="/episodes" className="stencil-text" style={{ textDecoration: 'none', color: 'var(--text-secondary)', fontSize: '0.8rem' }}>Episodes</Link>
-                <Link to="/events" className="stencil-text" style={{ textDecoration: 'none', color: 'var(--text-secondary)', fontSize: '0.8rem' }}>Events</Link>
-                <Link to="/sponsors" className="stencil-text" style={{ textDecoration: 'none', color: 'var(--text-secondary)', fontSize: '0.8rem' }}>Sponsors</Link>
-                <Link to="/resources" className="stencil-text" style={{ textDecoration: 'none', color: 'var(--text-secondary)', fontSize: '0.8rem' }}>Resources</Link>
-                <Link to="/merch" className="stencil-text" style={{ textDecoration: 'none', color: 'var(--text-secondary)', fontSize: '0.8rem' }}>Gear</Link>
-                <Link to="/donate" className="stencil-text" style={{ textDecoration: 'none', color: 'var(--warfare-red)', fontSize: '0.8rem', fontWeight: 'bold' }}>Donate</Link>
+            <button className="mobile-menu-toggle" onClick={() => setIsMenuOpen(!isMenuOpen)}>
+                {isMenuOpen ? <X size={32} /> : <Menu size={32} />}
+            </button>
+
+            <div className={`nav-links ${isMenuOpen ? 'mobile-open' : ''}`}>
+                <Link to="/episodes" className="nav-link" onClick={() => setIsMenuOpen(false)}>Episodes</Link>
+                <Link to="/events" className="nav-link" onClick={() => setIsMenuOpen(false)}>Events</Link>
+                <Link to="/sponsors" className="nav-link" onClick={() => setIsMenuOpen(false)}>Sponsors</Link>
+                <Link to="/resources" className="nav-link" onClick={() => setIsMenuOpen(false)}>Resources</Link>
+                <Link to="/merch" className="nav-link" onClick={() => setIsMenuOpen(false)}>Gear</Link>
+                <Link to="/donate" className="donate-btn" onClick={() => setIsMenuOpen(false)}>DONATE</Link>
             </div>
         </nav>
     )

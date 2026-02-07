@@ -12,23 +12,30 @@ import Donate from './pages/Donate'
 function App() {
   return (
     <Router>
-      <div className="container">
+      <div className="app-wrapper">
         <div className="noise-overlay"></div>
-        <Navbar />
 
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/episodes" element={<Episodes />} />
-          <Route path="/events" element={<Events />} />
-          <Route path="/sponsors" element={<Sponsors />} />
-          <Route path="/resources" element={<Resources />} />
-          <Route path="/merch" element={<Merch />} />
-          <Route path="/donate" element={<Donate />} />
-        </Routes>
+        <div className="container">
+          <Navbar />
+        </div>
 
-        <footer style={{ marginTop: '4rem', textAlign: 'center', opacity: 0.5, fontSize: '0.8rem', paddingBottom: '2rem' }}>
-          <p>© 2026 BLACK SHEEP RECOVERY WARFARE | ISAIAH 53 | www.blacksheeprecoverywarfare.org</p>
-        </footer>
+        <main>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/episodes" element={<Episodes />} />
+            <Route path="/events" element={<Events />} />
+            <Route path="/sponsors" element={<Sponsors />} />
+            <Route path="/resources" element={<Resources />} />
+            <Route path="/merch" element={<Merch />} />
+            <Route path="/donate" element={<Donate />} />
+          </Routes>
+        </main>
+
+        <div className="container">
+          <footer style={{ marginTop: '4rem', textAlign: 'center', opacity: 0.5, fontSize: '0.8rem', paddingBottom: '2rem' }}>
+            <p>© 2026 BLACK SHEEP RECOVERY WARFARE | ISAIAH 53 | www.blacksheeprecoverywarfare.org</p>
+          </footer>
+        </div>
       </div>
     </Router>
   )
