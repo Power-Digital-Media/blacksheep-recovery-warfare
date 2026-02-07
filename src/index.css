@@ -112,7 +112,7 @@ nav {
   .nav-links {
     position: fixed;
     top: 0;
-    right: -100%;
+    right: 0;
     width: 80%;
     height: 100vh;
     background: rgba(10, 10, 10, 0.98);
@@ -120,13 +120,25 @@ nav {
     flex-direction: column;
     justify-content: center;
     gap: 2.5rem;
-    transition: right 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-    border-left: 1px solid var(--glass-border);
     padding: 2rem;
+    border-left: 1px solid var(--glass-border);
+
+    /* Premium Hidden State */
+    transform: translateX(100%);
+    visibility: hidden;
+    opacity: 0;
+    pointer-events: none;
+    transition:
+      transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+      visibility 0.4s,
+      opacity 0.4s ease;
   }
 
   .nav-links.mobile-open {
-    right: 0;
+    transform: translateX(0);
+    visibility: visible;
+    opacity: 1;
+    pointer-events: all;
   }
 
   .nav-link {
