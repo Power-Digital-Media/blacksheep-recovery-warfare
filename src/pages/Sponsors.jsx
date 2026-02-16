@@ -302,6 +302,7 @@ function Sponsors() {
                     position: relative;
                     z-index: 1001 !important;
                     box-shadow: 0 5px 30px rgba(0,0,0,0.8);
+                    margin-bottom: 0 !important; /* Killer of the bleed gap */
                 }
                 
                 /* Ensure navbar links are visible */
