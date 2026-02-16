@@ -20,17 +20,22 @@ const DynamicBackground = ({ backgrounds = {} }) => {
                 {activeLayers.map(([id, intensity]) => (
                     <motion.div
                         key={id}
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: intensity }}
-                        exit={{ opacity: 0 }}
+                        initial={{ opacity: 0, scale: 1.08 }}
+                        animate={{
+                            opacity: intensity,
+                            scale: 1 + (1 - intensity) * 0.08 // Subdued zoom-out effect as it activates
+                        }}
+                        exit={{ opacity: 0, scale: 1.08 }}
                         transition={{
-                            opacity: { duration: 0.2, ease: "linear" }, // Quick reactivity to scroll
-                            default: { duration: 0.8, ease: "easeInOut" } // Smooth appear/disappear
+                            opacity: { duration: 0.2, ease: "linear" },
+                            scale: { duration: 1.2, ease: "easeOut" }, // Slow, cinematic zoom
+                            default: { duration: 0.8, ease: "easeInOut" }
                         }}
                         className="dynamic-bg-layer"
                         style={{
                             backgroundImage: getUrl(id),
-                            zIndex: 2
+                            zIndex: 2,
+                            transformOrigin: 'center center'
                         }}
                     />
                 ))}
@@ -66,9 +71,8 @@ const DynamicBackground = ({ backgrounds = {} }) => {
                     height: 100%;
                     background-size: cover;
                     background-position: center;
-                    filter: blur(5px) brightness(0.45) saturate(1.2); /* Sharper focus */
-                    transform: scale(1.0); /* Zero zoom for maximum footprint */
-                    background-position: center 25%; /* Tilt up to catch faces better on mobile */
+                    filter: blur(8px) brightness(0.4) saturate(1.1); /* Slightly moodier */
+                    background-position: center 25%;
                 }
 
                 .dynamic-bg-overlay {

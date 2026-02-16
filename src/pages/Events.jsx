@@ -88,7 +88,7 @@ function Events() {
                 <div className="container" style={{ marginTop: 'clamp(3rem, 10vw, 8rem)' }}>
                     <div className="bento-grid">
                         <EventCard
-                            image="/night_of_hope_card.png?v=3"
+                            image="/night_of_hope_card.png?v=5"
                             className="span-8 row-4 featured-event-card"
                             onActiveChange={handleActiveChange}
                         >
@@ -172,7 +172,7 @@ function Events() {
                     content: '';
                     position: absolute;
                     inset: 1.5px; /* The Anti-Bleed Gutter */
-                    background-image: url('/night_of_hope_card.png?v=4');
+                    background-image: url('/night_of_hope_card.png?v=5');
                     background-size: cover;
                     background-position: 65% 15%;
                     border-radius: inherit;
@@ -262,13 +262,13 @@ function Events() {
                 }
                 
                 .location-card::before { 
-                    background-image: url('/community_selfie.jpg?v=4') !important;
+                    background-image: url('/community_selfie.jpg?v=5') !important;
                 }
                 .invitation-card::before { 
-                    background-image: url('/community_large.jpg?v=4') !important;
+                    background-image: url('/community_large.jpg?v=5') !important;
                 }
                 .community-card::before { 
-                    background-image: url('/community_studio_small.jpg?v=4') !important;
+                    background-image: url('/community_studio_small.jpg?v=5') !important;
                 }
 
                 .card-overlay {
@@ -284,11 +284,17 @@ function Events() {
                 .logistics-card h2 { margin-bottom: 0.5rem; text-shadow: 0 2px 4px rgba(0,0,0,0.8); }
                 .logistics-card p { opacity: 0.9; text-shadow: 0 2px 4px rgba(0,0,0,0.8); }
 
+                .bento-grid {
+                    gap: 3rem; /* Cinematic separation */
+                }
+
                 @media (max-width: 768px) {
                     .event-title { font-size: 2.2rem; }
                     .event-description { font-size: 0.95rem; margin-bottom: 1.5rem; }
                     .event-details-row { flex-direction: row; flex-wrap: wrap; gap: 2rem; margin-bottom: 1.5rem; }
                     .event-cta { width: 100%; justify-content: center; margin-top: 1rem; }
+                    
+                    .bento-grid { gap: 2.5rem; } /* Higher separation on mobile too */
                     
                     .featured-event-card { 
                         min-height: 600px; /* Taller for mobile full-bg */
