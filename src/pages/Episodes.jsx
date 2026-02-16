@@ -73,15 +73,15 @@ function Episodes() {
     const [selectedEpisode, setSelectedEpisode] = useState(null);
 
     const handleActiveChange = (id, intensity) => {
-        // Simple winner-takes-all logic or blending
-        // For mobile, we just want the most recent "centered" one to win if it's over a threshold
         setActiveState(prev => {
             if (id === null) return { id: null, intensity: 0 };
-            // If it's a new ID and it has some intensity, it takes over
-            if (id !== prev.id && intensity > 0.1) {
+
+            // If it's a new ID, allow it to take over earlier for a better dissolve overlap
+            if (id !== prev.id && intensity > 0.05) {
                 return { id, intensity };
             }
-            // If it's the same ID, update intensity
+
+            // If it's the current ID, update its intensity
             if (id === prev.id) {
                 return { id, intensity };
             }

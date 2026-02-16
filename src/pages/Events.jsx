@@ -44,8 +44,16 @@ function Events() {
     const handleActiveChange = (id, intensity) => {
         setActiveState(prev => {
             if (id === null) return { id: null, intensity: 0 };
-            if (id !== prev.id && intensity > 0.1) return { id, intensity };
-            if (id === prev.id) return { id, intensity };
+
+            // If it's a new ID, allow it to take over earlier for a better dissolve overlap
+            if (id !== prev.id && intensity > 0.05) {
+                return { id, intensity };
+            }
+
+            // If it's the current ID, update its intensity
+            if (id === prev.id) {
+                return { id, intensity };
+            }
             return prev;
         });
     };
