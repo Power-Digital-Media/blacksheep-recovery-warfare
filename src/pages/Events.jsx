@@ -27,7 +27,7 @@ const EventCard = ({ id, image, children, className, onActiveChange }) => {
     return (
         <div
             ref={cardRef}
-            className={`bento-card reveal ${className}`}
+            className={`bento-card ${className}`}
             onMouseEnter={() => onActiveChange(image, 1)}
             onMouseLeave={() => onActiveChange(image, 0)}
         >
@@ -42,7 +42,10 @@ function Events() {
     const handleActiveChange = (id, intensity) => {
         if (!id) return;
         setBgMap(prev => {
-            if (prev[id] === intensity) return prev;
+            const currentIntensity = prev[id] || 0;
+            // Precision check to prevent spamming state updates
+            if (Math.abs(currentIntensity - intensity) < 0.01) return prev;
+
             const next = { ...prev };
             if (intensity <= 0.01) {
                 delete next[id];
@@ -53,18 +56,6 @@ function Events() {
         });
     };
 
-    useEffect(() => {
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('active');
-                }
-            });
-        }, { threshold: 0.1 });
-
-        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-        return () => observer.disconnect();
-    }, []);
 
     return (
         <>
@@ -178,7 +169,7 @@ function Events() {
                     z-index: 1;
                 }
 
-                .featured-event-card::after, .logistics-card::after {
+                 .featured-event-card::after, .logistics-card::after {
                     content: '';
                     position: absolute;
                     inset: 0;
@@ -187,7 +178,6 @@ function Events() {
                     pointer-events: none;
                     z-index: 10;
                     border-radius: inherit;
-                    transform: translateZ(1px);
                 }
                 
                 .featured-overlay {
@@ -246,7 +236,7 @@ function Events() {
                     background-color: #000 !important;
                     display: flex;
                     flex-direction: column;
-                    transform: translateZ(0); 
+                    will-change: transform; 
                 }
 
                 .logistics-card::before {
@@ -272,15 +262,14 @@ function Events() {
 
                 .card-overlay {
                     position: relative;
-                    z-index: 5; /* Higher priority */
+                    z-index: 5;
                     background: linear-gradient(to top, rgba(0,0,0,0.98) 0%, rgba(0,0,0,0.5) 30%, transparent 100%);
                     width: 100%;
                     flex: 1;
-                    padding: 1.5rem; /* Reduced for better desktop proportion */
+                    padding: 1.5rem;
                     display: flex;
                     flex-direction: column;
                     justify-content: flex-end;
-                    transform: translateZ(2px); /* Final layer priority */
                 }
 
                 .logistics-card h2 { 
