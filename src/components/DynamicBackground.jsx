@@ -14,7 +14,7 @@ const DynamicBackground = ({ activeImage, intensity = 1 }) => {
                         transition={{ duration: 0.4, ease: "easeOut" }}
                         className="dynamic-bg-layer"
                         style={{
-                            backgroundImage: activeImage.includes('/')
+                            backgroundImage: activeImage && activeImage.includes('/')
                                 ? `url(${activeImage})`
                                 : `url(https://img.youtube.com/vi/${activeImage}/maxresdefault.jpg)`,
                         }}
