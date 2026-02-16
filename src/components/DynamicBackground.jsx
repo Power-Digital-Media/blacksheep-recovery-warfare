@@ -66,7 +66,7 @@ const DynamicBackground = ({ backgrounds = {} }) => {
                     height: 100%;
                     background-size: cover;
                     background-position: center;
-                    filter: blur(15px) brightness(0.5) saturate(1.2);
+                    filter: blur(8px) brightness(0.5) saturate(1.2); /* Reduced blur for clarity */
                     transform: scale(1.15);
                 }
 
