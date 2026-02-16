@@ -188,18 +188,23 @@ function Sponsors() {
     return (
         <>
             <DynamicBackground backgrounds={bgMap} customPositions={customPositions} blur="2px" />
-            <div className="animate-in" style={{ position: 'relative', zIndex: 5, backgroundColor: '#000', minHeight: '100vh', color: '#fff' }}>
+            <div className="animate-in" style={{ position: 'relative', zIndex: 1, backgroundColor: 'transparent', minHeight: '100vh', color: '#fff' }}>
                 {/* CINEMATIC HERO */}
                 <section className="cinematic-section" style={{
                     height: '80vh',
-                    backgroundColor: '#000',
+                    backgroundColor: '#000', // Solid black shield
                     position: 'relative',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
                     overflow: 'hidden',
-                    zIndex: 100 // High layer to block the fixed backgrounds
+                    zIndex: 10,
+                    margin: 0,
+                    padding: 0
                 }}>
+                    {/* PHYSICAL SHIELD: Blocks everything behind the hero */}
+                    <div style={{ position: 'absolute', inset: 0, backgroundColor: '#000', zIndex: -1 }}></div>
+
                     {/* The Hero Image Layer */}
                     <div style={{
                         position: 'absolute',
@@ -207,7 +212,8 @@ function Sponsors() {
                         backgroundImage: `url(${heroAlliance})`,
                         backgroundSize: 'cover',
                         backgroundPosition: 'center 40%',
-                        zIndex: 0
+                        zIndex: 0,
+                        opacity: 1 // Ensure sharp and opaque
                     }} />
 
                     {/* The Shadow Overlay: Fades only at the bottom */}
