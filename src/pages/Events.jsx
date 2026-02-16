@@ -158,25 +158,35 @@ function Events() {
 
                 <style>{`
                 .featured-event-card { 
-                    background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.8)), url('/night_of_hope_card.png?v=1'), #050505;
-                    background-size: contain;
-                    background-repeat: no-repeat;
-                    background-position: center 75%; /* Shifted DOWN to reveal faces at the top */
+                    background: #000;
                     border: 1px solid rgba(255, 255, 255, 0.08);
                     box-shadow: 0 0 30px rgba(0,0,0,0.3);
                     display: flex;
-                    align-items: flex-end;
+                    flex-direction: column;
                     padding: 0;
                     overflow: hidden;
-                    background-clip: padding-box; /* Fix border bleed */
-                    transform: translateZ(0); /* Fix corner masking */
+                }
+                
+                .featured-image-container {
+                    width: 100%;
+                    flex: 1;
+                    min-height: 250px; /* Base height for mobile */
+                    background: #000;
+                    overflow: hidden;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                }
+
+                .featured-card-img {
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
+                    opacity: 0.9;
                 }
                 
                 .event-content-wrapper {
-                    background: rgba(10, 10, 10, 0.4);
-                    backdrop-filter: blur(8px);
-                    -webkit-backdrop-filter: blur(8px);
-                    border-top: 1px solid rgba(255, 255, 255, 0.1);
+                    background: #000;
                     padding: 2.5rem;
                     width: 100%;
                 }
