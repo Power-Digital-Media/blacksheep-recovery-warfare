@@ -29,15 +29,17 @@ const DynamicBackground = ({ backgrounds = {}, customPositions = {}, blur = '8px
                 {activeLayers.map(([id, intensity]) => (
                     <motion.div
                         key={id}
-                        initial={{ opacity: 0, scale: isMobile ? 1 : 1.08 }}
+                        initial={{ opacity: 0, scale: isMobile ? 1.05 : 1.08 }}
                         animate={{
                             opacity: intensity,
-                            scale: isMobile ? 1 : (1 + (1 - intensity) * 0.08)
+                            scale: isMobile
+                                ? (1.05 - (intensity * 0.12)) // Deep zoom out for mobile (1.05 -> 0.93)
+                                : (1 + (1 - intensity) * 0.08)
                         }}
-                        exit={{ opacity: 0, scale: isMobile ? 1 : 1.08 }}
+                        exit={{ opacity: 0, scale: isMobile ? 1.05 : 1.08 }}
                         transition={{
                             opacity: { duration: 0.2, ease: "linear" },
-                            scale: { duration: 1.2, ease: "easeOut" }, // Slow, cinematic zoom
+                            scale: { duration: 1.2, ease: "easeOut" },
                             default: { duration: 0.8, ease: "easeInOut" }
                         }}
                         className="dynamic-bg-layer"
@@ -46,7 +48,7 @@ const DynamicBackground = ({ backgrounds = {}, customPositions = {}, blur = '8px
                             zIndex: 2,
                             transformOrigin: 'center center',
                             backgroundPosition: customPositions[id] || 'center 25%',
-                            filter: `blur(${blur}) brightness(0.4) saturate(1.1)`
+                            filter: `blur(${isMobile ? '0px' : blur}) brightness(0.4) saturate(1.1)`
                         }}
                     />
                 ))}

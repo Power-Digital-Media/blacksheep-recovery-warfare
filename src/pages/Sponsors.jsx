@@ -273,10 +273,14 @@ function Sponsors() {
                 @media (max-width: 600px) {
                     .sponsor-grid {
                         grid-template-columns: 1fr;
-                        gap: 1.5rem;
+                        gap: 2.5rem; /* Increased for breathing room */
+                        justify-items: center;
                     }
                     .shield-interaction-wrapper {
-                        max-width: 100% !important;
+                        max-width: 170px !important; /* Shrunk for background visibility */
+                    }
+                    .shield-interaction-wrapper div:first-child {
+                        height: 200px !important; /* Proportionally shorter */
                     }
                 }
             `}</style>
