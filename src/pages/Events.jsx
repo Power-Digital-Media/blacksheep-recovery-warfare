@@ -228,9 +228,10 @@ function Events() {
                     padding: 0 !important;
                     overflow: hidden;
                     position: relative;
-                    border: 1px solid rgba(255,255,255,0.05); /* Dimmer border */
+                    border: 1px solid rgba(255,255,255,0.05);
                     background-color: #000;
-                    background-clip: padding-box !important; /* Force clip */
+                    display: flex;
+                    flex-direction: column;
                     transform: translateZ(0); 
                 }
                 
@@ -255,9 +256,9 @@ function Events() {
                 }
 
                 .card-overlay {
-                    background: linear-gradient(to top, rgba(0,0,0,0.85), transparent);
+                    background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, transparent 100%);
                     width: 100%;
-                    height: 100%;
+                    flex: 1;
                     padding: 2rem;
                     display: flex;
                     flex-direction: column;
