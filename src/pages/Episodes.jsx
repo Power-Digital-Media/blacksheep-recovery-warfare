@@ -4,7 +4,7 @@ import { Play, Youtube, Radio, ArrowRight } from 'lucide-react'
 import DynamicBackground from '../components/DynamicBackground'
 import EpisodeModal from '../components/EpisodeModal'
 
-const EpisodeCard = ({ eps, index, gridClass, onActiveChange }) => {
+const EpisodeCard = ({ eps, index, gridClass, onActiveChange, onClick }) => {
     const cardRef = React.useRef(null);
     const { scrollYProgress } = useScroll({
         target: cardRef,
@@ -41,6 +41,7 @@ const EpisodeCard = ({ eps, index, gridClass, onActiveChange }) => {
             transition={{ duration: 0.5, delay: index * 0.1 }}
             onMouseEnter={() => onActiveChange(eps.ytId, 1)}
             onMouseLeave={() => onActiveChange(null, 0)}
+            onClick={onClick}
             style={{ cursor: 'pointer' }}
         >
             <div className="video-thumb-container">
@@ -181,6 +182,7 @@ function Episodes() {
                                     index={index}
                                     gridClass={gridClass}
                                     onActiveChange={handleActiveChange}
+                                    onClick={() => setSelectedEpisode(eps)}
                                 />
                             );
                         })}
