@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
-const DynamicBackground = ({ backgrounds = {} }) => {
+const DynamicBackground = ({ backgrounds = {}, customPositions = {} }) => {
     const getUrl = (img) => {
         if (!img) return '';
         return img.includes('/')
@@ -44,7 +44,8 @@ const DynamicBackground = ({ backgrounds = {} }) => {
                         style={{
                             backgroundImage: getUrl(id),
                             zIndex: 2,
-                            transformOrigin: 'center center'
+                            transformOrigin: 'center center',
+                            backgroundPosition: customPositions[id] || 'center 25%'
                         }}
                     />
                 ))}
