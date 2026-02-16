@@ -86,7 +86,6 @@ function Events() {
 
                 <div className="container" style={{ marginTop: 'clamp(3rem, 10vw, 8rem)' }}>
                     <div className="bento-grid">
-                        {/* MAIN FEATURED EVENT */}
                         <EventCard
                             image="/night_of_hope_card.png?v=1"
                             className="span-8 row-4 featured-event-card"
@@ -115,6 +114,9 @@ function Events() {
                                 <button className="event-cta">
                                     JOIN THE BROTHERHOOD <ArrowRight size={20} />
                                 </button>
+                            </div>
+                            <div className="featured-image-container">
+                                <img src="/night_of_hope_card.png?v=1" alt="Night of Hope" className="featured-card-img" />
                             </div>
                         </EventCard>
 
@@ -243,9 +245,7 @@ function Events() {
                 }
 
                 .card-overlay {
-                    background: linear-gradient(to top, rgba(0,0,0,0.8), rgba(0,0,0,0.1));
-                    backdrop-filter: blur(8px);
-                    -webkit-backdrop-filter: blur(8px);
+                    background: linear-gradient(to top, rgba(0,0,0,0.85), transparent);
                     width: 100%;
                     height: 100%;
                     padding: 2rem;
