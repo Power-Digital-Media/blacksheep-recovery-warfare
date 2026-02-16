@@ -272,10 +272,12 @@ function Events() {
                 }
 
                 .card-overlay {
-                    background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, transparent 100%);
+                    position: relative;
+                    z-index: 2;
+                    background: linear-gradient(to top, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.4) 40%, transparent 100%);
                     width: 100%;
                     flex: 1;
-                    padding: 2rem;
+                    padding: 2.5rem; /* Matched to featured card */
                     display: flex;
                     flex-direction: column;
                     justify-content: flex-end;
