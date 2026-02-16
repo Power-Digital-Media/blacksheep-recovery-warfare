@@ -133,7 +133,7 @@ function Sponsors() {
             image: badgeElite,
             url: 'http://elitecrc.us/',
             bgImage: '/elite_bg.png',
-            bgPosition: 'right 30% center'
+            bgPosition: 'right 10% center'
         },
         {
             id: 'MH-02',
