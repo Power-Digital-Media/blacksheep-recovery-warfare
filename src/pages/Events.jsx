@@ -43,9 +43,9 @@ function Events() {
     const [bgMap, setBgMap] = useState({});
 
     const handleActiveChange = (id, intensity) => {
+        if (!id) return;
         setBgMap(prev => {
             const next = { ...prev };
-            if (id === null) return {};
             next[id] = intensity;
             if (intensity <= 0.01) {
                 delete next[id];
@@ -273,18 +273,28 @@ function Events() {
 
                 .card-overlay {
                     position: relative;
-                    z-index: 2;
-                    background: linear-gradient(to top, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.4) 40%, transparent 100%);
+                    z-index: 5; /* Higher priority */
+                    background: linear-gradient(to top, rgba(0,0,0,0.98) 0%, rgba(0,0,0,0.5) 30%, transparent 100%);
                     width: 100%;
                     flex: 1;
-                    padding: 2.5rem; /* Matched to featured card */
+                    padding: 1.5rem; /* Reduced for better desktop proportion */
                     display: flex;
                     flex-direction: column;
                     justify-content: flex-end;
+                    transform: translateZ(2px); /* Final layer priority */
                 }
 
-                .logistics-card h2 { margin-bottom: 0.5rem; text-shadow: 0 2px 4px rgba(0,0,0,0.8); }
-                .logistics-card p { opacity: 0.9; text-shadow: 0 2px 4px rgba(0,0,0,0.8); }
+                .logistics-card h2 { 
+                    font-size: 1.5rem; /* Significantly smaller than featured */
+                    margin-bottom: 0.35rem; 
+                    text-shadow: 0 2px 4px rgba(0,0,0,0.8); 
+                }
+                .logistics-card p { 
+                    font-size: 0.95rem; /* Tighter for small cards */
+                    opacity: 0.9; 
+                    text-shadow: 0 2px 4px rgba(0,0,0,0.8); 
+                    line-height: 1.4;
+                }
 
                 .bento-grid {
                     gap: 3rem; /* Cinematic separation */
@@ -310,8 +320,13 @@ function Events() {
                     
                     .logistics-card { 
                         aspect-ratio: 1/1; 
-                        min-height: 350px; 
+                        min-height: 380px; /* Slightly taller for text safety */
                     }
+                    .logistics-card .card-overlay {
+                        padding: 1.25rem; /* Even tighter for mobile */
+                    }
+                    .logistics-card h2 { font-size: 1.4rem; }
+                    .logistics-card p { font-size: 0.9rem; }
                 }
             `}</style>
             </div>
