@@ -191,17 +191,19 @@ function Sponsors() {
             <div className="animate-in" style={{ position: 'relative', zIndex: 1, backgroundColor: 'transparent', minHeight: '100vh', color: '#fff' }}>
                 {/* CINEMATIC HERO */}
                 <section className="cinematic-section" style={{
-                    height: '65vh',
+                    height: '70vh',
                     backgroundImage: `url(${heroAlliance})`,
                     backgroundSize: 'cover',
                     backgroundPosition: 'center 40%',
-                    backgroundAttachment: 'fixed',
+                    backgroundAttachment: 'scroll', // Allow it to move as a curtain
+                    backgroundColor: '#000',
                     position: 'relative',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    clipPath: 'polygon(0 0, 100% 0, 100% 85%, 0 100%)',
-                    overflow: 'hidden'
+                    overflow: 'hidden',
+                    maskImage: 'linear-gradient(to bottom, black 90%, transparent 100%)', // Only fade bottom
+                    WebkitMaskImage: 'linear-gradient(to bottom, black 90%, transparent 100%)'
                 }}>
                     <div className="image-overlay" style={{ background: 'linear-gradient(to bottom, rgba(0,0,0,0.6), transparent, #050505)' }}></div>
                     <div className="cinematic-content reveal" style={{ textAlign: 'center', maxWidth: '1000px', padding: '0 2rem' }}>
@@ -282,6 +284,11 @@ function Sponsors() {
                     .shield-interaction-wrapper div:first-child {
                         height: 200px !important; /* Proportionally shorter */
                     }
+                }
+
+                /* Fixed: Prevent background leak behind Navbar */
+                .mobile-nav-container {
+                    background-color: #000 !important;
                 }
             `}</style>
             </div>
