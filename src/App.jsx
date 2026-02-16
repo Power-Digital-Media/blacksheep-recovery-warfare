@@ -8,6 +8,7 @@ import Sponsors from './pages/Sponsors'
 import Resources from './pages/Resources'
 import Merch from './pages/Merch'
 import Donate from './pages/Donate'
+import Footer from './components/Footer'
 
 function App() {
   return (
@@ -30,11 +31,7 @@ function App() {
         </Routes>
       </main>
 
-      <div className="container">
-        <footer style={{ marginTop: '4rem', textAlign: 'center', opacity: 0.5, fontSize: '0.8rem', paddingBottom: '2rem' }}>
-          <p>© 2026 BLACK SHEEP RECOVERY WARFARE | ISAIAH 53 | www.blacksheeprecoverywarfare.org</p>
-        </footer>
-      </div>
+      <Footer />
     </div>
   )
 }

@@ -246,19 +246,6 @@ function Sponsors() {
                         ))}
                     </div>
 
-                    {/* FOOTER TEXT */}
-                    <div className="reveal" style={{
-                        marginTop: '10rem',
-                        textAlign: 'center',
-                        opacity: 0.3,
-                        fontSize: '0.7rem',
-                        letterSpacing: '4px',
-                        fontFamily: 'monospace',
-                        borderTop: '1px solid rgba(255,255,255,0.05)',
-                        paddingTop: '3rem'
-                    }}>
-                        © 2026 BLACK SHEEP RECOVERY WARFARE | ISAIAH 53
-                    </div>
                 </div>
 
                 <style>{`
