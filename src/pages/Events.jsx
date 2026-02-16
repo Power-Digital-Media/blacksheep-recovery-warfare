@@ -65,7 +65,7 @@ function Events() {
 
     return (
         <>
-            <DynamicBackground activeImage={activeState.id} intensity={activeState.intensity} />
+            <DynamicBackground backgrounds={bgMap} />
             <div className="animate-in" style={{ position: 'relative', zIndex: 1 }}>
 
                 {/* CINEMATIC HERO */}
@@ -168,9 +168,9 @@ function Events() {
                 }
                 
                 .event-content-wrapper {
-                    background: rgba(10, 10, 10, 0.7);
-                    backdrop-filter: blur(30px);
-                    -webkit-backdrop-filter: blur(30px);
+                    background: rgba(10, 10, 10, 0.4);
+                    backdrop-filter: blur(8px);
+                    -webkit-backdrop-filter: blur(8px);
                     border-top: 1px solid rgba(255, 255, 255, 0.1);
                     padding: 2.5rem;
                     width: 100%;
@@ -240,9 +240,9 @@ function Events() {
                 }
 
                 .card-overlay {
-                    background: linear-gradient(to top, rgba(0,0,0,0.9), rgba(0,0,0,0.2));
-                    backdrop-filter: blur(30px);
-                    -webkit-backdrop-filter: blur(30px);
+                    background: linear-gradient(to top, rgba(0,0,0,0.8), rgba(0,0,0,0.1));
+                    backdrop-filter: blur(8px);
+                    -webkit-backdrop-filter: blur(8px);
                     width: 100%;
                     height: 100%;
                     padding: 2rem;
