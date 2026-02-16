@@ -1,17 +1,17 @@
 import React, { useEffect, useState } from 'react'
-import { motion } from 'framer-motion'
+import { motion, useScroll, useTransform } from 'framer-motion'
 import { MapPin, Calendar, Users, ArrowRight } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import DynamicBackground from '../components/DynamicBackground'
 
 const EventCard = ({ id, image, children, className, onActiveChange }) => {
     const cardRef = React.useRef(null);
-    const { scrollYProgress } = motion.useScroll({
+    const { scrollYProgress } = useScroll({
         target: cardRef,
         offset: ["start end", "end start"]
     });
 
-    const intensity = motion.useTransform(
+    const intensity = useTransform(
         scrollYProgress,
         [0, 0.35, 0.5, 0.65, 1],
         [0, 0, 1, 0, 0]

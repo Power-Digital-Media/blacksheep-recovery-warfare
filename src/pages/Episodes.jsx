@@ -1,18 +1,18 @@
 import React, { useState } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
+import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion'
 import { Play, Youtube, Radio, ArrowRight } from 'lucide-react'
 import DynamicBackground from '../components/DynamicBackground'
 import EpisodeModal from '../components/EpisodeModal'
 
 const EpisodeCard = ({ eps, index, gridClass, onActiveChange }) => {
     const cardRef = React.useRef(null);
-    const { scrollYProgress } = motion.useScroll({
+    const { scrollYProgress } = useScroll({
         target: cardRef,
         offset: ["start end", "end start"]
     });
 
     // Calculate intensity based on how centered the card is
-    const intensity = motion.useTransform(
+    const intensity = useTransform(
         scrollYProgress,
         [0, 0.35, 0.5, 0.65, 1], // Entering -> Coming to center -> CENTER -> Leaving center -> Exit
         [0, 0, 1, 0, 0]
