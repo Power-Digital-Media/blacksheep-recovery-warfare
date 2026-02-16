@@ -158,9 +158,7 @@ function Events() {
 
                 <style>{`
                 .featured-event-card { 
-                    background-image: url('/night_of_hope_card.png?v=3');
-                    background-size: cover;
-                    background-position: 65% 15%; /* Shifted horizontally to bring Eddie in */
+                    background: #000 !important;
                     box-shadow: 0 0 30px rgba(0,0,0,0.3);
                     display: flex;
                     flex-direction: column;
@@ -170,17 +168,27 @@ function Events() {
                     position: relative;
                 }
 
+                .featured-event-card::before {
+                    content: '';
+                    position: absolute;
+                    inset: 1.5px; /* The Anti-Bleed Gutter */
+                    background-image: url('/night_of_hope_card.png?v=4');
+                    background-size: cover;
+                    background-position: 65% 15%;
+                    border-radius: inherit;
+                    z-index: 1;
+                }
+
                 .featured-event-card::after, .logistics-card::after {
                     content: '';
                     position: absolute;
                     inset: 0;
-                    /* Combined border and inset shadow for maximum bleed protection */
-                    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.15);
-                    border: 1px solid rgba(255, 255, 255, 0.1);
+                    border: 1px solid rgba(255, 255, 255, 0.12);
+                    box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.5); /* Inner shadow to hide gutter transition */
                     pointer-events: none;
                     z-index: 10;
                     border-radius: inherit;
-                    transform: translateZ(1px); /* Force top layer */
+                    transform: translateZ(1px);
                 }
                 
                 .featured-overlay {
@@ -236,31 +244,31 @@ function Events() {
                     padding: 0 !important;
                     overflow: hidden;
                     position: relative;
-                    background-color: #000;
+                    background-color: #000 !important;
                     display: flex;
                     flex-direction: column;
                     transform: translateZ(0); 
-                    background-clip: padding-box !important;
+                }
+
+                .logistics-card::before {
+                    content: '';
+                    position: absolute;
+                    inset: 1.5px; /* The Anti-Bleed Gutter */
+                    background-size: cover !important;
+                    background-position: center !important;
+                    background-repeat: no-repeat !important;
+                    border-radius: inherit;
+                    z-index: 1;
                 }
                 
-                /* Use longhand to avoid resetting background-clip */
-                .location-card { 
-                    background-image: url('/community_selfie.jpg?v=3') !important;
-                    background-position: center !important;
-                    background-size: cover !important;
-                    background-repeat: no-repeat !important;
+                .location-card::before { 
+                    background-image: url('/community_selfie.jpg?v=4') !important;
                 }
-                .invitation-card { 
-                    background-image: url('/community_large.jpg?v=3') !important;
-                    background-position: center !important;
-                    background-size: cover !important;
-                    background-repeat: no-repeat !important;
+                .invitation-card::before { 
+                    background-image: url('/community_large.jpg?v=4') !important;
                 }
-                .community-card { 
-                    background-image: url('/community_studio_small.jpg?v=3') !important;
-                    background-position: center !important;
-                    background-size: cover !important;
-                    background-repeat: no-repeat !important;
+                .community-card::before { 
+                    background-image: url('/community_studio_small.jpg?v=4') !important;
                 }
 
                 .card-overlay {
