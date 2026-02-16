@@ -122,7 +122,7 @@ function Events() {
                         {/* LOGISTICS */}
                         <EventCard
                             image="/community_selfie.jpg?v=1"
-                            className="span-4 row-3 logistics-card location-card"
+                            className="span-4 row-2 logistics-card location-card"
                             onActiveChange={handleActiveChange}
                         >
                             <div className="card-overlay">
@@ -133,7 +133,7 @@ function Events() {
 
                         <EventCard
                             image="/community_large.jpg?v=1"
-                            className="span-4 row-3 logistics-card invitation-card"
+                            className="span-4 row-2 logistics-card invitation-card"
                             onActiveChange={handleActiveChange}
                         >
                             <div className="card-overlay">
@@ -144,7 +144,7 @@ function Events() {
 
                         <EventCard
                             image="/community_studio_small.jpg?v=1"
-                            className="span-4 row-3 logistics-card community-card"
+                            className="span-4 row-2 logistics-card community-card"
                             onActiveChange={handleActiveChange}
                         >
                             <div className="card-overlay">
@@ -263,9 +263,9 @@ function Events() {
                     .event-description { font-size: 1rem; margin-bottom: 1.5rem; }
                     .event-details-row { flex-direction: column; gap: 1.5rem; }
                     .event-cta { width: 100%; justify-content: center; margin-top: 1rem; }
-                    .featured-event-card { align-items: flex-end; height: 450px; } /* Forced height instead of row span solely */
+                    .featured-event-card { align-items: flex-end; min-height: 450px; } 
                     .event-content-wrapper { padding: 1.5rem; }
-                    .logistics-card { height: 350px; } /* Larger cards on mobile */
+                    .logistics-card { min-height: 350px; } 
                 }
             `}</style>
             </div>
