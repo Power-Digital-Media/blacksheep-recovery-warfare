@@ -187,7 +187,7 @@ function Sponsors() {
 
     return (
         <>
-            <DynamicBackground backgrounds={bgMap} customPositions={customPositions} />
+            <DynamicBackground backgrounds={bgMap} customPositions={customPositions} blur="2px" />
             <div className="animate-in" style={{ position: 'relative', zIndex: 1, backgroundColor: 'transparent', minHeight: '100vh', color: '#fff' }}>
                 {/* CINEMATIC HERO */}
                 <section className="cinematic-section" style={{

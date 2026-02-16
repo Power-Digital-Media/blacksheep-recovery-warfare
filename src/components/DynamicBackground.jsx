@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
-const DynamicBackground = ({ backgrounds = {}, customPositions = {} }) => {
+const DynamicBackground = ({ backgrounds = {}, customPositions = {}, blur = '8px' }) => {
     const getUrl = (img) => {
         if (!img) return '';
         return img.includes('/')
@@ -45,7 +45,8 @@ const DynamicBackground = ({ backgrounds = {}, customPositions = {} }) => {
                             backgroundImage: getUrl(id),
                             zIndex: 2,
                             transformOrigin: 'center center',
-                            backgroundPosition: customPositions[id] || 'center 25%'
+                            backgroundPosition: customPositions[id] || 'center 25%',
+                            filter: `blur(${blur}) brightness(0.4) saturate(1.1)`
                         }}
                     />
                 ))}
@@ -81,7 +82,6 @@ const DynamicBackground = ({ backgrounds = {}, customPositions = {} }) => {
                     height: 100%;
                     background-size: cover;
                     background-position: center;
-                    filter: blur(8px) brightness(0.4) saturate(1.1); /* Slightly moodier */
                     background-position: center 25%;
                 }
 
