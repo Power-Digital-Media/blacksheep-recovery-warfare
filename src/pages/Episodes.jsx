@@ -12,10 +12,11 @@ const EpisodeCard = ({ eps, index, gridClass, onActiveChange }) => {
     });
 
     // Calculate intensity based on how centered the card is
+    // Widen range so backgrounds overlap and stay "on" longer
     const intensity = useTransform(
         scrollYProgress,
-        [0, 0.35, 0.5, 0.65, 1], // Entering -> Coming to center -> CENTER -> Leaving center -> Exit
-        [0, 0, 1, 0, 0]
+        [0, 0.1, 0.5, 0.9, 1], // Entering -> Active -> CENTER -> Active -> Exit
+        [0, 0.8, 1, 0.8, 0]    // High floor to prevent dip to black
     );
 
     // Sync state with parent
@@ -76,7 +77,7 @@ function Episodes() {
         setActiveState(prev => {
             if (id === null) return { id: null, intensity: 0 };
 
-            // Ultra-low threshold for instant "liquified" pre-dissolve handover
+            // More aggressive handover to ensure background is always populated
             if (id !== prev.id && intensity > 0.01) {
                 return { id, intensity };
             }

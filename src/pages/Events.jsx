@@ -13,8 +13,8 @@ const EventCard = ({ id, image, children, className, onActiveChange }) => {
 
     const intensity = useTransform(
         scrollYProgress,
-        [0, 0.35, 0.5, 0.65, 1],
-        [0, 0, 1, 0, 0]
+        [0, 0.1, 0.5, 0.9, 1],
+        [0, 0.8, 1, 0.8, 0]
     );
 
     React.useEffect(() => {
@@ -46,7 +46,7 @@ function Events() {
         setActiveState(prev => {
             if (id === null) return { id: null, intensity: 0 };
 
-            // Ultra-low threshold for instant "liquified" pre-dissolve handover
+            // More aggressive handover
             if (id !== prev.id && intensity > 0.01) {
                 return { id, intensity };
             }

@@ -2,9 +2,39 @@ import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const DynamicBackground = ({ activeImage, intensity = 1 }) => {
+    const [prevImage, setPrevImage] = React.useState(null);
+
+    // Keep the "last successful image" as a floor to prevent dark gaps
+    React.useEffect(() => {
+        if (activeImage) {
+            const timer = setTimeout(() => {
+                setPrevImage(activeImage);
+            }, 800); // Sync with transition duration
+            return () => clearTimeout(timer);
+        }
+    }, [activeImage]);
+
+    const getUrl = (img) => {
+        if (!img) return '';
+        return img.includes('/')
+            ? `url(${img})`
+            : `url(https://img.youtube.com/vi/${img}/maxresdefault.jpg)`;
+    };
+
     return (
         <div className="dynamic-background-container">
             <div className="dynamic-bg-base" />
+
+            {/* The "Floor" Image - stays visible until the next one is ready */}
+            {prevImage && (
+                <div
+                    className="dynamic-bg-layer floor-layer"
+                    style={{
+                        backgroundImage: getUrl(prevImage),
+                        opacity: intensity * 0.4 // Sustained base level
+                    }}
+                />
+            )}
 
             <AnimatePresence mode="popLayout">
                 {activeImage && (
@@ -19,9 +49,8 @@ const DynamicBackground = ({ activeImage, intensity = 1 }) => {
                         }}
                         className="dynamic-bg-layer"
                         style={{
-                            backgroundImage: activeImage && activeImage.includes('/')
-                                ? `url(${activeImage})`
-                                : `url(https://img.youtube.com/vi/${activeImage}/maxresdefault.jpg)`,
+                            backgroundImage: getUrl(activeImage),
+                            zIndex: 2
                         }}
                     />
                 )}
@@ -57,9 +86,13 @@ const DynamicBackground = ({ activeImage, intensity = 1 }) => {
                     height: 100%;
                     background-size: cover;
                     background-position: center;
-                    filter: blur(8px) brightness(0.6) saturate(1.2);
-                    transform: scale(1.1);
-                    z-index: 2;
+                    filter: blur(15px) brightness(0.5) saturate(1.2); /* Deeper immersion */
+                    transform: scale(1.15);
+                }
+
+                .floor-layer {
+                    z-index: 1;
+                    transition: opacity 0.3s ease;
                 }
 
                 .dynamic-bg-overlay {
@@ -68,7 +101,7 @@ const DynamicBackground = ({ activeImage, intensity = 1 }) => {
                     left: 0;
                     width: 100%;
                     height: 100%;
-                    background: radial-gradient(circle at center, transparent 20%, #000 90%);
+                    background: radial-gradient(circle at center, transparent 10%, #000 95%);
                     z-index: 3;
                 }
             `}</style>
