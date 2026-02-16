@@ -13,14 +13,13 @@ const EventCard = ({ id, image, children, className, onActiveChange }) => {
 
     const intensity = useTransform(
         scrollYProgress,
-        [0, 0.1, 0.5, 0.9, 1],
-        [0, 0.8, 1, 0.8, 0]
+        [0, 0.35, 0.5, 0.65, 1],
+        [0, 0, 1, 0, 0]
     );
 
     React.useEffect(() => {
         const unsubscribe = intensity.on("change", (latest) => {
-            // Ultra-low threshold for instant pre-dissolve
-            if (latest > 0.01) {
+            if (latest > 0.1) {
                 onActiveChange(image, latest);
             }
         });
@@ -40,17 +39,14 @@ const EventCard = ({ id, image, children, className, onActiveChange }) => {
 };
 
 function Events() {
-    const [bgMap, setBgMap] = useState({});
+    const [activeState, setActiveState] = useState({ id: null, intensity: 0 });
 
     const handleActiveChange = (id, intensity) => {
-        setBgMap(prev => {
-            const next = { ...prev };
-            if (id === null) return {};
-            next[id] = intensity;
-            if (intensity <= 0.01) {
-                delete next[id];
-            }
-            return next;
+        setActiveState(prev => {
+            if (id === null) return { id: null, intensity: 0 };
+            if (id !== prev.id && intensity > 0.1) return { id, intensity };
+            if (id === prev.id) return { id, intensity };
+            return prev;
         });
     };
 
@@ -69,7 +65,7 @@ function Events() {
 
     return (
         <>
-            <DynamicBackground backgrounds={bgMap} />
+            <DynamicBackground activeImage={activeState.id} intensity={activeState.intensity} />
             <div className="animate-in" style={{ position: 'relative', zIndex: 1 }}>
 
                 {/* CINEMATIC HERO */}
@@ -172,9 +168,9 @@ function Events() {
                 }
                 
                 .event-content-wrapper {
-                    background: rgba(10, 10, 10, 0.4); /* Much more transparent */
-                    backdrop-filter: blur(8px); /* Significantly unblurred */
-                    -webkit-backdrop-filter: blur(8px);
+                    background: rgba(10, 10, 10, 0.7);
+                    backdrop-filter: blur(30px);
+                    -webkit-backdrop-filter: blur(30px);
                     border-top: 1px solid rgba(255, 255, 255, 0.1);
                     padding: 2.5rem;
                     width: 100%;
@@ -244,9 +240,9 @@ function Events() {
                 }
 
                 .card-overlay {
-                    background: linear-gradient(to top, rgba(0,0,0,0.8), rgba(0,0,0,0.1));
-                    backdrop-filter: blur(6px); /* Very light blur to show image through */
-                    -webkit-backdrop-filter: blur(6px);
+                    background: linear-gradient(to top, rgba(0,0,0,0.9), rgba(0,0,0,0.2));
+                    backdrop-filter: blur(30px);
+                    -webkit-backdrop-filter: blur(30px);
                     width: 100%;
                     height: 100%;
                     padding: 2rem;
@@ -263,9 +259,8 @@ function Events() {
                     .event-description { font-size: 1rem; margin-bottom: 1.5rem; }
                     .event-details-row { flex-direction: column; gap: 1.5rem; }
                     .event-cta { width: 100%; justify-content: center; margin-top: 1rem; }
-                    .featured-event-card { align-items: flex-end; min-height: 450px; } 
+                    .featured-event-card { align-items: flex-end; }
                     .event-content-wrapper { padding: 1.5rem; }
-                    .logistics-card { min-height: 350px; } 
                 }
             `}</style>
             </div>
