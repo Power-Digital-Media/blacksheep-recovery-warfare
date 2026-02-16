@@ -4,11 +4,93 @@ import { Play, Youtube, Radio, ArrowRight } from 'lucide-react'
 import DynamicBackground from '../components/DynamicBackground'
 import EpisodeModal from '../components/EpisodeModal'
 
+const EpisodeCard = ({ eps, index, gridClass, onActiveChange }) => {
+    const cardRef = React.useRef(null);
+    const { scrollYProgress } = motion.useScroll({
+        target: cardRef,
+        offset: ["start end", "end start"]
+    });
+
+    // Calculate intensity based on how centered the card is
+    const intensity = motion.useTransform(
+        scrollYProgress,
+        [0, 0.35, 0.5, 0.65, 1], // Entering -> Coming to center -> CENTER -> Leaving center -> Exit
+        [0, 0, 1, 0, 0]
+    );
+
+    // Sync state with parent
+    React.useEffect(() => {
+        const unsubscribe = intensity.on("change", (latest) => {
+            // Only report if intensity is significant
+            if (latest > 0.1) {
+                onActiveChange(eps.ytId, latest);
+            }
+        });
+        return () => unsubscribe();
+    }, [intensity, eps.ytId, onActiveChange]);
+
+    return (
+        <motion.div
+            ref={cardRef}
+            layoutId={`card-${eps.id}`}
+            className={`${gridClass} bento-card episode-card`}
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ duration: 0.5, delay: index * 0.1 }}
+            onMouseEnter={() => onActiveChange(eps.ytId, 1)}
+            onMouseLeave={() => onActiveChange(null, 0)}
+            style={{ cursor: 'pointer' }}
+        >
+            <div className="video-thumb-container">
+                <div className="thumb-hover video-link" style={{ pointerEvents: 'none' }}>
+                    <img
+                        src={`https://img.youtube.com/vi/${eps.ytId}/maxresdefault.jpg`}
+                        alt={eps.title}
+                        className="video-thumb"
+                    />
+                    <div className="play-overlay">
+                        <Play fill="white" color="white" size={index === 0 ? 44 : 32} />
+                    </div>
+                </div>
+            </div>
+
+            <div className="episode-content">
+                <span className="emergency-text episode-date">{eps.date}</span>
+                <h2 className="episode-title">{eps.title}</h2>
+                <p className="episode-guest">Featuring {eps.guest}</p>
+                {index === 0 && <p className="narrative-text episode-desc">{eps.desc}</p>}
+                <div className="nav-link episode-cta">
+                    WATCH NOW <ArrowRight size={18} />
+                </div>
+            </div>
+        </motion.div>
+    );
+};
+
 function Episodes() {
-    const [hoveredEpisode, setHoveredEpisode] = useState(null)
-    const [selectedEpisode, setSelectedEpisode] = useState(null)
+    const [activeState, setActiveState] = useState({ id: null, intensity: 0 });
+    const [selectedEpisode, setSelectedEpisode] = useState(null);
+
+    const handleActiveChange = (id, intensity) => {
+        // Simple winner-takes-all logic or blending
+        // For mobile, we just want the most recent "centered" one to win if it's over a threshold
+        setActiveState(prev => {
+            if (id === null) return { id: null, intensity: 0 };
+            // If it's a new ID and it has some intensity, it takes over
+            if (id !== prev.id && intensity > 0.1) {
+                return { id, intensity };
+            }
+            // If it's the same ID, update intensity
+            if (id === prev.id) {
+                return { id, intensity };
+            }
+            return prev;
+        });
+    };
 
     const episodes = [
+        // ... episodes array
         {
             id: 'rOIRXqGBKHQ',
             title: 'From Wreckage to Redemption',
@@ -61,7 +143,7 @@ function Episodes() {
 
     return (
         <>
-            <DynamicBackground activeImage={hoveredEpisode} />
+            <DynamicBackground activeImage={activeState.id} intensity={activeState.intensity} />
             <div className="animate-in" style={{ position: 'relative', zIndex: 1 }}>
                 {/* CINEMATIC HERO */}
                 <section className="cinematic-section" style={{ backgroundImage: 'url("/dr_monica_webb_cohost.jpg")' }}>
@@ -92,51 +174,13 @@ function Episodes() {
                             else if (index >= 3) gridClass = 'span-4 row-5';
 
                             return (
-                                <motion.div
+                                <EpisodeCard
                                     key={eps.id}
-                                    layoutId={`card-${eps.id}`}
-                                    className={`${gridClass} bento-card episode-card`}
-                                    initial={{ opacity: 0, y: 50 }}
-                                    whileInView={{ opacity: 1, y: 0 }}
-                                    viewport={{ once: true, margin: "-50px" }}
-                                    transition={{ duration: 0.5, delay: index * 0.1 }}
-                                    onMouseEnter={() => setHoveredEpisode(eps.ytId)}
-                                    onMouseLeave={() => setHoveredEpisode(null)}
-                                    onClick={() => setSelectedEpisode(eps)}
-                                    style={{ cursor: 'pointer' }}
-                                >
-                                    <div className="video-thumb-container">
-                                        <div
-                                            className="thumb-hover video-link"
-                                            style={{ pointerEvents: 'none' }} // Let container handle click
-                                        >
-                                            <img
-                                                src={`https://img.youtube.com/vi/${eps.ytId}/maxresdefault.jpg`}
-                                                alt={eps.title}
-                                                className="video-thumb"
-                                            />
-                                            <div className="play-overlay">
-                                                <Play fill="white" color="white" size={index === 0 ? 44 : 32} />
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div className="episode-content">
-                                        <span className="emergency-text episode-date">{eps.date}</span>
-                                        <h2 className="episode-title">{eps.title}</h2>
-                                        <p className="episode-guest">Featuring {eps.guest}</p>
-
-                                        {index === 0 && (
-                                            <p className="narrative-text episode-desc">
-                                                {eps.desc}
-                                            </p>
-                                        )}
-
-                                        <div className="nav-link episode-cta">
-                                            WATCH NOW <ArrowRight size={18} />
-                                        </div>
-                                    </div>
-                                </motion.div>
+                                    eps={eps}
+                                    index={index}
+                                    gridClass={gridClass}
+                                    onActiveChange={handleActiveChange}
+                                />
                             );
                         })}
 

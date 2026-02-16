@@ -4,8 +4,51 @@ import { MapPin, Calendar, Users, ArrowRight } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import DynamicBackground from '../components/DynamicBackground'
 
+const EventCard = ({ id, image, children, className, onActiveChange }) => {
+    const cardRef = React.useRef(null);
+    const { scrollYProgress } = motion.useScroll({
+        target: cardRef,
+        offset: ["start end", "end start"]
+    });
+
+    const intensity = motion.useTransform(
+        scrollYProgress,
+        [0, 0.35, 0.5, 0.65, 1],
+        [0, 0, 1, 0, 0]
+    );
+
+    React.useEffect(() => {
+        const unsubscribe = intensity.on("change", (latest) => {
+            if (latest > 0.1) {
+                onActiveChange(image, latest);
+            }
+        });
+        return () => unsubscribe();
+    }, [intensity, image, onActiveChange]);
+
+    return (
+        <div
+            ref={cardRef}
+            className={`bento-card reveal ${className}`}
+            onMouseEnter={() => onActiveChange(image, 1)}
+            onMouseLeave={() => onActiveChange(null, 0)}
+        >
+            {children}
+        </div>
+    );
+};
+
 function Events() {
-    const [hoveredImage, setHoveredImage] = useState(null)
+    const [activeState, setActiveState] = useState({ id: null, intensity: 0 });
+
+    const handleActiveChange = (id, intensity) => {
+        setActiveState(prev => {
+            if (id === null) return { id: null, intensity: 0 };
+            if (id !== prev.id && intensity > 0.1) return { id, intensity };
+            if (id === prev.id) return { id, intensity };
+            return prev;
+        });
+    };
 
     useEffect(() => {
         const observer = new IntersectionObserver((entries) => {
@@ -22,7 +65,7 @@ function Events() {
 
     return (
         <>
-            <DynamicBackground activeImage={hoveredImage} />
+            <DynamicBackground activeImage={activeState.id} intensity={activeState.intensity} />
             <div className="animate-in" style={{ position: 'relative', zIndex: 1 }}>
 
                 {/* CINEMATIC HERO */}
@@ -41,10 +84,10 @@ function Events() {
                 <div className="container" style={{ marginTop: 'clamp(3rem, 10vw, 8rem)' }}>
                     <div className="bento-grid">
                         {/* MAIN FEATURED EVENT */}
-                        <div
-                            className="bento-card span-8 row-4 reveal featured-event-card"
-                            onMouseEnter={() => setHoveredImage('/night_of_hope_card.png?v=1')}
-                            onMouseLeave={() => setHoveredImage(null)}
+                        <EventCard
+                            image="/night_of_hope_card.png?v=1"
+                            className="span-8 row-4 featured-event-card"
+                            onActiveChange={handleActiveChange}
                         >
                             <div className="event-content-wrapper">
                                 <span className="emergency-text event-date">SEPTEMBER 13, 2025</span>
@@ -70,41 +113,41 @@ function Events() {
                                     JOIN THE BROTHERHOOD <ArrowRight size={20} />
                                 </button>
                             </div>
-                        </div>
+                        </EventCard>
 
                         {/* LOGISTICS */}
-                        <div
-                            className="bento-card span-4 row-2 reveal logistics-card location-card"
-                            onMouseEnter={() => setHoveredImage('/community_selfie.jpg?v=1')}
-                            onMouseLeave={() => setHoveredImage(null)}
+                        <EventCard
+                            image="/community_selfie.jpg?v=1"
+                            className="span-4 row-2 logistics-card location-card"
+                            onActiveChange={handleActiveChange}
                         >
                             <div className="card-overlay">
                                 <h2>Location</h2>
                                 <p>Central Mississippi. Check back for specific venue details soon.</p>
                             </div>
-                        </div>
+                        </EventCard>
 
-                        <div
-                            className="bento-card span-4 row-2 reveal logistics-card invitation-card"
-                            onMouseEnter={() => setHoveredImage('/community_large.jpg?v=1')}
-                            onMouseLeave={() => setHoveredImage(null)}
+                        <EventCard
+                            image="/community_large.jpg?v=1"
+                            className="span-4 row-2 logistics-card invitation-card"
+                            onActiveChange={handleActiveChange}
                         >
                             <div className="card-overlay">
                                 <h2>Open Invitation</h2>
                                 <p>Come as you are. Whether in recovery or looking to support, there is a place for you.</p>
                             </div>
-                        </div>
+                        </EventCard>
 
-                        <div
-                            className="bento-card span-4 row-2 reveal logistics-card community-card"
-                            onMouseEnter={() => setHoveredImage('/community_studio_small.jpg?v=1')}
-                            onMouseLeave={() => setHoveredImage(null)}
+                        <EventCard
+                            image="/community_studio_small.jpg?v=1"
+                            className="span-4 row-2 logistics-card community-card"
+                            onActiveChange={handleActiveChange}
                         >
                             <div className="card-overlay">
                                 <h2>Past Gatherings</h2>
                                 <p>Relive the impact of previous Night of Hope events.</p>
                             </div>
-                        </div>
+                        </EventCard>
                     </div>
                 </div>
 
@@ -126,8 +169,8 @@ function Events() {
                 
                 .event-content-wrapper {
                     background: rgba(10, 10, 10, 0.7);
-                    backdrop-filter: blur(16px);
-                    -webkit-backdrop-filter: blur(16px);
+                    backdrop-filter: blur(30px);
+                    -webkit-backdrop-filter: blur(30px);
                     border-top: 1px solid rgba(255, 255, 255, 0.1);
                     padding: 2.5rem;
                     width: 100%;
@@ -198,6 +241,8 @@ function Events() {
 
                 .card-overlay {
                     background: linear-gradient(to top, rgba(0,0,0,0.9), rgba(0,0,0,0.2));
+                    backdrop-filter: blur(30px);
+                    -webkit-backdrop-filter: blur(30px);
                     width: 100%;
                     height: 100%;
                     padding: 2rem;
