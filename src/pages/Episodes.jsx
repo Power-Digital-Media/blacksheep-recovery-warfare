@@ -70,22 +70,23 @@ const EpisodeCard = ({ eps, index, gridClass, onActiveChange }) => {
 };
 
 function Episodes() {
-    const [activeState, setActiveState] = useState({ id: null, intensity: 0 });
+    const [bgMap, setBgMap] = useState({});
     const [selectedEpisode, setSelectedEpisode] = useState(null);
 
     const handleActiveChange = (id, intensity) => {
-        setActiveState(prev => {
-            if (id === null) return { id: null, intensity: 0 };
-
-            // More aggressive handover to ensure background is always populated
-            if (id !== prev.id && intensity > 0.01) {
-                return { id, intensity };
+        setBgMap(prev => {
+            const next = { ...prev };
+            if (id === null) {
+                // Clear all if null (optional, usually card would report 0)
+                return {};
             }
+            next[id] = intensity;
 
-            if (id === prev.id) {
-                return { id, intensity };
+            // Optional: prune old keys with 0 intensity to keep state small
+            if (intensity <= 0.01) {
+                delete next[id];
             }
-            return prev;
+            return next;
         });
     };
 
@@ -143,7 +144,7 @@ function Episodes() {
 
     return (
         <>
-            <DynamicBackground activeImage={activeState.id} intensity={activeState.intensity} />
+            <DynamicBackground backgrounds={bgMap} />
             <div className="animate-in" style={{ position: 'relative', zIndex: 1 }}>
                 {/* CINEMATIC HERO */}
                 <section className="cinematic-section" style={{ backgroundImage: 'url("/dr_monica_webb_cohost.jpg")' }}>

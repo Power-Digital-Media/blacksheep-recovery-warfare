@@ -1,19 +1,7 @@
 import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
-const DynamicBackground = ({ activeImage, intensity = 1 }) => {
-    const [prevImage, setPrevImage] = React.useState(null);
-
-    // Keep the "last successful image" as a floor to prevent dark gaps
-    React.useEffect(() => {
-        if (activeImage) {
-            const timer = setTimeout(() => {
-                setPrevImage(activeImage);
-            }, 800); // Sync with transition duration
-            return () => clearTimeout(timer);
-        }
-    }, [activeImage]);
-
+const DynamicBackground = ({ backgrounds = {} }) => {
     const getUrl = (img) => {
         if (!img) return '';
         return img.includes('/')
@@ -21,39 +9,31 @@ const DynamicBackground = ({ activeImage, intensity = 1 }) => {
             : `url(https://img.youtube.com/vi/${img}/maxresdefault.jpg)`;
     };
 
+    // Filter out backgrounds with negligible intensity to optimize DOM
+    const activeLayers = Object.entries(backgrounds).filter(([_, intensity]) => intensity > 0.01);
+
     return (
         <div className="dynamic-background-container">
             <div className="dynamic-bg-base" />
 
-            {/* The "Floor" Image - stays visible until the next one is ready */}
-            {prevImage && (
-                <div
-                    className="dynamic-bg-layer floor-layer"
-                    style={{
-                        backgroundImage: getUrl(prevImage),
-                        opacity: intensity * 0.4 // Sustained base level
-                    }}
-                />
-            )}
-
-            <AnimatePresence mode="popLayout">
-                {activeImage && (
+            <AnimatePresence>
+                {activeLayers.map(([id, intensity]) => (
                     <motion.div
-                        key={activeImage}
+                        key={id}
                         initial={{ opacity: 0 }}
                         animate={{ opacity: intensity }}
                         exit={{ opacity: 0 }}
                         transition={{
-                            opacity: { duration: 0.1, ease: "linear" }, // Fast intensity tracking
-                            default: { duration: 0.8, ease: "easeInOut" } // Smooth image swap
+                            opacity: { duration: 0.2, ease: "linear" }, // Quick reactivity to scroll
+                            default: { duration: 0.8, ease: "easeInOut" } // Smooth appear/disappear
                         }}
                         className="dynamic-bg-layer"
                         style={{
-                            backgroundImage: getUrl(activeImage),
+                            backgroundImage: getUrl(id),
                             zIndex: 2
                         }}
                     />
-                )}
+                ))}
             </AnimatePresence>
 
             <div className="dynamic-bg-overlay" />
@@ -86,13 +66,8 @@ const DynamicBackground = ({ activeImage, intensity = 1 }) => {
                     height: 100%;
                     background-size: cover;
                     background-position: center;
-                    filter: blur(15px) brightness(0.5) saturate(1.2); /* Deeper immersion */
+                    filter: blur(15px) brightness(0.5) saturate(1.2);
                     transform: scale(1.15);
-                }
-
-                .floor-layer {
-                    z-index: 1;
-                    transition: opacity 0.3s ease;
                 }
 
                 .dynamic-bg-overlay {
