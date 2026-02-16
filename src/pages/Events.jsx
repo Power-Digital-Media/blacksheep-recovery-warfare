@@ -39,14 +39,17 @@ const EventCard = ({ id, image, children, className, onActiveChange }) => {
 };
 
 function Events() {
-    const [activeState, setActiveState] = useState({ id: null, intensity: 0 });
+    const [bgMap, setBgMap] = useState({});
 
     const handleActiveChange = (id, intensity) => {
-        setActiveState(prev => {
-            if (id === null) return { id: null, intensity: 0 };
-            if (id !== prev.id && intensity > 0.1) return { id, intensity };
-            if (id === prev.id) return { id, intensity };
-            return prev;
+        setBgMap(prev => {
+            const next = { ...prev };
+            if (id === null) return {};
+            next[id] = intensity;
+            if (intensity <= 0.01) {
+                delete next[id];
+            }
+            return next;
         });
     };
 
