@@ -268,11 +268,23 @@ function Events() {
                 .logistics-card p { opacity: 0.9; text-shadow: 0 2px 4px rgba(0,0,0,0.8); }
 
                 @media (max-width: 768px) {
-                    .event-title { font-size: 2.5rem; }
-                    .event-description { font-size: 1rem; margin-bottom: 1.5rem; }
-                    .event-details-row { flex-direction: column; gap: 1.5rem; }
+                    .event-title { font-size: 2.2rem; }
+                    .event-description { font-size: 0.95rem; margin-bottom: 1.5rem; }
+                    .event-details-row { flex-direction: column; gap: 1rem; margin-bottom: 1.5rem; }
                     .event-cta { width: 100%; justify-content: center; margin-top: 1rem; }
-                    .featured-event-card { align-items: flex-end; }
+                    
+                    .featured-event-card { 
+                        min-height: 500px; 
+                    }
+                    .featured-image-container {
+                        min-height: 300px;
+                    }
+                    
+                    .logistics-card { 
+                        aspect-ratio: 1/1; 
+                        min-height: 350px; 
+                    }
+                    
                     .event-content-wrapper { padding: 1.5rem; }
                 }
             `}</style>
