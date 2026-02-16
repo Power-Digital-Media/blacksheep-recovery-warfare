@@ -160,14 +160,24 @@ function Events() {
                 .featured-event-card { 
                     background-image: url('/night_of_hope_card.png?v=1');
                     background-size: cover;
-                    background-position: center 25%;
-                    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.1), 0 0 30px rgba(0,0,0,0.3);
+                    background-position: center 15%;
+                    box-shadow: 0 0 30px rgba(0,0,0,0.3);
                     display: flex;
                     flex-direction: column;
                     justify-content: space-between;
                     padding: 0;
                     overflow: hidden;
                     position: relative;
+                }
+
+                .featured-event-card::after, .logistics-card::after {
+                    content: '';
+                    position: absolute;
+                    inset: 0;
+                    border: 1px solid rgba(255, 255, 255, 0.1);
+                    pointer-events: none;
+                    z-index: 5;
+                    border-radius: inherit;
                 }
                 
                 .featured-overlay {
@@ -223,7 +233,6 @@ function Events() {
                     padding: 0 !important;
                     overflow: hidden;
                     position: relative;
-                    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.1);
                     background-color: #000;
                     display: flex;
                     flex-direction: column;
