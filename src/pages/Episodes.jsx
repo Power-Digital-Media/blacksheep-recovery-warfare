@@ -21,8 +21,8 @@ const EpisodeCard = ({ eps, index, gridClass, onActiveChange }) => {
     // Sync state with parent
     React.useEffect(() => {
         const unsubscribe = intensity.on("change", (latest) => {
-            // Only report if intensity is significant
-            if (latest > 0.1) {
+            // Ultra-low threshold for instant pre-dissolve
+            if (latest > 0.01) {
                 onActiveChange(eps.ytId, latest);
             }
         });
@@ -76,12 +76,11 @@ function Episodes() {
         setActiveState(prev => {
             if (id === null) return { id: null, intensity: 0 };
 
-            // If it's a new ID, allow it to take over earlier for a better dissolve overlap
-            if (id !== prev.id && intensity > 0.05) {
+            // Ultra-low threshold for instant "liquified" pre-dissolve handover
+            if (id !== prev.id && intensity > 0.01) {
                 return { id, intensity };
             }
 
-            // If it's the current ID, update its intensity
             if (id === prev.id) {
                 return { id, intensity };
             }
