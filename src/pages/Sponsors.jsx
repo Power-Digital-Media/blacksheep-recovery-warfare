@@ -191,20 +191,25 @@ function Sponsors() {
             <div className="animate-in" style={{ position: 'relative', zIndex: 1, backgroundColor: 'transparent', minHeight: '100vh', color: '#fff' }}>
                 {/* CINEMATIC HERO */}
                 <section className="cinematic-section" style={{
-                    height: '75vh',
+                    height: '80vh', // Slightly taller for more impact
                     backgroundImage: `url(${heroAlliance})`,
                     backgroundSize: 'cover',
                     backgroundPosition: 'center 40%',
                     backgroundAttachment: 'scroll',
-                    backgroundColor: '#000', // Solid background behind the image
+                    backgroundColor: '#000',
                     position: 'relative',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
                     overflow: 'hidden',
-                    zIndex: 10 // Strictly above the dynamic backgrounds
+                    zIndex: 10,
+                    /* Only fade the bottom edge into the sponsors area */
+                    maskImage: 'linear-gradient(to bottom, black 90%, transparent 100%)',
+                    WebkitMaskImage: 'linear-gradient(to bottom, black 90%, transparent 100%)'
                 }}>
-                    <div className="image-overlay" style={{ background: 'linear-gradient(to bottom, rgba(0,0,0,0.7), transparent, #000)', zIndex: 1 }}></div>
+                    {/* PHYSICAL SHIELD: Blocks anything behind the hero */}
+                    <div style={{ position: 'absolute', inset: 0, backgroundColor: '#000', zIndex: -1 }}></div>
+                    <div className="image-overlay" style={{ background: 'linear-gradient(to bottom, rgba(0,0,0,0.8), transparent, #000)', zIndex: 1 }}></div>
                     <div className="cinematic-content" style={{ textAlign: 'center', maxWidth: '1000px', padding: '0 2rem', position: 'relative', zIndex: 2 }}>
                         <span className="emergency-text" style={{ fontSize: '1rem', letterSpacing: '8px' }}>MISSION OF COMPASSION</span>
                         <h1 style={{ fontSize: 'clamp(3rem, 10vw, 7.5rem)', lineHeight: 1, margin: '1rem 0', fontWeight: '900' }}>THE ALLIANCE</h1>
@@ -286,8 +291,19 @@ function Sponsors() {
                 }
 
                 /* Fixed: Prevent background leak behind Navbar */
-                .mobile-nav-container {
+                .mobile-nav-container, nav {
                     background-color: #000 !important;
+                    background: #000 !important;
+                    position: relative;
+                    z-index: 1001 !important;
+                }
+                
+                /* Ensure navbar links are visible on black */
+                .nav-link {
+                    color: #888 !important;
+                }
+                .nav-link:hover {
+                    color: #fff !important;
                 }
             `}</style>
             </div>
