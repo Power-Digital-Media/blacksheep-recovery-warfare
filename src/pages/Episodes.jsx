@@ -22,10 +22,7 @@ const EpisodeCard = ({ eps, index, gridClass, onActiveChange, onClick }) => {
     // Sync state with parent
     React.useEffect(() => {
         const unsubscribe = intensity.on("change", (latest) => {
-            // Ultra-low threshold for instant pre-dissolve
-            if (latest > 0.01) {
-                onActiveChange(eps.ytId, latest);
-            }
+            onActiveChange(eps.ytId, latest);
         });
         return () => unsubscribe();
     }, [intensity, eps.ytId, onActiveChange]);
@@ -40,7 +37,7 @@ const EpisodeCard = ({ eps, index, gridClass, onActiveChange, onClick }) => {
             viewport={{ once: true, margin: "-50px" }}
             transition={{ duration: 0.5, delay: index * 0.1 }}
             onMouseEnter={() => onActiveChange(eps.ytId, 1)}
-            onMouseLeave={() => onActiveChange(null, 0)}
+            onMouseLeave={() => onActiveChange(eps.ytId, 0)}
             onClick={onClick}
             style={{ cursor: 'pointer' }}
         >
@@ -75,17 +72,14 @@ function Episodes() {
     const [selectedEpisode, setSelectedEpisode] = useState(null);
 
     const handleActiveChange = (id, intensity) => {
+        if (!id) return;
         setBgMap(prev => {
+            if (prev[id] === intensity) return prev;
             const next = { ...prev };
-            if (id === null) {
-                // Clear all if null (optional, usually card would report 0)
-                return {};
-            }
-            next[id] = intensity;
-
-            // Optional: prune old keys with 0 intensity to keep state small
             if (intensity <= 0.01) {
                 delete next[id];
+            } else {
+                next[id] = intensity;
             }
             return next;
         });

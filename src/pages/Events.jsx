@@ -19,10 +19,7 @@ const EventCard = ({ id, image, children, className, onActiveChange }) => {
 
     React.useEffect(() => {
         const unsubscribe = intensity.on("change", (latest) => {
-            // Ultra-low threshold for instant pre-dissolve
-            if (latest > 0.01) {
-                onActiveChange(image, latest);
-            }
+            onActiveChange(image, latest);
         });
         return () => unsubscribe();
     }, [intensity, image, onActiveChange]);
@@ -32,7 +29,7 @@ const EventCard = ({ id, image, children, className, onActiveChange }) => {
             ref={cardRef}
             className={`bento-card reveal ${className}`}
             onMouseEnter={() => onActiveChange(image, 1)}
-            onMouseLeave={() => onActiveChange(null, 0)}
+            onMouseLeave={() => onActiveChange(image, 0)}
         >
             {children}
         </div>
@@ -45,10 +42,12 @@ function Events() {
     const handleActiveChange = (id, intensity) => {
         if (!id) return;
         setBgMap(prev => {
+            if (prev[id] === intensity) return prev;
             const next = { ...prev };
-            next[id] = intensity;
             if (intensity <= 0.01) {
                 delete next[id];
+            } else {
+                next[id] = intensity;
             }
             return next;
         });
