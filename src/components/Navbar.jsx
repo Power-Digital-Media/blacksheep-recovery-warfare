@@ -17,7 +17,7 @@ function Navbar() {
 
             <div className={`nav-links ${isMenuOpen ? 'mobile-open' : ''}`}>
                 <Link to="/episodes" className="nav-link" onClick={() => setIsMenuOpen(false)}>Episodes</Link>
-                <Link to="/events" className="nav-link" onClick={() => setIsMenuOpen(false)}>Events</Link>
+                <Link to="/events" className="nav-link" onClick={() => setIsMenuOpen(false)}>Gatherings</Link>
                 <Link to="/sponsors" className="nav-link" onClick={() => setIsMenuOpen(false)}>Sponsors</Link>
                 <Link to="/resources" className="nav-link" onClick={() => setIsMenuOpen(false)}>Resources</Link>
                 <Link to="/merch" className="nav-link" onClick={() => setIsMenuOpen(false)}>Gear</Link>

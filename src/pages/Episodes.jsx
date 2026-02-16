@@ -1,19 +1,12 @@
-import React, { useEffect } from 'react'
+import React, { useState } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
 import { Play, Youtube, Radio, ArrowRight } from 'lucide-react'
+import DynamicBackground from '../components/DynamicBackground'
+import EpisodeModal from '../components/EpisodeModal'
 
 function Episodes() {
-    useEffect(() => {
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('active');
-                }
-            });
-        }, { threshold: 0.1 });
-
-        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-        return () => observer.disconnect();
-    }, []);
+    const [hoveredEpisode, setHoveredEpisode] = useState(null)
+    const [selectedEpisode, setSelectedEpisode] = useState(null)
 
     const episodes = [
         {
@@ -67,105 +60,124 @@ function Episodes() {
     ]
 
     return (
-        <div className="animate-in">
-            {/* CINEMATIC HERO */}
-            <section className="cinematic-section" style={{ backgroundImage: 'url("/dr_monica_webb_cohost.jpg")' }}>
-                <div className="image-overlay"></div>
-                <div className="cinematic-content reveal">
-                    <span className="emergency-text">The Gospel on Air</span>
-                    <h1>WARFARE<br />REPORTS</h1>
-                    <p className="narrative-text">
-                        Raw, unfiltered testimonies of spiritual warfare and the relentless
-                        transformation of the soul. These are the voices from the frontline.
-                    </p>
-                </div>
-            </section>
+        <>
+            <DynamicBackground activeImage={hoveredEpisode} />
+            <div className="animate-in" style={{ position: 'relative', zIndex: 1 }}>
+                {/* CINEMATIC HERO */}
+                <section className="cinematic-section" style={{ backgroundImage: 'url("/dr_monica_webb_cohost.jpg")' }}>
+                    <div className="image-overlay"></div>
+                    <motion.div
+                        initial={{ opacity: 0, y: 30 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.8 }}
+                        className="cinematic-content"
+                    >
+                        <span className="emergency-text">The Gospel on Air</span>
+                        <h1>WARFARE<br />REPORTS</h1>
+                        <p className="narrative-text">
+                            Raw, unfiltered testimonies of spiritual warfare and the relentless
+                            transformation of the soul. These are the voices from the frontline.
+                        </p>
+                    </motion.div>
+                </section>
 
-            <div className="container" style={{ marginTop: 'clamp(3rem, 10vw, 8rem)' }}>
-                <div className="bento-grid">
-                    {episodes.map((eps, index) => {
-                        // PRECISE BENTO MAPPING (Handled by global CSS on mobile)
-                        let gridClass = 'span-4 row-4';
-                        if (index === 0) gridClass = 'span-8 row-6';
-                        else if (index === 1 || index === 2) gridClass = 'span-4 row-3';
-                        else if (index === 3) gridClass = 'span-4 row-5';
-                        else if (index === 4) gridClass = 'span-4 row-4';
-                        else if (index === 5) gridClass = 'span-4 row-3';
+                <div className="container" style={{ marginTop: 'clamp(3rem, 10vw, 8rem)' }}>
+                    <div className="bento-grid">
+                        {episodes.map((eps, index) => {
+                            // PRECISE BENTO MAPPING (Handled by global CSS on mobile)
+                            let gridClass = 'span-4 row-4';
+                            if (index === 0) gridClass = 'span-8 row-6';
+                            else if (index === 1 || index === 2) gridClass = 'span-4 row-3';
+                            else if (index >= 3) gridClass = 'span-4 row-5';
 
-                        return (
-                            <div key={eps.id} className={`${gridClass} bento-card reveal episode-card`}>
-                                <div className="video-thumb-container">
-                                    <a
-                                        href={`https://www.youtube.com/watch?v=${eps.ytId}`}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        className="thumb-hover video-link"
-                                    >
-                                        <img
-                                            src={`https://img.youtube.com/vi/${eps.ytId}/maxresdefault.jpg`}
-                                            alt={eps.title}
-                                            className="video-thumb"
-                                        />
-                                        <div className="play-overlay">
-                                            <Play fill="white" color="white" size={index === 0 ? 44 : 32} />
+                            return (
+                                <motion.div
+                                    key={eps.id}
+                                    layoutId={`card-${eps.id}`}
+                                    className={`${gridClass} bento-card episode-card`}
+                                    initial={{ opacity: 0, y: 50 }}
+                                    whileInView={{ opacity: 1, y: 0 }}
+                                    viewport={{ once: true, margin: "-50px" }}
+                                    transition={{ duration: 0.5, delay: index * 0.1 }}
+                                    onMouseEnter={() => setHoveredEpisode(eps.ytId)}
+                                    onMouseLeave={() => setHoveredEpisode(null)}
+                                    onClick={() => setSelectedEpisode(eps)}
+                                    style={{ cursor: 'pointer' }}
+                                >
+                                    <div className="video-thumb-container">
+                                        <div
+                                            className="thumb-hover video-link"
+                                            style={{ pointerEvents: 'none' }} // Let container handle click
+                                        >
+                                            <img
+                                                src={`https://img.youtube.com/vi/${eps.ytId}/maxresdefault.jpg`}
+                                                alt={eps.title}
+                                                className="video-thumb"
+                                            />
+                                            <div className="play-overlay">
+                                                <Play fill="white" color="white" size={index === 0 ? 44 : 32} />
+                                            </div>
                                         </div>
-                                    </a>
-                                </div>
+                                    </div>
 
-                                <div className="episode-content">
-                                    <span className="emergency-text episode-date">{eps.date}</span>
-                                    <h2 className="episode-title">{eps.title}</h2>
-                                    <p className="episode-guest">Featuring {eps.guest}</p>
+                                    <div className="episode-content">
+                                        <span className="emergency-text episode-date">{eps.date}</span>
+                                        <h2 className="episode-title">{eps.title}</h2>
+                                        <p className="episode-guest">Featuring {eps.guest}</p>
 
-                                    {index === 0 && (
-                                        <p className="narrative-text episode-desc">
-                                            {eps.desc}
-                                        </p>
-                                    )}
+                                        {index === 0 && (
+                                            <p className="narrative-text episode-desc">
+                                                {eps.desc}
+                                            </p>
+                                        )}
 
+                                        <div className="nav-link episode-cta">
+                                            WATCH NOW <ArrowRight size={18} />
+                                        </div>
+                                    </div>
+                                </motion.div>
+                            );
+                        })}
+
+                        {/* WATCH ALL CTA */}
+                        <div className="span-full watch-all-container">
+                            <motion.div
+                                initial={{ opacity: 0, y: 30 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true }}
+                            >
+                                <h3 className="watch-all-title">Ready for more warfare?</h3>
+                                <div className="watch-all-buttons">
                                     <a
-                                        href={`https://www.youtube.com/watch?v=${eps.ytId}`}
+                                        href="https://www.youtube.com/@Brother_Phoenix/videos"
                                         target="_blank"
                                         rel="noopener noreferrer"
-                                        className="nav-link episode-cta"
+                                        className="donate-btn youtube-btn"
                                     >
-                                        WATCH NOW <ArrowRight size={18} />
+                                        <Youtube size={24} /> WATCH ALL EPISODES
+                                    </a>
+
+                                    <a
+                                        href="https://open.spotify.com"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="donate-btn spotify-btn"
+                                    >
+                                        <Radio size={24} /> LISTEN ON SPOTIFY
                                     </a>
                                 </div>
-                            </div>
-                        );
-                    })}
-
-                    {/* WATCH ALL CTA */}
-                    <div className="span-full watch-all-container">
-                        <div className="reveal">
-                            <h3 className="watch-all-title">Ready for more warfare?</h3>
-                            <div className="watch-all-buttons">
-                                <a
-                                    href="https://www.youtube.com/@Brother_Phoenix/videos"
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="donate-btn youtube-btn"
-                                >
-                                    <Youtube size={24} /> WATCH ALL EPISODES
-                                </a>
-
-                                <a
-                                    href="https://open.spotify.com"
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="donate-btn spotify-btn"
-                                >
-                                    <Radio size={24} /> LISTEN ON SPOTIFY
-                                </a>
-                            </div>
+                            </motion.div>
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <style>{`
-                .episode-card { display: flex; flex-direction: column; }
+                <style>{`
+                .episode-card { display: flex; flex-direction: column; transition: border-color 0.3s ease, background 0.3s ease; }
+                /* Make cards slightly transparent to show background */
+                .bento-card { background: rgba(22, 22, 23, 0.7); backdrop-filter: blur(30px); }
+                .bento-card:hover { background: rgba(22, 22, 23, 0.85); border-color: #ff3b30; }
+
                 .video-thumb-container { width: 100%; margin-bottom: 1.5rem; position: relative; }
                 .video-link { display: block; width: 100%; aspect-ratio: 16/9; background: #000; border-radius: 16px; border: 1px solid rgba(255,255,255,0.1); overflow: hidden; position: relative; cursor: pointer; text-decoration: none; }
                 .video-thumb { width: 100%; height: 100%; object-fit: contain; display: block; }
@@ -174,9 +186,9 @@ function Episodes() {
                 .episode-title { margin-bottom: 0.5rem; line-height: 1.2; }
                 .episode-guest { color: var(--text-secondary); margin-bottom: 1rem; font-style: italic; font-size: 0.9rem; }
                 .episode-desc { margin-top: 0; margin-bottom: 2rem; font-size: 0.95rem; }
-                .episode-cta { margin-top: auto; display: flex; align-items: center; gap: 0.5rem; color: var(--text-primary); font-weight: 700; letter-spacing: 0.05em; font-size: 0.8rem; }
+                .episode-cta { margin-top: auto; display: flex; align-items: center; gap: 0.5rem; color: var(--text-primary); font-weight: 700; letter-spacing: 0.05em; font-size: 0.8rem; pointer-events: none; }
                 
-                .watch-all-container { text-align: center; padding: 6rem 0; width: 100%; }
+                .watch-all-container { text-align: center; padding: 6rem 0; width: 100%; position: relative; z-index: 2; }
                 .watch-all-title { font-size: 2rem; margin-bottom: 2rem; }
                 .watch-all-buttons { display: flex; gap: 1.5rem; justify-content: center; flex-wrap: wrap; }
                 .youtube-btn { background-color: #ff0000 !important; border: none; font-size: 1.1rem; padding: 18px 40px; }
@@ -190,7 +202,14 @@ function Episodes() {
                     .episode-title { font-size: 1.4rem; }
                 }
             `}</style>
-        </div>
+            </div>
+
+            <AnimatePresence>
+                {selectedEpisode && (
+                    <EpisodeModal episode={selectedEpisode} onClose={() => setSelectedEpisode(null)} />
+                )}
+            </AnimatePresence>
+        </>
     )
 }
 

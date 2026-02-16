@@ -1,7 +1,12 @@
-import React, { useEffect } from 'react'
-import { Calendar, MapPin, Users, ArrowRight } from 'lucide-react'
+import React, { useEffect, useState } from 'react'
+import { motion } from 'framer-motion'
+import { MapPin, Calendar, Users, ArrowRight } from 'lucide-react'
+import { Link } from 'react-router-dom'
+import DynamicBackground from '../components/DynamicBackground'
 
 function Events() {
+    const [hoveredImage, setHoveredImage] = useState(null)
+
     useEffect(() => {
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
@@ -16,104 +21,205 @@ function Events() {
     }, []);
 
     return (
-        <div className="animate-in">
-            {/* CINEMATIC HERO */}
-            <section className="cinematic-section graphic-hero" style={{ backgroundImage: 'url("/skit_crew_dramatic.jpg")' }}>
-                <div className="image-overlay"></div>
-                <div className="cinematic-content reveal">
-                    <span className="emergency-text">Strategic Deployments</span>
-                    <h1>FIELD<br />OPERATIONS</h1>
-                    <p className="narrative-text">
-                        Gathering the collective for hope, transformation, and
-                        spiritual empowerment. Real talk. Real community. Real warfare.
-                    </p>
-                </div>
-            </section>
+        <>
+            <DynamicBackground activeImage={hoveredImage} />
+            <div className="animate-in" style={{ position: 'relative', zIndex: 1 }}>
 
-            <div className="container" style={{ marginTop: 'clamp(3rem, 10vw, 8rem)' }}>
-                <div className="bento-grid">
-                    {/* MAIN FEATURED EVENT */}
-                    <div className="bento-card span-8 row-6 reveal featured-event-card">
-                        <span className="emergency-text event-date">SEPTEMBER 13, 2025</span>
-                        <h1 className="event-title">NIGHT OF HOPE</h1>
-                        <p className="event-description">
-                            A powerful evening of raw testimonies, worship, and real talk
-                            about recovery and the relentless grace of Jesus Christ.
-                            Live speakers from the Black Sheep community.
+                {/* CINEMATIC HERO */}
+                <section className="cinematic-section graphic-hero" style={{ backgroundImage: 'url("/studio_hero.jpg")' }}>
+                    <div className="image-overlay"></div>
+                    <div className="cinematic-content reveal">
+                        <span className="emergency-text">Fellowship & Recovery</span>
+                        <h1>THE<br />GATHERINGS</h1>
+                        <p className="narrative-text">
+                            A brotherhood of hope, transformation, and spiritual empowerment.
+                            Real talk. Real community. Real redemption.
                         </p>
+                    </div>
+                </section>
 
-                        <div className="event-details-row">
-                            <div className="detail-item">
-                                <h3 className="detail-title">WORSHIP</h3>
-                                <p className="detail-text">Live Music & Spiritual Warfare</p>
-                            </div>
-                            <div className="detail-item">
-                                <h3 className="detail-title">COMMUNITY</h3>
-                                <p className="detail-text">Connection & Direct Mentorship</p>
+                <div className="container" style={{ marginTop: 'clamp(3rem, 10vw, 8rem)' }}>
+                    <div className="bento-grid">
+                        {/* MAIN FEATURED EVENT */}
+                        <div
+                            className="bento-card span-8 row-4 reveal featured-event-card"
+                            onMouseEnter={() => setHoveredImage('/night_of_hope_card.png?v=1')}
+                            onMouseLeave={() => setHoveredImage(null)}
+                        >
+                            <div className="event-content-wrapper">
+                                <span className="emergency-text event-date">SEPTEMBER 13, 2025</span>
+                                <h1 className="event-title">NIGHT OF HOPE</h1>
+                                <p className="event-description">
+                                    A powerful evening of raw testimonies, worship, and real talk
+                                    about recovery and the relentless grace of Jesus Christ.
+                                    Live speakers from the Black Sheep community.
+                                </p>
+
+                                <div className="event-details-row">
+                                    <div className="detail-item">
+                                        <h3 className="detail-title">WORSHIP</h3>
+                                        <p className="detail-text">Live Music & Praise</p>
+                                    </div>
+                                    <div className="detail-item">
+                                        <h3 className="detail-title">COMMUNITY</h3>
+                                        <p className="detail-text">Connection & Brotherhood</p>
+                                    </div>
+                                </div>
+
+                                <button className="event-cta">
+                                    JOIN THE BROTHERHOOD <ArrowRight size={20} />
+                                </button>
                             </div>
                         </div>
 
-                        <button className="event-cta">
-                            JOIN THE FRONT <ArrowRight size={20} />
-                        </button>
-                    </div>
+                        {/* LOGISTICS */}
+                        <div
+                            className="bento-card span-4 row-2 reveal logistics-card location-card"
+                            onMouseEnter={() => setHoveredImage('/community_selfie.jpg?v=1')}
+                            onMouseLeave={() => setHoveredImage(null)}
+                        >
+                            <div className="card-overlay">
+                                <h2>Location</h2>
+                                <p>Central Mississippi. Check back for specific venue details soon.</p>
+                            </div>
+                        </div>
 
-                    {/* LOGISTICS */}
-                    <div className="bento-card span-4 row-2 reveal logistics-card">
-                        <MapPin size={24} color="var(--emergency-red)" className="logistics-icon" />
-                        <h2>Location</h2>
-                        <p>Central Mississippi. Check back for specific venue details soon.</p>
-                    </div>
+                        <div
+                            className="bento-card span-4 row-2 reveal logistics-card invitation-card"
+                            onMouseEnter={() => setHoveredImage('/community_large.jpg?v=1')}
+                            onMouseLeave={() => setHoveredImage(null)}
+                        >
+                            <div className="card-overlay">
+                                <h2>Open Invitation</h2>
+                                <p>Come as you are. Whether in recovery or looking to support, there is a place for you.</p>
+                            </div>
+                        </div>
 
-                    <div className="bento-card span-4 row-2 reveal logistics-card">
-                        <Users size={24} color="var(--emergency-red)" className="logistics-icon" />
-                        <h2>Open Enlistment</h2>
-                        <p>Come as you are. Whether in recovery or looking to support, there is a place for you.</p>
-                    </div>
-
-                    <div className="bento-card span-4 row-2 reveal logistics-card secondary-card">
-                        <Calendar size={24} className="logistics-icon" />
-                        <h2>Past Deployments</h2>
-                        <p>Relive the impact of previous Night of Hope gatherings.</p>
+                        <div
+                            className="bento-card span-4 row-2 reveal logistics-card community-card"
+                            onMouseEnter={() => setHoveredImage('/community_studio_small.jpg?v=1')}
+                            onMouseLeave={() => setHoveredImage(null)}
+                        >
+                            <div className="card-overlay">
+                                <h2>Past Gatherings</h2>
+                                <p>Relive the impact of previous Night of Hope events.</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <style>{`
-                .featured-event-card { background: var(--warfare-red); border: none; }
-                .event-date { color: white; opacity: 0.8; }
-                .event-title { color: white; line-height: 0.9; margin: 1rem 0; font-size: clamp(2rem, 8vw, 4.5rem); }
-                .event-description { color: rgba(255,255,255,0.9); fontSize: 1.1rem; max-width: 600px; margin-bottom: 2.5rem; line-height: 1.5; }
-                .event-details-row { display: flex; gap: 3rem; margin-top: auto; }
-                .detail-title { color: white; font-size: 1.1rem; margin-bottom: 0.5rem; }
-                .detail-text { color: rgba(255,255,255,0.7); font-size: 0.9rem; }
+                <style>{`
+                .featured-event-card { 
+                    background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.8)), url('/night_of_hope_card.png?v=1'), #050505;
+                    background-size: contain;
+                    background-repeat: no-repeat;
+                    background-position: center 75%; /* Shifted DOWN to reveal faces at the top */
+                    border: 1px solid rgba(255, 255, 255, 0.08);
+                    box-shadow: 0 0 30px rgba(0,0,0,0.3);
+                    display: flex;
+                    align-items: flex-end;
+                    padding: 0;
+                    overflow: hidden;
+                    background-clip: padding-box; /* Fix border bleed */
+                    transform: translateZ(0); /* Fix corner masking */
+                }
+                
+                .event-content-wrapper {
+                    background: rgba(10, 10, 10, 0.7);
+                    backdrop-filter: blur(16px);
+                    -webkit-backdrop-filter: blur(16px);
+                    border-top: 1px solid rgba(255, 255, 255, 0.1);
+                    padding: 2.5rem;
+                    width: 100%;
+                }
+
+                .event-date { color: var(--warfare-red); opacity: 1; font-weight: 700; letter-spacing: 0.15em; }
+                .event-title { 
+                    color: white; 
+                    line-height: 0.9; 
+                    margin: 0.5rem 0 1rem 0; 
+                    font-size: clamp(2.5rem, 6vw, 4rem); 
+                    text-shadow: 0 0 20px rgba(255, 61, 48, 0.3);
+                }
+                .event-description { color: rgba(255,255,255,0.85); fontSize: 1.1rem; max-width: 700px; margin-bottom: 2rem; line-height: 1.6; }
+                .event-details-row { display: flex; gap: 4rem; margin-bottom: 2rem; }
+                .detail-title { color: white; font-size: 0.9rem; margin-bottom: 0.3rem; letter-spacing: 0.1em; opacity: 0.8; }
+                .detail-text { color: white; font-size: 1.1rem; font-weight: 500; }
                 .event-cta {
-                    margin-top: 3rem;
-                    background: white;
-                    color: black;
+                    background: var(--warfare-red);
+                    color: white;
                     border: none;
-                    padding: 16px 40px;
-                    border-radius: 30px;
-                    font-weight: 900;
-                    font-size: 1rem;
+                    padding: 14px 32px;
+                    border-radius: 99px;
+                    font-weight: 700;
+                    font-size: 0.95rem;
                     cursor: pointer;
                     display: flex;
                     align-items: center;
-                    gap: 12px;
+                    gap: 10px;
                     width: fit-content;
+                    box-shadow: 0 4px 20px rgba(255, 61, 48, 0.4);
+                    transition: transform 0.2s ease, box-shadow 0.2s ease;
                 }
-                .logistics-icon { margin-bottom: 1rem; }
-                .secondary-card { background: var(--charcoal); }
+                .event-cta:hover {
+                    transform: translateY(-2px);
+                    box-shadow: 0 6px 25px rgba(255, 61, 48, 0.6);
+                }
+                
+                .logistics-card {
+                    padding: 0 !important;
+                    overflow: hidden;
+                    position: relative;
+                    border: 1px solid rgba(255,255,255,0.05); /* Dimmer border */
+                    background-color: #000;
+                    background-clip: padding-box !important; /* Force clip */
+                    transform: translateZ(0); 
+                }
+                
+                /* Use longhand to avoid resetting background-clip */
+                .location-card { 
+                    background-image: url('/community_selfie.jpg?v=1') !important;
+                    background-position: center !important;
+                    background-size: cover !important;
+                    background-repeat: no-repeat !important;
+                }
+                .invitation-card { 
+                    background-image: url('/community_large.jpg?v=1') !important;
+                    background-position: center !important;
+                    background-size: cover !important;
+                    background-repeat: no-repeat !important;
+                }
+                .community-card { 
+                    background-image: url('/community_studio_small.jpg?v=1') !important;
+                    background-position: center !important;
+                    background-size: cover !important;
+                    background-repeat: no-repeat !important;
+                }
+
+                .card-overlay {
+                    background: linear-gradient(to top, rgba(0,0,0,0.9), rgba(0,0,0,0.2));
+                    width: 100%;
+                    height: 100%;
+                    padding: 2rem;
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: flex-end;
+                }
+
+                .logistics-card h2 { margin-bottom: 0.5rem; text-shadow: 0 2px 4px rgba(0,0,0,0.8); }
+                .logistics-card p { opacity: 0.9; text-shadow: 0 2px 4px rgba(0,0,0,0.8); }
 
                 @media (max-width: 768px) {
                     .event-title { font-size: 2.5rem; }
                     .event-description { font-size: 1rem; margin-bottom: 1.5rem; }
                     .event-details-row { flex-direction: column; gap: 1.5rem; }
-                    .event-cta { width: 100%; justify-content: center; margin-top: 2rem; }
-                    .featured-event-card { padding: 1.5rem !important; }
+                    .event-cta { width: 100%; justify-content: center; margin-top: 1rem; }
+                    .featured-event-card { align-items: flex-end; }
+                    .event-content-wrapper { padding: 1.5rem; }
                 }
             `}</style>
-        </div>
+            </div>
+        </>
     )
 }
 
