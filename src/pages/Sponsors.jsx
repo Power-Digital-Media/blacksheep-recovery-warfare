@@ -191,25 +191,30 @@ function Sponsors() {
             <div className="animate-in" style={{ position: 'relative', zIndex: 1, backgroundColor: 'transparent', minHeight: '100vh', color: '#fff' }}>
                 {/* CINEMATIC HERO */}
                 <section className="cinematic-section" style={{
-                    height: '80vh', // Slightly taller for more impact
-                    backgroundImage: `url(${heroAlliance})`,
-                    backgroundSize: 'cover',
-                    backgroundPosition: 'center 40%',
-                    backgroundAttachment: 'scroll',
-                    backgroundColor: '#000',
+                    height: '80vh',
+                    backgroundColor: '#000', // Solid black base floor
                     position: 'relative',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
                     overflow: 'hidden',
-                    zIndex: 10,
-                    /* Only fade the bottom edge into the sponsors area */
-                    maskImage: 'linear-gradient(to bottom, black 90%, transparent 100%)',
-                    WebkitMaskImage: 'linear-gradient(to bottom, black 90%, transparent 100%)'
+                    zIndex: 10
                 }}>
-                    {/* PHYSICAL SHIELD: Blocks anything behind the hero */}
-                    <div style={{ position: 'absolute', inset: 0, backgroundColor: '#000', zIndex: -1 }}></div>
-                    <div className="image-overlay" style={{ background: 'linear-gradient(to bottom, rgba(0,0,0,0.8), transparent, #000)', zIndex: 1 }}></div>
+                    {/* The Hero Image Layer */}
+                    <div style={{
+                        position: 'absolute',
+                        inset: 0,
+                        backgroundImage: `url(${heroAlliance})`,
+                        backgroundSize: 'cover',
+                        backgroundPosition: 'center 40%',
+                        zIndex: 0
+                    }} />
+
+                    {/* The Shadow Overlay: Fades only at the bottom */}
+                    <div className="image-overlay" style={{
+                        background: 'linear-gradient(to bottom, rgba(0,0,0,0.7) 0%, transparent 30%, #000 100%)',
+                        zIndex: 1
+                    }} />
                     <div className="cinematic-content" style={{ textAlign: 'center', maxWidth: '1000px', padding: '0 2rem', position: 'relative', zIndex: 2 }}>
                         <span className="emergency-text" style={{ fontSize: '1rem', letterSpacing: '8px' }}>MISSION OF COMPASSION</span>
                         <h1 style={{ fontSize: 'clamp(3rem, 10vw, 7.5rem)', lineHeight: 1, margin: '1rem 0', fontWeight: '900' }}>THE ALLIANCE</h1>
@@ -296,14 +301,20 @@ function Sponsors() {
                     background: #000 !important;
                     position: relative;
                     z-index: 1001 !important;
+                    box-shadow: 0 5px 30px rgba(0,0,0,0.8);
                 }
                 
-                /* Ensure navbar links are visible on black */
+                /* Ensure navbar links are visible */
                 .nav-link {
                     color: #888 !important;
+                    text-shadow: 0 0 10px rgba(0,0,0,0.5);
                 }
                 .nav-link:hover {
                     color: #fff !important;
+                }
+
+                .nav-logo {
+                    filter: drop-shadow(0 0 10px rgba(0,0,0,0.8));
                 }
             `}</style>
             </div>
