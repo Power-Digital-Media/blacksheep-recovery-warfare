@@ -45,27 +45,15 @@ const Footer = () => {
                     {/* MISSION PILLAR */}
                     <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
                         <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-                            <div style={{
-                                width: '32px',
-                                height: '32px',
-                                borderRadius: '4px',
-                                overflow: 'hidden',
-                                display: 'flex',
-                                alignItems: 'center',
-                                justifyContent: 'center',
-                                border: '1px solid rgba(255,255,255,0.1)',
-                                background: '#000'
-                            }}>
-                                <img
-                                    src="/logo.png"
-                                    alt="Black Sheep head"
-                                    style={{
-                                        width: '180%',
-                                        height: 'auto',
-                                        filter: 'brightness(1.2)'
-                                    }}
-                                />
-                            </div>
+                            <img
+                                src="/logo.png"
+                                alt="Black Sheep Logo"
+                                style={{
+                                    width: '45px',
+                                    height: 'auto',
+                                    filter: 'brightness(1.2) drop-shadow(0 0 10px rgba(215, 0, 21, 0.2))'
+                                }}
+                            />
                             <span style={{
                                 fontSize: '1.2rem',
                                 fontWeight: '900',
