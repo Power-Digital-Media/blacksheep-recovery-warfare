@@ -191,22 +191,24 @@ function Sponsors() {
             <div className="animate-in" style={{ position: 'relative', zIndex: 1, backgroundColor: 'transparent', minHeight: '100vh', color: '#fff' }}>
                 {/* CINEMATIC HERO */}
                 <section className="cinematic-section" style={{
-                    height: '70vh',
+                    height: '75vh',
                     backgroundImage: `url(${heroAlliance})`,
                     backgroundSize: 'cover',
                     backgroundPosition: 'center 40%',
-                    backgroundAttachment: 'scroll', // Allow it to move as a curtain
-                    backgroundColor: '#000',
+                    backgroundAttachment: 'scroll',
+                    backgroundColor: '#000', // Solid fallback
                     position: 'relative',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
                     overflow: 'hidden',
-                    maskImage: 'linear-gradient(to bottom, black 90%, transparent 100%)', // Only fade bottom
-                    WebkitMaskImage: 'linear-gradient(to bottom, black 90%, transparent 100%)'
+                    maskImage: 'linear-gradient(to bottom, black 85%, transparent 100%)',
+                    WebkitMaskImage: 'linear-gradient(to bottom, black 85%, transparent 100%)',
+                    zIndex: 10 // Stay above backgrounds
                 }}>
-                    <div className="image-overlay" style={{ background: 'linear-gradient(to bottom, rgba(0,0,0,0.6), transparent, #050505)' }}></div>
-                    <div className="cinematic-content reveal" style={{ textAlign: 'center', maxWidth: '1000px', padding: '0 2rem' }}>
+                    <div className="hero-black-shield" style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', backgroundColor: '#000', zIndex: -1 }}></div>
+                    <div className="image-overlay" style={{ background: 'linear-gradient(to bottom, rgba(0,0,0,0.8), transparent, #000)', zIndex: 0 }}></div>
+                    <div className="cinematic-content" style={{ textAlign: 'center', maxWidth: '1000px', padding: '0 2rem', position: 'relative', zIndex: 2 }}>
                         <span className="emergency-text" style={{ fontSize: '1rem', letterSpacing: '8px' }}>MISSION OF COMPASSION</span>
                         <h1 style={{ fontSize: 'clamp(3rem, 10vw, 7.5rem)', lineHeight: 1, margin: '1rem 0', fontWeight: '900' }}>THE ALLIANCE</h1>
                         <p style={{
