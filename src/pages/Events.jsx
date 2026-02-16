@@ -92,13 +92,15 @@ function Events() {
                             className="span-8 row-4 featured-event-card"
                             onActiveChange={handleActiveChange}
                         >
-                            <div className="event-content-wrapper">
+                            <div className="featured-overlay top-smoke">
                                 <span className="emergency-text event-date">SEPTEMBER 13, 2025</span>
                                 <h1 className="event-title">NIGHT OF HOPE</h1>
+                            </div>
+
+                            <div className="featured-overlay bottom-smoke">
                                 <p className="event-description">
                                     A powerful evening of raw testimonies, worship, and real talk
                                     about recovery and the relentless grace of Jesus Christ.
-                                    Live speakers from the Black Sheep community.
                                 </p>
 
                                 <div className="event-details-row">
@@ -115,9 +117,6 @@ function Events() {
                                 <button className="event-cta">
                                     JOIN THE BROTHERHOOD <ArrowRight size={20} />
                                 </button>
-                            </div>
-                            <div className="featured-image-container">
-                                <img src="/night_of_hope_card.png?v=1" alt="Night of Hope" className="featured-card-img" />
                             </div>
                         </EventCard>
 
@@ -159,47 +158,43 @@ function Events() {
 
                 <style>{`
                 .featured-event-card { 
-                    background: #000;
+                    background-image: url('/night_of_hope_card.png?v=1');
+                    background-size: cover;
+                    background-position: center 25%;
                     box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.1), 0 0 30px rgba(0,0,0,0.3);
                     display: flex;
                     flex-direction: column;
+                    justify-content: space-between;
                     padding: 0;
                     overflow: hidden;
+                    position: relative;
                 }
                 
-                .featured-image-container {
+                .featured-overlay {
                     width: 100%;
-                    flex: 1;
-                    min-height: 250px; /* Base height for mobile */
-                    background: #000;
-                    overflow: hidden;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                }
-
-                .featured-card-img {
-                    width: 100%;
-                    height: 100%;
-                    object-fit: cover;
-                    opacity: 0.9;
-                }
-                
-                .event-content-wrapper {
-                    background: #000;
                     padding: 2.5rem;
-                    width: 100%;
+                    position: relative;
+                    z-index: 2;
                 }
 
+                .top-smoke {
+                    background: linear-gradient(to bottom, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.4) 60%, transparent 100%);
+                }
+
+                .bottom-smoke {
+                    background: linear-gradient(to top, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.6) 50%, transparent 100%);
+                    padding-top: 5rem; /* Room for gradient to breathe */
+                }
+                
                 .event-date { color: var(--warfare-red); opacity: 1; font-weight: 700; letter-spacing: 0.15em; }
                 .event-title { 
                     color: white; 
                     line-height: 0.9; 
-                    margin: 0.5rem 0 1rem 0; 
+                    margin: 0.5rem 0 0 0; 
                     font-size: clamp(2.5rem, 6vw, 4rem); 
                     text-shadow: 0 0 20px rgba(255, 61, 48, 0.3);
                 }
-                .event-description { color: rgba(255,255,255,0.85); fontSize: 1.1rem; max-width: 700px; margin-bottom: 2rem; line-height: 1.6; }
+                .event-description { color: rgba(255,255,255,0.9); fontSize: 1.1rem; max-width: 700px; margin-bottom: 2rem; line-height: 1.6; }
                 .event-details-row { display: flex; gap: 4rem; margin-bottom: 2rem; }
                 .detail-title { color: white; font-size: 0.9rem; margin-bottom: 0.3rem; letter-spacing: 0.1em; opacity: 0.8; }
                 .detail-text { color: white; font-size: 1.1rem; font-weight: 500; }
@@ -272,22 +267,23 @@ function Events() {
                 @media (max-width: 768px) {
                     .event-title { font-size: 2.2rem; }
                     .event-description { font-size: 0.95rem; margin-bottom: 1.5rem; }
-                    .event-details-row { flex-direction: column; gap: 1rem; margin-bottom: 1.5rem; }
+                    .event-details-row { flex-direction: row; flex-wrap: wrap; gap: 2rem; margin-bottom: 1.5rem; }
                     .event-cta { width: 100%; justify-content: center; margin-top: 1rem; }
                     
                     .featured-event-card { 
-                        min-height: 500px; 
+                        min-height: 600px; /* Taller for mobile full-bg */
                     }
-                    .featured-image-container {
-                        min-height: 300px;
+                    .featured-overlay {
+                        padding: 1.5rem;
+                    }
+                    .bottom-smoke {
+                        padding-top: 8rem;
                     }
                     
                     .logistics-card { 
                         aspect-ratio: 1/1; 
                         min-height: 350px; 
                     }
-                    
-                    .event-content-wrapper { padding: 1.5rem; }
                 }
             `}</style>
             </div>
