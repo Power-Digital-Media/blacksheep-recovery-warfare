@@ -67,7 +67,7 @@ const DynamicBackground = ({ backgrounds = {} }) => {
                     background-size: cover;
                     background-position: center;
                     filter: blur(8px) brightness(0.5) saturate(1.2); /* Reduced blur for clarity */
-                    transform: scale(1.15);
+                    transform: scale(1.05); /* Reduced scale to "zoom out" */
                 }
 
                 .dynamic-bg-overlay {
