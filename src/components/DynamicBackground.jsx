@@ -9,6 +9,15 @@ const DynamicBackground = ({ backgrounds = {} }) => {
             : `url(https://img.youtube.com/vi/${img}/maxresdefault.jpg)`;
     };
 
+    const [isMobile, setIsMobile] = React.useState(false);
+
+    React.useEffect(() => {
+        const checkMobile = () => setIsMobile(window.innerWidth <= 768);
+        checkMobile();
+        window.addEventListener('resize', checkMobile);
+        return () => window.removeEventListener('resize', checkMobile);
+    }, []);
+
     // Filter out backgrounds with negligible intensity to optimize DOM
     const activeLayers = Object.entries(backgrounds).filter(([_, intensity]) => intensity > 0.01);
 
@@ -20,12 +29,12 @@ const DynamicBackground = ({ backgrounds = {} }) => {
                 {activeLayers.map(([id, intensity]) => (
                     <motion.div
                         key={id}
-                        initial={{ opacity: 0, scale: 1.08 }}
+                        initial={{ opacity: 0, scale: isMobile ? 1 : 1.08 }}
                         animate={{
                             opacity: intensity,
-                            scale: 1 + (1 - intensity) * 0.08 // Subdued zoom-out effect as it activates
+                            scale: isMobile ? 1 : (1 + (1 - intensity) * 0.08)
                         }}
-                        exit={{ opacity: 0, scale: 1.08 }}
+                        exit={{ opacity: 0, scale: isMobile ? 1 : 1.08 }}
                         transition={{
                             opacity: { duration: 0.2, ease: "linear" },
                             scale: { duration: 1.2, ease: "easeOut" }, // Slow, cinematic zoom

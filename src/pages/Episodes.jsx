@@ -32,10 +32,6 @@ const EpisodeCard = ({ eps, index, gridClass, onActiveChange, onClick }) => {
             ref={cardRef}
             layoutId={`card-${eps.id}`}
             className={`${gridClass} bento-card episode-card`}
-            initial={{ opacity: 0, y: 50 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-50px" }}
-            transition={{ duration: 0.5, delay: index * 0.1 }}
             onMouseEnter={() => onActiveChange(eps.ytId, 1)}
             onMouseLeave={() => onActiveChange(eps.ytId, 0)}
             onClick={onClick}
