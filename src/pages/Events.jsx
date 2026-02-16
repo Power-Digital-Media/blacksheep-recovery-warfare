@@ -13,13 +13,14 @@ const EventCard = ({ id, image, children, className, onActiveChange }) => {
 
     const intensity = useTransform(
         scrollYProgress,
-        [0, 0.35, 0.5, 0.65, 1],
-        [0, 0, 1, 0, 0]
+        [0, 0.1, 0.5, 0.9, 1], // Entering -> Active -> CENTER -> Active -> Exit
+        [0, 0.8, 1, 0.8, 0]    // High floor to prevent dip to black
     );
 
     React.useEffect(() => {
         const unsubscribe = intensity.on("change", (latest) => {
-            if (latest > 0.1) {
+            // Ultra-low threshold for instant pre-dissolve
+            if (latest > 0.01) {
                 onActiveChange(image, latest);
             }
         });
