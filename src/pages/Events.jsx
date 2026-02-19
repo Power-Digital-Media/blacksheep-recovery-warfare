@@ -65,7 +65,7 @@ function Events() {
                 {/* CINEMATIC HERO */}
                 <section className="cinematic-section graphic-hero" style={{ backgroundImage: 'url("/studio_hero.jpg")' }}>
                     <div className="image-overlay"></div>
-                    <div className="cinematic-content reveal">
+                    <div className="cinematic-content">
                         <span className="emergency-text">Fellowship & Recovery</span>
                         <h1>THE<br />GATHERINGS</h1>
                         <p className="narrative-text">
