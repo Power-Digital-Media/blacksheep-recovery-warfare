@@ -76,7 +76,7 @@ function Home() {
 
     return (
         <>
-            <DynamicBackground backgrounds={bgMap} blur="4px" bgSize={bgSizeConfig} />
+            <DynamicBackground backgrounds={bgMap} blur="0px" bgSize={bgSizeConfig} />
             <div className="animate-in" style={{ position: 'relative', zIndex: 1 }}>
                 {/* CINEMATIC HERO */}
                 <section className="cinematic-section" style={{ backgroundImage: 'url("/john_gallagher_host.png")' }}>
