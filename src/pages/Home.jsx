@@ -37,6 +37,36 @@ const HoloCard = ({ bgImage, onActiveChange, children, ...rest }) => {
 };
 
 function Home() {
+    const [bgMap, setBgMap] = useState({});
+
+    const handleActiveChange = useCallback((id, intensity) => {
+        if (!id) return;
+        setBgMap(prev => {
+            const currentIntensity = prev[id] || 0;
+            if (Math.abs(currentIntensity - intensity) < 0.01) return prev;
+            const next = { ...prev };
+            if (intensity <= 0.01) {
+                delete next[id];
+            } else {
+                next[id] = intensity;
+            }
+            return next;
+        });
+    }, []);
+
+    useEffect(() => {
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+        return () => observer.disconnect();
+    }, []);
+
     const bgSizeConfig = {
         '/images/blacksheep/Blacksheep SP Collection/SP_TALL.png': 'contain',
         '/images/blacksheep/Blacksheep FB Collection/FB_Tall Both Holding.png': 'contain',
