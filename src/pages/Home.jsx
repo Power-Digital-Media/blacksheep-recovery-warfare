@@ -87,6 +87,9 @@ function Home() {
                     </div>
                 </section>
 
+                {/* ── BLENDER: hero → cards ── */}
+                <div className="section-blender blender-below" />
+
                 <div className="container" style={{ paddingTop: 'clamp(4rem, 8vw, 8rem)' }}>
                     <div className="bento-grid" style={{ marginBottom: 0 }}>
                         {/* MISSION CORE */}
@@ -311,6 +314,9 @@ function Home() {
                     </div>
                 </div>
 
+                {/* ── BLENDER: cards → Foundation ── */}
+                <div className="section-blender blender-above" />
+
                 {/* NARRATIVE BREAK: THE GRIT */}
                 <section className="cinematic-section graphic-hero" style={{ backgroundImage: 'url("/skit_crew_dramatic.jpg")' }}>
                     <div className="image-overlay"></div>
@@ -324,6 +330,9 @@ function Home() {
                         </p>
                     </div>
                 </section>
+
+                {/* ── BLENDER: Foundation → bottom cards ── */}
+                <div className="section-blender blender-below" />
 
                 <div className="container">
                     <div className="bento-grid" style={{ marginTop: 'clamp(4rem, 10vw, 8rem)' }}>
@@ -393,6 +402,21 @@ function Home() {
                     .stat-label { 
                         opacity: 0.5; 
                         font-size: 0.8rem;
+                    }
+                    .section-blender {
+                        position: relative;
+                        z-index: 2;
+                        height: 150px;
+                        margin-top: -150px;
+                        pointer-events: none;
+                    }
+                    .blender-below {
+                        background: linear-gradient(to bottom, #000 0%, transparent 100%);
+                    }
+                    .blender-above {
+                        margin-top: 0;
+                        margin-bottom: -150px;
+                        background: linear-gradient(to top, #000 0%, transparent 100%);
                     }
                     .warfare-report-card { 
                         background: #000;
