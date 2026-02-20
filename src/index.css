@@ -187,7 +187,8 @@ nav {
 }
 
 .bento-card:hover {
-  border-color: rgba(255, 59, 48, 0.4);
+  border-color: rgba(var(--glow-rgb, 255, 59, 48), 0.8);
+  box-shadow: 0 0 50px rgba(var(--glow-rgb, 255, 59, 48), 0.35), inset 0 0 20px rgba(var(--glow-rgb, 255, 59, 48), 0.15);
 }
 
 /* Large Impact Headings */

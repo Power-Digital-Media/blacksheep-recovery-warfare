@@ -1,53 +1,7 @@
 import React, { useEffect } from 'react'
 import { ShoppingBag, ArrowRight, Star } from 'lucide-react'
-
-// Dynamic product array based on the 6 uploaded transparent PNGs.
-const merchItems = [
-    {
-        id: 'straight-outta',
-        name: 'Straight Outta Darkness Tee',
-        price: '$35.00',
-        desc: 'Colossians 1:13. Remind them where you came from and who brought you out.',
-        image: '/images/Black Sheep Merch Upscaled website/Straight Outta Darkness.png',
-        badge: 'Top Seller'
-    },
-    {
-        id: 'hoodie',
-        name: 'Black Sheep Signature Hoodie',
-        price: '$65.00',
-        desc: 'Heavyweight cotton. Double-stitched for the battlefield. Wear the message.',
-        image: '/images/Black Sheep Merch Upscaled website/Hoodie.png',
-        badge: 'Featured Release'
-    },
-    {
-        id: 'iam-blk',
-        name: 'I AM A Black Sheep Tee',
-        price: '$35.00',
-        desc: 'Declare your identity in Christ proudly. Minimalist tactical design.',
-        image: '/images/Black Sheep Merch Upscaled website/I_Am_BLK_Shp.png'
-    },
-    {
-        id: 'ww-jb',
-        name: 'Wilderness Warfare Tee',
-        price: '$35.00',
-        desc: 'Equipped for the fight, armed with His word. Built for the frontline.',
-        image: '/images/Black Sheep Merch Upscaled website/WW_JB.png'
-    },
-    {
-        id: 'ts-blk',
-        name: 'Classic Logo Tee (Black)',
-        price: '$30.00',
-        desc: 'Premium combed cotton. Soft, durable, and ready for everyday action.',
-        image: '/images/Black Sheep Merch Upscaled website/BS_TS_Blk.png'
-    },
-    {
-        id: 'ts-pnk',
-        name: 'Classic Logo Tee (Pink)',
-        price: '$30.00',
-        desc: 'Stand out and bear witness with the vibrant signature logo tee.',
-        image: '/images/Black Sheep Merch Upscaled website/BS_TS_PNK.png'
-    }
-];
+import { Link } from 'react-router-dom'
+import { merchItems } from '../data/merchData'
 
 function Merch() {
     useEffect(() => {
@@ -66,7 +20,7 @@ function Merch() {
     return (
         <div className="animate-in">
             {/* CINEMATIC HERO */}
-            <section className="cinematic-section" style={{ backgroundImage: 'url("https://images.unsplash.com/photo-1556906781-9a412961c28c?auto=format&fit=crop&q=80&w=2000")' }}>
+            <section className="cinematic-section" style={{ backgroundImage: 'url("/images/merch_page_hero.png")' }}>
                 <div className="image-overlay" style={{ background: 'linear-gradient(to bottom, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.2) 50%, rgba(0,0,0,1) 100%)' }}></div>
                 <div className="cinematic-content reveal">
                     <span className="emergency-text">Identity in Christ</span>
@@ -82,7 +36,7 @@ function Merch() {
                 <div className="bento-grid">
                     {/* DYNAMIC PRODUCT GRID */}
                     {merchItems.map((item, index) => (
-                        <div key={item.id} className="bento-card span-4 row-5 reveal product-card" style={{ transitionDelay: `${index * 0.1}s` }}>
+                        <div key={item.id} className="bento-card span-4 row-5 reveal product-card" style={{ transitionDelay: `${index * 0.1}s`, '--glow-rgb': item.glowColor || '57, 255, 20' }}>
                             <div className="product-image-container">
                                 <img src={item.image} className="product-image" alt={item.name} />
                             </div>
@@ -91,9 +45,9 @@ function Merch() {
                             <p className="product-description">{item.desc}</p>
                             <div className="product-footer">
                                 <span className="product-price">{item.price}</span>
-                                <button className="donate-btn product-cta">
+                                <Link to={`/merch/${item.id}`} className="donate-btn product-cta" style={{ textDecoration: 'none' }}>
                                     GEAR UP <ArrowRight size={18} />
-                                </button>
+                                </Link>
                             </div>
                         </div>
                     ))}
@@ -146,7 +100,7 @@ function Merch() {
 
                 .product-card:hover .product-image {
                     transform: scale(1.08) translateY(-10px);
-                    filter: drop-shadow(0 30px 50px rgba(0,0,0,0.8));
+                    filter: drop-shadow(0 30px 50px rgba(0,0,0,0.8)) drop-shadow(0 0 25px rgba(var(--glow-rgb), 0.4));
                 }
 
                 .mt-4 {
