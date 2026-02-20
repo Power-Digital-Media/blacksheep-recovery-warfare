@@ -14,7 +14,38 @@ function Merch() {
         }, { threshold: 0.1 });
 
         document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-        return () => observer.disconnect();
+
+        // Mobile Scroll Glow Logic
+        const handleScroll = () => {
+            if (window.innerWidth > 768) return; // Only process on mobile
+
+            const cards = document.querySelectorAll('.product-card');
+            const windowCenter = window.innerHeight / 2;
+
+            cards.forEach(card => {
+                const rect = card.getBoundingClientRect();
+                const cardCenter = rect.top + rect.height / 2;
+
+                // Calculate distance from center (0 = perfectly centered)
+                const distance = Math.abs(windowCenter - cardCenter);
+                const maxDistance = window.innerHeight / 2.5; // Starts glowing earlier
+
+                let intensity = 1 - (distance / maxDistance);
+                intensity = Math.max(0, Math.min(1, intensity));
+
+                // Apply a slight curve to the intensity so it pops more in the middle
+                const curvedIntensity = Math.pow(intensity, 1.5).toFixed(2);
+                card.style.setProperty('--scroll-intensity', curvedIntensity);
+            });
+        };
+
+        window.addEventListener('scroll', handleScroll, { passive: true });
+        handleScroll(); // Trigger once on mount
+
+        return () => {
+            observer.disconnect();
+            window.removeEventListener('scroll', handleScroll);
+        };
     }, []);
 
     return (
@@ -159,6 +190,19 @@ function Merch() {
                 @media (max-width: 768px) {
                     .product-card, .review-card, .logistics-card {
                         grid-column: span 12;
+                    }
+                    /* Dynamic Mobile Scroll Glow */
+                    .product-card {
+                        transition: all 0.1s ease-out;
+                        /* The alpha/intensity channels scale based on distance to the center */
+                        box-shadow: 0 0 calc(80px * var(--scroll-intensity, 0)) rgba(var(--glow-rgb), calc(0.6 * var(--scroll-intensity, 0))), 
+                                    inset 0 0 calc(30px * var(--scroll-intensity, 0)) rgba(var(--glow-rgb), calc(0.2 * var(--scroll-intensity, 0))) !important;
+                        border-color: rgba(var(--glow-rgb), calc(0.2 + (0.6 * var(--scroll-intensity, 0)))) !important;
+                        transform: scale(calc(1 + (0.04 * var(--scroll-intensity, 0))));
+                    }
+                    .product-card .product-image {
+                        /* Amplify mascot shadow as well */
+                        filter: drop-shadow(0 20px 40px rgba(0,0,0,0.8)) drop-shadow(0 0 calc(40px * var(--scroll-intensity, 0)) rgba(var(--glow-rgb), calc(0.8 * var(--scroll-intensity, 0))));
                     }
                     .product-footer { flex-direction: column; align-items: flex-start; gap: 1rem; }
                     .product-cta { width: 100%; justify-content: center; }
