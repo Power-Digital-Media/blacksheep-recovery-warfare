@@ -65,26 +65,37 @@ function Episodes() {
         offset: ["start end", "end start"]
     });
 
-    // Mobile-only Hero Background Transform (/dr_monica_webb_cohost.jpg)
-    // On mobile, it starts visible and fades out as we hit the grid
-    const heroOpacity = useTransform(scrollYProgress, [0, 0.1, 0.25], [1, 1, 0]);
+    // Mobile-only Mid-scroll Hero Integration (/dr_monica_webb_cohost.jpg)
+    // On mobile, she re-appears in the middle of the scroll journey
+    const mobileHeroOpacity = useTransform(scrollYProgress, [0.35, 0.5, 0.6, 0.75], [0, 1, 1, 0]);
 
-    // Seamless Cross-fade Ranges for 2 Images:
+    // Seamless Cross-fade Ranges:
     // Background 1: Prison to Purpose (_WgBM1YGD-4)
-    const opacity1 = useTransform(scrollYProgress, [0.15, 0.35, 0.6, 0.8], [0, 1, 1, 0]);
+    // Desktop: Full scroll / Mobile: First third
+    const opacity1 = useTransform(
+        scrollYProgress,
+        isMobile ? [0, 0.1, 0.35, 0.5] : [0, 0.1, 0.45, 0.7],
+        [0, 1, 1, 0]
+    );
+
     // Background 2: Narrow Path to Redemption (IkWcTAop-N8)
-    const opacity2 = useTransform(scrollYProgress, [0.6, 0.8, 0.95, 1], [0, 1, 1, 1]);
+    // Desktop: Second half / Mobile: Final third
+    const opacity2 = useTransform(
+        scrollYProgress,
+        isMobile ? [0.6, 0.75, 0.9, 1] : [0.45, 0.7, 0.9, 1],
+        [0, 1, 1, 1]
+    );
 
     useEffect(() => {
         const syncBgs = () => {
             const next = {};
-            const vHero = heroOpacity.get();
             const v1 = opacity1.get();
             const v2 = opacity2.get();
+            const vMidHero = mobileHeroOpacity.get();
 
-            // Only add hero to bgMap if we are on mobile
-            if (isMobile && vHero > 0.01) {
-                next['/dr_monica_webb_cohost.jpg'] = vHero;
+            // Add Hero to hologram sequence IF we are on mobile AND she's in her scroll window
+            if (isMobile && vMidHero > 0.01) {
+                next['/dr_monica_webb_cohost.jpg'] = vMidHero;
             }
 
             if (v1 > 0.01) next['_WgBM1YGD-4'] = v1;
@@ -93,16 +104,16 @@ function Episodes() {
             setBgMap(next);
         };
 
-        const unsubHero = heroOpacity.on("change", syncBgs);
         const unsub1 = opacity1.on("change", syncBgs);
         const unsub2 = opacity2.on("change", syncBgs);
+        const unsubMid = mobileHeroOpacity.on("change", syncBgs);
 
         return () => {
-            unsubHero();
             unsub1();
             unsub2();
+            unsubMid();
         };
-    }, [isMobile, heroOpacity, opacity1, opacity2]);
+    }, [isMobile, opacity1, opacity2, mobileHeroOpacity]);
 
     useEffect(() => {
         const observer = new IntersectionObserver((entries) => {
@@ -183,13 +194,7 @@ function Episodes() {
             />
             <div className="animate-in" style={{ position: 'relative', zIndex: 1 }}>
                 {/* CINEMATIC HERO */}
-                <section
-                    className="cinematic-section"
-                    style={{
-                        backgroundImage: isMobile ? 'none' : 'url("/dr_monica_webb_cohost.jpg")',
-                        backgroundColor: isMobile ? 'transparent' : 'black'
-                    }}
-                >
+                <section className="cinematic-section" style={{ backgroundImage: 'url("/dr_monica_webb_cohost.jpg")' }}>
                     <div className="image-overlay"></div>
                     <motion.div
                         initial={{ opacity: 0, y: 30 }}
