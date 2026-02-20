@@ -265,6 +265,17 @@ function Episodes() {
                 </div>
 
                 <style>{`
+                nav { margin-bottom: 0 !important; }
+                .cinematic-section { 
+                    background-position: center 15% !important; 
+                }
+
+                @media (max-width: 768px) {
+                    .cinematic-section {
+                        background-position: center center !important;
+                    }
+                }
+
                 .episode-card { display: flex; flex-direction: column; transition: border-color 0.3s ease, background 0.3s ease; }
                 /* Make cards slightly transparent to show background */
                 .bento-card { background: rgba(22, 22, 23, 0.7); backdrop-filter: blur(30px); }
