@@ -59,6 +59,14 @@ const EpisodeCard = ({ eps, index, gridClass, onActiveChange, onClick }) => {
                     WATCH NOW <ArrowRight size={18} />
                 </div>
             </div>
+
+            {index === 0 && (
+                <img
+                    src="/images/blacksheep/Blacksheep YT Collection/YT_TALL.png"
+                    alt="YouTube Sheep"
+                    className="featured-sheep-overlay"
+                />
+            )}
         </motion.div>
     );
 };
@@ -225,6 +233,30 @@ function Episodes() {
                 .episode-desc { margin-top: 0; margin-bottom: 2rem; font-size: 0.95rem; }
                 .episode-cta { margin-top: auto; display: flex; align-items: center; gap: 0.5rem; color: var(--text-primary); font-weight: 700; letter-spacing: 0.05em; font-size: 0.8rem; pointer-events: none; }
                 
+                .featured-sheep-overlay {
+                    position: absolute;
+                    bottom: -15px;
+                    right: -10px;
+                    width: 260px;
+                    height: auto;
+                    object-fit: contain;
+                    pointer-events: none;
+                    filter: drop-shadow(0 0 30px rgba(0, 0, 0, 0.5));
+                    z-index: 10;
+                }
+
+                @media (max-width: 1024px) {
+                    .featured-sheep-overlay {
+                        width: 200px;
+                        bottom: -10px;
+                        right: -10px;
+                    }
+                }
+                @media (max-width: 768px) {
+                    .featured-sheep-overlay {
+                        display: none; /* Hide on small mobile to avoid layout chaos */
+                    }
+                }
                 .watch-all-container { text-align: center; padding: 6rem 0; width: 100%; position: relative; z-index: 2; }
                 .watch-all-title { font-size: 2rem; margin-bottom: 2rem; }
                 .watch-all-buttons { display: flex; gap: 1.5rem; justify-content: center; flex-wrap: wrap; }
