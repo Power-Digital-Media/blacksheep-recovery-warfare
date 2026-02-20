@@ -4,9 +4,10 @@ import { motion, AnimatePresence } from 'framer-motion';
 const DynamicBackground = ({ backgrounds = {}, customPositions = {}, blur = '8px' }) => {
     const getUrl = (img) => {
         if (!img) return '';
-        return img.includes('/')
-            ? `url(${img})`
-            : `url(https://img.youtube.com/vi/${img}/maxresdefault.jpg)`;
+        const src = img.includes('/')
+            ? img
+            : `https://img.youtube.com/vi/${img}/maxresdefault.jpg`;
+        return `url("${src}")`;
     };
 
     const [isMobile, setIsMobile] = React.useState(false);
