@@ -1,6 +1,54 @@
 import React, { useEffect } from 'react'
 import { ShoppingBag, ArrowRight, Star } from 'lucide-react'
 
+// Dynamic product array based on the 6 uploaded transparent PNGs.
+const merchItems = [
+    {
+        id: 'straight-outta',
+        name: 'Straight Outta Darkness Tee',
+        price: '$35.00',
+        desc: 'Colossians 1:13. Remind them where you came from and who brought you out.',
+        image: '/images/Black Sheep Merch Upscaled website/Straight Outta Darkness.png',
+        badge: 'Top Seller'
+    },
+    {
+        id: 'hoodie',
+        name: 'Black Sheep Signature Hoodie',
+        price: '$65.00',
+        desc: 'Heavyweight cotton. Double-stitched for the battlefield. Wear the message.',
+        image: '/images/Black Sheep Merch Upscaled website/Hoodie.png',
+        badge: 'Featured Release'
+    },
+    {
+        id: 'iam-blk',
+        name: 'I AM A Black Sheep Tee',
+        price: '$35.00',
+        desc: 'Declare your identity in Christ proudly. Minimalist tactical design.',
+        image: '/images/Black Sheep Merch Upscaled website/I_Am_BLK_Shp.png'
+    },
+    {
+        id: 'ww-jb',
+        name: 'Wilderness Warfare Tee',
+        price: '$35.00',
+        desc: 'Equipped for the fight, armed with His word. Built for the frontline.',
+        image: '/images/Black Sheep Merch Upscaled website/WW_JB.png'
+    },
+    {
+        id: 'ts-blk',
+        name: 'Classic Logo Tee (Black)',
+        price: '$30.00',
+        desc: 'Premium combed cotton. Soft, durable, and ready for everyday action.',
+        image: '/images/Black Sheep Merch Upscaled website/BS_TS_Blk.png'
+    },
+    {
+        id: 'ts-pnk',
+        name: 'Classic Logo Tee (Pink)',
+        price: '$30.00',
+        desc: 'Stand out and bear witness with the vibrant signature logo tee.',
+        image: '/images/Black Sheep Merch Upscaled website/BS_TS_PNK.png'
+    }
+];
+
 function Merch() {
     useEffect(() => {
         const observer = new IntersectionObserver((entries) => {
@@ -19,7 +67,7 @@ function Merch() {
         <div className="animate-in">
             {/* CINEMATIC HERO */}
             <section className="cinematic-section" style={{ backgroundImage: 'url("https://images.unsplash.com/photo-1556906781-9a412961c28c?auto=format&fit=crop&q=80&w=2000")' }}>
-                <div className="image-overlay"></div>
+                <div className="image-overlay" style={{ background: 'linear-gradient(to bottom, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.2) 50%, rgba(0,0,0,1) 100%)' }}></div>
                 <div className="cinematic-content reveal">
                     <span className="emergency-text">Identity in Christ</span>
                     <h1>TACTICAL<br />APPAREL</h1>
@@ -30,29 +78,30 @@ function Merch() {
                 </div>
             </section>
 
-            <div className="container" style={{ marginTop: 'clamp(3rem, 10vw, 8rem)' }}>
+            <div className="container" style={{ marginTop: 'clamp(3rem, 10vw, 8rem)', paddingBottom: '4rem' }}>
                 <div className="bento-grid">
-                    {/* FEATURED ITEM */}
-                    <div className="bento-card span-6 row-6 reveal product-card">
-                        <div className="product-image-container">
-                            <img src="/logo.png" className="product-placeholder" alt="placeholder" />
+                    {/* DYNAMIC PRODUCT GRID */}
+                    {merchItems.map((item, index) => (
+                        <div key={item.id} className="bento-card span-4 row-5 reveal product-card" style={{ transitionDelay: `${index * 0.1}s` }}>
+                            <div className="product-image-container">
+                                <img src={item.image} className="product-image" alt={item.name} />
+                            </div>
+                            <span className="emergency-text">{item.badge || 'New Arrival'}</span>
+                            <h2 className="product-title">{item.name}</h2>
+                            <p className="product-description">{item.desc}</p>
+                            <div className="product-footer">
+                                <span className="product-price">{item.price}</span>
+                                <button className="donate-btn product-cta">
+                                    GEAR UP <ArrowRight size={18} />
+                                </button>
+                            </div>
                         </div>
-                        <span className="emergency-text">Featured Release</span>
-                        <h2 className="product-title">Black Sheep Signature Hoodie</h2>
-                        <p className="product-description">
-                            Heavyweight 450GSM cotton. Double-stitched for the battlefield.
-                            Minimalist embroidery on left chest.
-                        </p>
-                        <div className="product-footer">
-                            <span className="product-price">$65.00</span>
-                            <button className="donate-btn product-cta">
-                                ADD TO GEAR <ArrowRight size={18} />
-                            </button>
-                        </div>
-                    </div>
+                    ))}
+                </div>
 
+                <div className="bento-grid mt-4">
                     {/* MISSION SUPPORT PILLAR */}
-                    <div className="bento-card span-6 row-3 reveal review-card">
+                    <div className="bento-card span-8 row-3 reveal review-card">
                         <div className="star-row">
                             {[1, 2, 3, 4, 5].map(i => <Star key={i} size={16} fill="white" color="white" />)}
                         </div>
@@ -64,18 +113,12 @@ function Merch() {
                         <div className="review-attribution">— VERIFIED SOLDIER</div>
                     </div>
 
-                    {/* TACTICAL COLLECTION */}
-                    <div className="bento-card span-3 row-3 reveal logistics-card">
-                        <ShoppingBag size={24} className="logistics-icon" />
-                        <h2>The Foundry</h2>
-                        <p>New arrivals and limited edition drops.</p>
-                        <div className="card-link-red">EXPLORE ALL GEAR →</div>
-                    </div>
-
                     {/* LOGISTICS */}
-                    <div className="bento-card span-3 row-3 reveal logistics-card">
+                    <div className="bento-card span-4 row-3 reveal logistics-card">
+                        <ShoppingBag size={24} className="logistics-icon" />
                         <h2>Global Logistics</h2>
-                        <p>Fast shipping. Secure tracking. International reach available.</p>
+                        <p>Fast shipping. Secure tracking. Mission ready deliveries.</p>
+                        <div className="card-link-red">EXPLORE SUPPORT →</div>
                     </div>
                 </div>
             </div>
@@ -83,28 +126,44 @@ function Merch() {
             <style>{`
                 .product-image-container { 
                     width: 100%; 
-                    height: clamp(200px, 40vw, 350px); 
+                    height: clamp(250px, 30vw, 350px); 
                     background: rgba(255,255,255,0.02); 
                     border-radius: 24px; 
                     display: flex; 
                     align-items: center; 
                     justify-content: center; 
                     margin-bottom: 2rem; 
+                    position: relative;
                 }
-                .product-placeholder { 
-                    width: clamp(80px, 20vw, 150px); 
-                    opacity: 0.1; 
-                    filter: grayscale(1); 
+                
+                .product-image { 
+                    max-width: 85%; 
+                    max-height: 85%; 
+                    object-fit: contain; 
+                    filter: drop-shadow(0 20px 40px rgba(0,0,0,0.6));
+                    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), filter 0.6s ease;
                 }
+
+                .product-card:hover .product-image {
+                    transform: scale(1.08) translateY(-10px);
+                    filter: drop-shadow(0 30px 50px rgba(0,0,0,0.8));
+                }
+
+                .mt-4 {
+                    margin-top: 1.5rem;
+                }
+
                 .product-title {
-                    font-size: clamp(1.5rem, 4vw, 2.2rem);
+                    font-size: clamp(1.4rem, 3vw, 1.8rem);
                     margin-bottom: 0.5rem;
+                    line-height: 1.2;
                 }
                 .product-description { 
                     font-size: 1.05rem; 
                     margin-bottom: 2rem; 
                     color: var(--text-secondary);
                     line-height: 1.5;
+                    flex-grow: 1;
                 }
                 .product-footer { 
                     margin-top: auto; 
@@ -121,7 +180,7 @@ function Merch() {
                 .product-cta { 
                     border: none; 
                     cursor: pointer; 
-                    padding: 15px 30px !important; 
+                    padding: 12px 24px !important; 
                     display: flex;
                     align-items: center;
                     gap: 10px;
@@ -134,14 +193,22 @@ function Merch() {
                 .review-attribution { margin-top: auto; color: white; font-weight: bold; font-size: 0.8rem; letter-spacing: 1px; }
 
                 .logistics-card { display: flex; flex-direction: column; }
-                .logistics-icon { margin-bottom: 1.5rem; }
+                .logistics-icon { margin-bottom: 1.5rem; color: var(--text-primary); }
                 .card-link-red { margin-top: auto; font-weight: bold; color: var(--emergency-red); font-size: 0.85rem; cursor: pointer; }
 
+                @media (max-width: 1024px) {
+                    .product-card {
+                        grid-column: span 6;
+                    }
+                }
+
                 @media (max-width: 768px) {
+                    .product-card, .review-card, .logistics-card {
+                        grid-column: span 12;
+                    }
                     .product-footer { flex-direction: column; align-items: flex-start; gap: 1rem; }
                     .product-cta { width: 100%; justify-content: center; }
-                    .product-price { font-size: 1.5rem; }
-                    .product-image-container { height: 250px; margin-bottom: 1.5rem; }
+                    .product-image-container { height: 300px; }
                 }
             `}</style>
         </div>
