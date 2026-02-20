@@ -1,41 +1,16 @@
-import React, { useState } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion'
 import { Play, Youtube, Radio, ArrowRight } from 'lucide-react'
 import DynamicBackground from '../components/DynamicBackground'
 import EpisodeModal from '../components/EpisodeModal'
 
-const EpisodeCard = ({ eps, index, gridClass, onActiveChange, onClick }) => {
-    const cardRef = React.useRef(null);
-    const { scrollYProgress } = useScroll({
-        target: cardRef,
-        offset: ["start end", "end start"]
-    });
-
-    // Calculate intensity based on how centered the card is
-    // Widen range so backgrounds overlap and stay "on" longer
-    const intensity = useTransform(
-        scrollYProgress,
-        [0, 0.1, 0.5, 0.9, 1], // Entering -> Active -> CENTER -> Active -> Exit
-        [0, 0.8, 1, 0.8, 0]    // High floor to prevent dip to black
-    );
-
-    // Sync state with parent
-    React.useEffect(() => {
-        const unsubscribe = intensity.on("change", (latest) => {
-            onActiveChange(eps.ytId, latest);
-        });
-        return () => unsubscribe();
-    }, [intensity, eps.ytId, onActiveChange]);
-
+const EpisodeCard = ({ eps, index, gridClass, onClick }) => {
     return (
         <motion.div
-            ref={cardRef}
             layoutId={`card-${eps.id}`}
             className={`${gridClass} bento-card episode-card`}
-            onMouseEnter={() => onActiveChange(eps.ytId, 1)}
-            onMouseLeave={() => onActiveChange(eps.ytId, 0)}
             onClick={onClick}
-            style={{ cursor: 'pointer' }}
+            style={{ cursor: 'pointer', position: 'relative' }}
         >
             <div className="video-thumb-container">
                 <div className="thumb-hover video-link" style={{ pointerEvents: 'none' }}>
@@ -74,20 +49,53 @@ const EpisodeCard = ({ eps, index, gridClass, onActiveChange, onClick }) => {
 function Episodes() {
     const [bgMap, setBgMap] = useState({});
     const [selectedEpisode, setSelectedEpisode] = useState(null);
+    const containerRef = useRef(null);
 
-    const handleActiveChange = (id, intensity) => {
-        if (!id) return;
-        setBgMap(prev => {
-            if (prev[id] === intensity) return prev;
-            const next = { ...prev };
-            if (intensity <= 0.01) {
-                delete next[id];
-            } else {
-                next[id] = intensity;
-            }
-            return next;
-        });
-    };
+    // Global scroll tracking for the entire grid area
+    const { scrollYProgress } = useScroll({
+        target: containerRef,
+        offset: ["start end", "end start"]
+    });
+
+    // Seamless Cross-fade Ranges for 2 Images:
+    // Background 1: Prison to Purpose (_WgBM1YGD-4) - Peaks early, stays until mid-scroll
+    const opacity1 = useTransform(scrollYProgress, [0, 0.1, 0.45, 0.7], [0, 1, 1, 0]);
+    // Background 2: Narrow Path to Redemption (IkWcTAop-N8) - Fades in as BG1 fades out, stays until end
+    const opacity2 = useTransform(scrollYProgress, [0.45, 0.7, 0.9, 1], [0, 1, 1, 1]);
+
+    useEffect(() => {
+        const syncBgs = () => {
+            const next = {};
+            const v1 = opacity1.get();
+            const v2 = opacity2.get();
+
+            if (v1 > 0.01) next['_WgBM1YGD-4'] = v1;
+            if (v2 > 0.01) next['IkWcTAop-N8'] = v2;
+
+            setBgMap(next);
+        };
+
+        const unsub1 = opacity1.on("change", syncBgs);
+        const unsub2 = opacity2.on("change", syncBgs);
+
+        return () => {
+            unsub1();
+            unsub2();
+        };
+    }, [opacity1, opacity2]);
+
+    useEffect(() => {
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+        return () => observer.disconnect();
+    }, []);
 
     const episodes = [
         // ... episodes array
@@ -143,7 +151,15 @@ function Episodes() {
 
     return (
         <>
-            <DynamicBackground backgrounds={bgMap} />
+            <DynamicBackground
+                backgrounds={bgMap}
+                blur="0px"
+                bgSize="110%"
+                customPositions={{
+                    '_WgBM1YGD-4': 'center center',
+                    'IkWcTAop-N8': 'center center'
+                }}
+            />
             <div className="animate-in" style={{ position: 'relative', zIndex: 1 }}>
                 {/* CINEMATIC HERO */}
                 <section className="cinematic-section" style={{ backgroundImage: 'url("/dr_monica_webb_cohost.jpg")' }}>
@@ -164,7 +180,7 @@ function Episodes() {
                     </motion.div>
                 </section>
 
-                <div className="container" style={{ marginTop: 'clamp(3rem, 10vw, 8rem)' }}>
+                <div className="container" ref={containerRef} style={{ marginTop: 'clamp(3rem, 10vw, 8rem)' }}>
                     <div className="bento-grid">
                         {episodes.map((eps, index) => {
                             // PRECISE BENTO MAPPING (Handled by global CSS on mobile)
@@ -179,7 +195,6 @@ function Episodes() {
                                     eps={eps}
                                     index={index}
                                     gridClass={gridClass}
-                                    onActiveChange={handleActiveChange}
                                     onClick={() => setSelectedEpisode(eps)}
                                 />
                             );
