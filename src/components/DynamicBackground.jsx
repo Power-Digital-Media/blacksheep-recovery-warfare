@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
-const DynamicBackground = ({ backgrounds = {}, customPositions = {}, blur = '8px' }) => {
+const DynamicBackground = ({ backgrounds = {}, customPositions = {}, blur = '8px', bgSize = 'cover' }) => {
     const getUrl = (img) => {
         if (!img) return '';
         const src = img.includes('/')
@@ -83,9 +83,9 @@ const DynamicBackground = ({ backgrounds = {}, customPositions = {}, blur = '8px
                     left: 0;
                     width: 100%;
                     height: 100%;
-                    background-size: cover;
+                    background-size: ${bgSize};
+                    background-repeat: no-repeat;
                     background-position: center;
-                    background-position: center 25%;
                 }
 
                 .dynamic-bg-overlay {
