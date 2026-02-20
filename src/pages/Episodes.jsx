@@ -271,7 +271,7 @@ function Episodes() {
 
                 @media (max-width: 768px) {
                     .cinematic-section {
-                        background-position: center center !important;
+                        background-position: center 15% !important;
                     }
                 }
 
