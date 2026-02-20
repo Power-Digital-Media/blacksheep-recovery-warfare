@@ -46,6 +46,8 @@ const DynamicBackground = ({ backgrounds = {}, customPositions = {}, blur = '8px
                     ? (1.05 - (intensity * 0.12))
                     : (1 + (1 - intensity) * 0.08);
 
+                const currentBgSize = typeof bgSize === 'object' ? (bgSize[id] || 'cover') : bgSize;
+
                 return (
                     <div
                         key={id}
@@ -58,6 +60,8 @@ const DynamicBackground = ({ backgrounds = {}, customPositions = {}, blur = '8px
                             filter: `blur(${isMobile ? '0px' : blur}) brightness(0.4) saturate(1.1)`,
                             opacity: intensity,
                             transform: `scale(${scale})`,
+                            backgroundSize: currentBgSize,
+                            backgroundRepeat: 'no-repeat',
                             transition: 'opacity 0.15s linear, transform 0.6s ease-out',
                             willChange: 'opacity, transform'
                         }}
@@ -93,9 +97,6 @@ const DynamicBackground = ({ backgrounds = {}, customPositions = {}, blur = '8px
                     left: 0;
                     width: 100%;
                     height: 100%;
-                    background-size: ${bgSize};
-                    background-repeat: no-repeat;
-                    background-position: center;
                 }
 
                 .dynamic-bg-overlay {

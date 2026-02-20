@@ -37,39 +37,16 @@ const HoloCard = ({ bgImage, onActiveChange, children, ...rest }) => {
 };
 
 function Home() {
-    const [bgMap, setBgMap] = useState({});
-
-    const handleActiveChange = useCallback((id, intensity) => {
-        if (!id) return;
-        setBgMap(prev => {
-            const currentIntensity = prev[id] || 0;
-            if (Math.abs(currentIntensity - intensity) < 0.01) return prev;
-            const next = { ...prev };
-            if (intensity <= 0.01) {
-                delete next[id];
-            } else {
-                next[id] = intensity;
-            }
-            return next;
-        });
-    }, []);
-
-    useEffect(() => {
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('active');
-                }
-            });
-        }, { threshold: 0.1 });
-
-        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-        return () => observer.disconnect();
-    }, []);
+    const bgSizeConfig = {
+        '/images/blacksheep/Blacksheep SP Collection/SP_TALL.png': 'contain',
+        '/images/blacksheep/Blacksheep FB Collection/FB_Tall Both Holding.png': 'contain',
+        '/images/blacksheep/Blacksheep YT Collection/YT_TALL.png': 'contain',
+        '/skit_crew_dramatic.jpg': 'cover'
+    };
 
     return (
         <>
-            <DynamicBackground backgrounds={bgMap} blur="4px" bgSize="contain" />
+            <DynamicBackground backgrounds={bgMap} blur="4px" bgSize={bgSizeConfig} />
             <div className="animate-in" style={{ position: 'relative', zIndex: 1 }}>
                 {/* CINEMATIC HERO */}
                 <section className="cinematic-section" style={{ backgroundImage: 'url("/john_gallagher_host.png")' }}>
@@ -86,9 +63,6 @@ function Home() {
                         </div>
                     </div>
                 </section>
-
-                {/* ── BLENDER: hero → cards ── */}
-                <div className="section-blender blender-below" />
 
                 <div className="container" style={{ paddingTop: 'clamp(4rem, 8vw, 8rem)' }}>
                     <div className="bento-grid" style={{ marginBottom: 0 }}>
@@ -314,12 +288,13 @@ function Home() {
                     </div>
                 </div>
 
-                {/* ── BLENDER: cards → Foundation ── */}
-                <div className="section-blender blender-above" />
-
-                {/* NARRATIVE BREAK: THE GRIT */}
-                <section className="cinematic-section graphic-hero" style={{ backgroundImage: 'url("/skit_crew_dramatic.jpg")' }}>
-                    <div className="image-overlay"></div>
+                {/* NARRATIVE BREAK: THE GRIT — Hologram-tracked */}
+                <HoloCard
+                    bgImage="/skit_crew_dramatic.jpg"
+                    onActiveChange={handleActiveChange}
+                    className="cinematic-section graphic-hero"
+                    style={{ background: 'transparent' }}
+                >
                     <div className="cinematic-content reveal">
                         <span className="emergency-text light">The Foundation</span>
                         <h2 className="massive-heading">From the Shadows of Mississippi to the Light of the World.</h2>
@@ -329,10 +304,7 @@ function Home() {
                             crucifixion and the power of the resurrection.
                         </p>
                     </div>
-                </section>
-
-                {/* ── BLENDER: Foundation → bottom cards ── */}
-                <div className="section-blender blender-below" />
+                </HoloCard>
 
                 <div className="container">
                     <div className="bento-grid" style={{ marginTop: 'clamp(4rem, 10vw, 8rem)' }}>
@@ -402,21 +374,6 @@ function Home() {
                     .stat-label { 
                         opacity: 0.5; 
                         font-size: 0.8rem;
-                    }
-                    .section-blender {
-                        position: relative;
-                        z-index: 2;
-                        height: 150px;
-                        margin-top: -150px;
-                        pointer-events: none;
-                    }
-                    .blender-below {
-                        background: linear-gradient(to bottom, #000 0%, transparent 100%);
-                    }
-                    .blender-above {
-                        margin-top: 0;
-                        margin-bottom: -150px;
-                        background: linear-gradient(to top, #000 0%, transparent 100%);
                     }
                     .warfare-report-card { 
                         background: #000;
