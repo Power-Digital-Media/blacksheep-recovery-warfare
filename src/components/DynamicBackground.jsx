@@ -1,5 +1,4 @@
 import React from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
 
 const DynamicBackground = ({ backgrounds = {}, customPositions = {}, blur = '8px', bgSize = 'cover' }) => {
     const getUrl = (img) => {
@@ -11,6 +10,7 @@ const DynamicBackground = ({ backgrounds = {}, customPositions = {}, blur = '8px
     };
 
     const [isMobile, setIsMobile] = React.useState(false);
+    const [knownLayers, setKnownLayers] = React.useState({});
 
     React.useEffect(() => {
         const checkMobile = () => setIsMobile(window.innerWidth <= 768);
@@ -19,41 +19,51 @@ const DynamicBackground = ({ backgrounds = {}, customPositions = {}, blur = '8px
         return () => window.removeEventListener('resize', checkMobile);
     }, []);
 
-    // Filter out backgrounds with negligible intensity to optimize DOM
-    const activeLayers = Object.entries(backgrounds).filter(([_, intensity]) => intensity > 0.01);
+    // Track all layers we've ever seen so they stay in the DOM (no mount/unmount flickering)
+    React.useEffect(() => {
+        setKnownLayers(prev => {
+            const next = { ...prev };
+            let changed = false;
+            for (const id of Object.keys(backgrounds)) {
+                if (!(id in next)) {
+                    next[id] = true;
+                    changed = true;
+                }
+            }
+            return changed ? next : prev;
+        });
+    }, [backgrounds]);
+
+    const allLayerIds = Object.keys(knownLayers);
 
     return (
         <div className="dynamic-background-container">
             <div className="dynamic-bg-base" />
 
-            <AnimatePresence>
-                {activeLayers.map(([id, intensity]) => (
-                    <motion.div
+            {allLayerIds.map((id) => {
+                const intensity = backgrounds[id] || 0;
+                const scale = isMobile
+                    ? (1.05 - (intensity * 0.12))
+                    : (1 + (1 - intensity) * 0.08);
+
+                return (
+                    <div
                         key={id}
-                        initial={{ opacity: 0, scale: isMobile ? 1.05 : 1.08 }}
-                        animate={{
-                            opacity: intensity,
-                            scale: isMobile
-                                ? (1.05 - (intensity * 0.12)) // Deep zoom out for mobile (1.05 -> 0.93)
-                                : (1 + (1 - intensity) * 0.08)
-                        }}
-                        exit={{ opacity: 0, scale: isMobile ? 1.05 : 1.08 }}
-                        transition={{
-                            opacity: { duration: 0.2, ease: "linear" },
-                            scale: { duration: 1.2, ease: "easeOut" },
-                            default: { duration: 0.8, ease: "easeInOut" }
-                        }}
                         className="dynamic-bg-layer"
                         style={{
                             backgroundImage: getUrl(id),
                             zIndex: 2,
                             transformOrigin: 'center center',
                             backgroundPosition: customPositions[id] || 'center 25%',
-                            filter: `blur(${isMobile ? '0px' : blur}) brightness(0.4) saturate(1.1)`
+                            filter: `blur(${isMobile ? '0px' : blur}) brightness(0.4) saturate(1.1)`,
+                            opacity: intensity,
+                            transform: `scale(${scale})`,
+                            transition: 'opacity 0.15s linear, transform 0.6s ease-out',
+                            willChange: 'opacity, transform'
                         }}
                     />
-                ))}
-            </AnimatePresence>
+                );
+            })}
 
             <div className="dynamic-bg-overlay" />
 
