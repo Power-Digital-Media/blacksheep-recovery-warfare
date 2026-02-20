@@ -180,20 +180,8 @@ const Footer = () => {
                 </div>
             </div>
 
-            {/* Scanning Line Animation */}
-            <motion.div
-                animate={{ top: ['0%', '100%'] }}
-                transition={{ duration: 10, repeat: Infinity, ease: 'linear' }}
-                style={{
-                    position: 'absolute',
-                    left: 0,
-                    width: '100%',
-                    height: '1px',
-                    background: 'linear-gradient(to right, transparent, var(--warfare-red), transparent)',
-                    opacity: 0.1,
-                    pointerEvents: 'none'
-                }}
-            />
+
+
         </footer>
     );
 };

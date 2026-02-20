@@ -33,8 +33,8 @@ function Home() {
                 </div>
             </section>
 
-            <div className="container">
-                <div className="bento-grid">
+            <div className="container" style={{ paddingTop: 'clamp(4rem, 8vw, 8rem)' }}>
+                <div className="bento-grid" style={{ marginBottom: 0 }}>
                     {/* MISSION CORE */}
                     <div className="bento-card span-8 row-4 reveal">
                         <span className="emergency-text">The Mission</span>
@@ -57,15 +57,195 @@ function Home() {
                     </div>
 
                     {/* FEATURED PODCAST */}
-                    <div className="bento-card span-4 row-4 reveal warfare-report-card">
-                        <Mic size={32} className="card-icon" />
-                        <h2>Warfare Reports</h2>
-                        <p className="card-description">
-                            Hear from the soldiers who have returned from the abyss.
-                            Hosted by John Gallagher.
-                        </p>
-                        <div className="podcast-player-mock">
-                            <Play size={40} fill="white" color="white" />
+                    <div
+                        className="bento-card span-4 row-4 reveal warfare-report-card"
+                        onClick={() => window.open('https://open.spotify.com/show/6rByCbmShGIZJUWXj7Szim', '_blank')}
+                        style={{
+                            cursor: 'pointer',
+                            backgroundImage: 'url("/images/blacksheep/Blacksheep SP Collection/SP_TALL.png")',
+                            backgroundSize: 'cover',
+                            backgroundPosition: 'center',
+                            position: 'relative',
+                            overflow: 'hidden',
+                            border: '1px solid rgba(29, 185, 84, 0.5)',
+                            display: 'flex',
+                            flexDirection: 'column',
+                            justifyContent: 'flex-end',
+                            padding: '0'
+                        }}
+                    >
+                        <div style={{
+                            position: 'absolute',
+                            inset: 0,
+                            background: 'linear-gradient(to top, rgba(0,0,0,0.9) 0%, transparent 60%)',
+                            zIndex: 1
+                        }}></div>
+
+                        <div style={{ position: 'relative', zIndex: 2, padding: '2rem' }}>
+                            <div style={{
+                                display: 'flex',
+                                alignItems: 'center',
+                                gap: '10px',
+                                marginBottom: '0.5rem'
+                            }}>
+                                <span style={{
+                                    background: '#1db954',
+                                    color: '#000',
+                                    padding: '2px 8px',
+                                    borderRadius: '4px',
+                                    fontSize: '0.7rem',
+                                    fontWeight: '900',
+                                    letterSpacing: '1px'
+                                }}>
+                                    LISTEN NOW
+                                </span>
+                            </div>
+                            <h2 style={{
+                                fontSize: '2rem',
+                                textShadow: '0 0 20px rgba(29, 185, 84, 0.6)',
+                                lineHeight: 1,
+                                marginBottom: '0.5rem'
+                            }}>
+                                WARFARE<br />REPORTS
+                            </h2>
+                        </div>
+                    </div>
+                </div>
+
+                {/* SOCIAL FOLLOW SECTION */}
+                <div style={{
+                    display: 'grid',
+                    gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
+                    gap: '1.5rem',
+                    marginTop: '1.5rem',
+                    marginBottom: 'var(--section-gap)'
+                }}>
+                    {/* FACEBOOK CARD */}
+                    <div
+                        className="reveal social-card social-card-fb"
+                        onClick={() => window.open('#', '_blank')}
+                        style={{
+                            position: 'relative',
+                            borderRadius: '28px',
+                            overflow: 'hidden',
+                            cursor: 'pointer',
+                            background: '#000',
+                            border: '1px solid rgba(24, 119, 242, 0.3)',
+                            height: '320px',
+                            display: 'flex',
+                            alignItems: 'flex-end'
+                        }}
+                    >
+                        <img
+                            src="/images/blacksheep/Blacksheep FB Collection/FB_Point Right.png"
+                            alt="Follow on Facebook"
+                            style={{
+                                position: 'absolute',
+                                left: '-10px',
+                                bottom: '0',
+                                height: '100%',
+                                objectFit: 'contain',
+                                objectPosition: 'bottom left',
+                                zIndex: 1
+                            }}
+                        />
+                        <div style={{
+                            position: 'absolute',
+                            inset: 0,
+                            background: 'linear-gradient(to left, rgba(0,0,0,0.95) 30%, transparent 70%)',
+                            zIndex: 2
+                        }}></div>
+                        <div style={{
+                            position: 'relative',
+                            zIndex: 3,
+                            padding: '2rem',
+                            marginLeft: 'auto',
+                            textAlign: 'right',
+                            maxWidth: '55%'
+                        }}>
+                            <h3 style={{ fontSize: '1.5rem', fontWeight: '900', marginBottom: '0.5rem' }}>
+                                FOLLOW US
+                            </h3>
+                            <p style={{ fontSize: '0.85rem', color: '#86868b', marginBottom: '1.5rem', lineHeight: 1.4 }}>
+                                Join the community on Facebook for daily encouragement & updates.
+                            </p>
+                            <span style={{
+                                display: 'inline-block',
+                                background: '#1877f2',
+                                color: '#fff',
+                                padding: '10px 24px',
+                                borderRadius: '8px',
+                                fontSize: '0.8rem',
+                                fontWeight: '900',
+                                letterSpacing: '1px'
+                            }}>
+                                FACEBOOK
+                            </span>
+                        </div>
+                    </div>
+
+                    {/* YOUTUBE CARD */}
+                    <div
+                        className="reveal social-card social-card-yt"
+                        onClick={() => window.open('#', '_blank')}
+                        style={{
+                            position: 'relative',
+                            borderRadius: '28px',
+                            overflow: 'hidden',
+                            cursor: 'pointer',
+                            background: '#000',
+                            border: '1px solid rgba(255, 0, 0, 0.3)',
+                            height: '320px',
+                            display: 'flex',
+                            alignItems: 'flex-end'
+                        }}
+                    >
+                        <img
+                            src="/images/blacksheep/Blacksheep YT Collection/YT_Point Right.png"
+                            alt="Subscribe on YouTube"
+                            style={{
+                                position: 'absolute',
+                                right: '-10px',
+                                bottom: '0',
+                                height: '100%',
+                                objectFit: 'contain',
+                                objectPosition: 'bottom right',
+                                transform: 'scaleX(-1)',
+                                zIndex: 1
+                            }}
+                        />
+                        <div style={{
+                            position: 'absolute',
+                            inset: 0,
+                            background: 'linear-gradient(to right, rgba(0,0,0,0.95) 30%, transparent 70%)',
+                            zIndex: 2
+                        }}></div>
+                        <div style={{
+                            position: 'relative',
+                            zIndex: 3,
+                            padding: '2rem',
+                            marginRight: 'auto',
+                            textAlign: 'left',
+                            maxWidth: '55%'
+                        }}>
+                            <h3 style={{ fontSize: '1.5rem', fontWeight: '900', marginBottom: '0.5rem' }}>
+                                SUBSCRIBE
+                            </h3>
+                            <p style={{ fontSize: '0.85rem', color: '#86868b', marginBottom: '1.5rem', lineHeight: 1.4 }}>
+                                Watch full episodes, testimonies & behind-the-scenes warfare content.
+                            </p>
+                            <span style={{
+                                display: 'inline-block',
+                                background: '#ff0000',
+                                color: '#fff',
+                                padding: '10px 24px',
+                                borderRadius: '8px',
+                                fontSize: '0.8rem',
+                                fontWeight: '900',
+                                letterSpacing: '1px'
+                            }}>
+                                YOUTUBE
+                            </span>
                         </div>
                     </div>
                 </div>
@@ -108,6 +288,7 @@ function Home() {
                         </ul>
                     </div>
                 </div>
+
 
                 {/* FINAL CALL TO ACTION */}
                 <div className="bento-grid">
@@ -154,7 +335,48 @@ function Home() {
                     font-size: 0.8rem;
                 }
                 .warfare-report-card { 
-                    background: var(--warfare-red); 
+                    background: #000;
+                    transition: box-shadow 0.5s ease, transform 0.5s ease, border-color 0.5s ease;
+                }
+                .warfare-report-card:hover {
+                    box-shadow: 0 0 30px rgba(29, 185, 84, 0.5), 0 0 60px rgba(29, 185, 84, 0.2);
+                    border-color: rgba(29, 185, 84, 0.8) !important;
+                    transform: scale(1.02);
+                }
+                @media (max-width: 768px) {
+                    .warfare-report-card:hover {
+                        box-shadow: none;
+                        transform: none;
+                        border-color: rgba(29, 185, 84, 0.5) !important;
+                    }
+                    .warfare-report-card.active {
+                        box-shadow: 0 0 25px rgba(29, 185, 84, 0.4), 0 0 50px rgba(29, 185, 84, 0.15);
+                        border-color: rgba(29, 185, 84, 0.8) !important;
+                    }
+                }
+                .social-card {
+                    transition: box-shadow 0.5s ease, transform 0.5s ease, border-color 0.5s ease;
+                }
+                .social-card-fb:hover {
+                    box-shadow: 0 0 30px rgba(24, 119, 242, 0.5), 0 0 60px rgba(24, 119, 242, 0.2);
+                    border-color: rgba(24, 119, 242, 0.8) !important;
+                    transform: scale(1.02);
+                }
+                .social-card-yt:hover {
+                    box-shadow: 0 0 30px rgba(255, 0, 0, 0.5), 0 0 60px rgba(255, 0, 0, 0.2);
+                    border-color: rgba(255, 0, 0, 0.8) !important;
+                    transform: scale(1.02);
+                }
+                @media (max-width: 768px) {
+                    .social-card:hover { box-shadow: none; transform: none; }
+                    .social-card-fb.active {
+                        box-shadow: 0 0 25px rgba(24, 119, 242, 0.4);
+                        border-color: rgba(24, 119, 242, 0.8) !important;
+                    }
+                    .social-card-yt.active {
+                        box-shadow: 0 0 25px rgba(255, 0, 0, 0.4);
+                        border-color: rgba(255, 0, 0, 0.8) !important;
+                    }
                 }
                 .card-icon { 
                     margin-bottom: 1.5rem; 
@@ -264,7 +486,7 @@ function Home() {
                     }
                 }
             `}</style>
-        </div>
+        </div >
     )
 }
 

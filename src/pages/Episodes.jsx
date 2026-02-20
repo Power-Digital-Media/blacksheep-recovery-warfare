@@ -196,7 +196,7 @@ function Episodes() {
                                     </a>
 
                                     <a
-                                        href="https://open.spotify.com"
+                                        href="https://open.spotify.com/show/6rByCbmShGIZJUWXj7Szim"
                                         target="_blank"
                                         rel="noopener noreferrer"
                                         className="donate-btn spotify-btn"
