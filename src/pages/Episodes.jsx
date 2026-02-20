@@ -265,6 +265,9 @@ function Episodes() {
                 </div>
 
                 <style>{`
+                .cinematic-section .image-overlay {
+                    background: linear-gradient(to bottom, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.2) 40%, rgba(0,0,0,1) 95%, rgba(0,0,0,1) 100%) !important;
+                }
                 .cinematic-section { 
                     background-position: center 15% !important; 
                 }
