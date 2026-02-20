@@ -15,9 +15,7 @@ function App() {
     <div className="app-wrapper">
       <div className="noise-overlay"></div>
 
-      <div className="container">
-        <Navbar />
-      </div>
+      <Navbar />
 
       <main>
         <Routes>

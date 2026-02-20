@@ -54,12 +54,17 @@ body {
 nav {
   height: 100px;
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  margin-bottom: 3rem;
-  padding: 0 2rem;
   position: relative;
   z-index: 1000;
+  width: 100%;
+}
+
+.nav-content-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
 }
 
 .nav-logo {
@@ -106,7 +111,6 @@ nav {
 @media (max-width: 900px) {
   nav {
     height: 80px;
-    margin-bottom: 1rem;
   }
 
   .nav-logo {

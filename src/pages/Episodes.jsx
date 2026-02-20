@@ -265,7 +265,6 @@ function Episodes() {
                 </div>
 
                 <style>{`
-                nav { margin-bottom: 0 !important; }
                 .cinematic-section { 
                     background-position: center 15% !important; 
                 }
