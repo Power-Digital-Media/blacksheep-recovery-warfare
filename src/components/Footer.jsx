@@ -20,8 +20,8 @@ const Footer = () => {
             title: 'COMM LINK',
             links: [
                 { name: 'EMAIL OPS', path: 'mailto:contact@blacksheeprecoverywarfare.org' },
-                { name: 'INSTAGRAM', path: '#' },
-                { name: 'YOUTUBE', path: '#' }
+                { name: 'FACEBOOK', path: 'https://www.facebook.com/profile.php?id=61564077765264' },
+                { name: 'YOUTUBE', path: 'https://www.youtube.com/@BlackSheep_Recovery' }
             ]
         }
     ];

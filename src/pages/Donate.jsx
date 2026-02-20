@@ -15,6 +15,36 @@ function Donate() {
         return () => observer.disconnect();
     }, []);
 
+    const paymentMethods = [
+        {
+            name: 'Cash App',
+            tag: '$blacksheeprecovery',
+            url: 'https://cash.app/$blacksheeprecovery',
+            color: '#00D632',
+            image: '/images/blacksheep/Blacksheep Cash App Collection/CA_Point Right.png',
+            description: 'Tap to send directly via Cash App. Fast, simple, and every dollar goes to the mission.',
+            btnText: 'CASH APP'
+        },
+        {
+            name: 'Venmo',
+            tag: '@blacksheeprecovery4311',
+            url: 'https://venmo.com/blacksheeprecovery4311',
+            color: '#3D95CE',
+            image: '/images/blacksheep/Blacksheep Venmo Collection/VM_Point Right.png',
+            description: 'Send your support through Venmo. Quick giving for the Kingdom offensive.',
+            btnText: 'VENMO'
+        },
+        {
+            name: 'PayPal',
+            tag: '@BlackSheep1143',
+            url: 'https://www.paypal.me/BlackSheep1143',
+            color: '#003087',
+            image: '/images/blacksheep/Blacksheep Paypal Collection/PP_Point Right.png',
+            description: 'Contribute securely via PayPal. One-time or recurring — you set the pace.',
+            btnText: 'PAYPAL'
+        }
+    ];
+
     return (
         <div className="animate-in">
             {/* CINEMATIC HERO */}
@@ -31,74 +61,93 @@ function Donate() {
             </section>
 
             <div className="container" style={{ marginTop: 'clamp(3rem, 10vw, 8rem)' }}>
-                <div className="bento-grid">
-                    {/* MAIN DONATION MODULE */}
-                    <div className="bento-card span-8 row-6 reveal donate-card">
-                        <div className="donate-intro">
-                            <Heart size={32} color="var(--emergency-red)" className="donate-icon" />
-                            <h2>Ministry Operations</h2>
-                            <p className="donate-description">
-                                Your financial support allows us to continue sharing stories of
-                                redemption and God's relentless grace through our podcast,
-                                sober living resources, and community outreach.
-                            </p>
-                        </div>
-
-                        <div className="donation-container">
-                            <h3>Secure Contribution</h3>
-                            <p className="donation-subtext">Contributions are processed securely via PayPal.</p>
-
-                            <a href="#" className="donate-btn donation-cta">
-                                DONATE VIA PAYPAL <ExternalLink size={18} />
-                            </a>
-
-                            <div className="donation-footer">
-                                <ShieldCheck size={20} />
-                                <span>TAX DEDUCTIBLE</span>
+                {/* PAYMENT METHOD CARDS */}
+                <div style={{
+                    display: 'grid',
+                    gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
+                    gap: '1.5rem',
+                    marginBottom: '3rem'
+                }}>
+                    {paymentMethods.map((method, index) => (
+                        <div
+                            key={method.name}
+                            className={`reveal donate-method-card donate-card-${index}`}
+                            onClick={() => window.open(method.url, '_blank')}
+                            style={{
+                                position: 'relative',
+                                borderRadius: '28px',
+                                overflow: 'hidden',
+                                cursor: 'pointer',
+                                background: '#000',
+                                border: `1px solid ${method.color}33`,
+                                height: '380px',
+                                display: 'flex',
+                                alignItems: 'flex-end'
+                            }}
+                        >
+                            <img
+                                src={method.image}
+                                alt={`Donate via ${method.name}`}
+                                style={{
+                                    position: 'absolute',
+                                    left: '-10px',
+                                    bottom: '0',
+                                    height: '100%',
+                                    objectFit: 'contain',
+                                    objectPosition: 'bottom left',
+                                    zIndex: 1
+                                }}
+                            />
+                            <div style={{
+                                position: 'absolute',
+                                inset: 0,
+                                background: 'linear-gradient(to left, rgba(0,0,0,0.95) 30%, transparent 70%)',
+                                zIndex: 2
+                            }}></div>
+                            <div style={{
+                                position: 'relative',
+                                zIndex: 3,
+                                padding: '2rem',
+                                marginLeft: 'auto',
+                                textAlign: 'right',
+                                maxWidth: '55%'
+                            }}>
+                                <h3 style={{ fontSize: '1.5rem', fontWeight: '900', marginBottom: '0.25rem' }}>
+                                    {method.name.toUpperCase()}
+                                </h3>
+                                <span style={{
+                                    fontSize: '0.75rem',
+                                    color: method.color,
+                                    fontFamily: 'monospace',
+                                    letterSpacing: '1px',
+                                    display: 'block',
+                                    marginBottom: '0.75rem'
+                                }}>
+                                    {method.tag}
+                                </span>
+                                <p style={{ fontSize: '0.85rem', color: '#86868b', marginBottom: '1.5rem', lineHeight: 1.4 }}>
+                                    {method.description}
+                                </p>
+                                <span style={{
+                                    display: 'inline-flex',
+                                    alignItems: 'center',
+                                    gap: '8px',
+                                    background: method.color,
+                                    color: '#fff',
+                                    padding: '10px 24px',
+                                    borderRadius: '8px',
+                                    fontSize: '0.8rem',
+                                    fontWeight: '900',
+                                    letterSpacing: '1px'
+                                }}>
+                                    {method.btnText} <ExternalLink size={14} />
+                                </span>
                             </div>
                         </div>
-                    </div>
+                    ))}
+                </div>
 
-                    <style>{`
-                        .donate-card { display: flex; flex-direction: column; }
-                        .donate-icon { margin-bottom: 1.5rem; }
-                        .donate-intro { margin-bottom: 2rem; }
-                        .donate-description { font-size: 1.1rem; margin-bottom: 2rem; line-height: 1.6; }
-                        .donation-container { 
-                            margin-top: auto; 
-                            padding: clamp(1.5rem, 5vw, 3rem); 
-                            background: rgba(255,255,255,0.02); 
-                            border-radius: 24px; 
-                            border: 1px solid rgba(255,255,255,0.05); 
-                            text-align: center; 
-                        }
-                        .donation-container h3 { margin-bottom: 1rem; font-size: clamp(1.2rem, 3vw, 1.5rem); }
-                        .donation-subtext { color: var(--text-secondary); margin-bottom: 2.5rem; }
-                        .donation-cta { 
-                            font-size: 1.1rem; 
-                            padding: 18px 45px !important; 
-                            display: inline-flex; 
-                            align-items: center;
-                            gap: 12px;
-                            text-decoration: none;
-                        }
-                        .donation-footer { 
-                            display: flex; 
-                            justify-content: center; 
-                            gap: 2rem; 
-                            margin-top: 3rem; 
-                            opacity: 0.5; 
-                            font-size: 0.8rem; 
-                            letter-spacing: 1px;
-                        }
-
-                        @media (max-width: 768px) {
-                            .donation-container { padding: 1.5rem; }
-                            .donation-cta { width: 100%; justify-content: center; }
-                            .donation-footer { gap: 1rem; }
-                        }
-                    `}</style>
-
+                <div className="bento-grid">
                     {/* SCRIPTURE PILLAR */}
                     <div className="bento-card span-4 row-2 reveal scripture-card">
                         <span className="emergency-text">The Foundation</span>
@@ -129,6 +178,42 @@ function Donate() {
             </div>
 
             <style>{`
+                .donate-method-card {
+                    transition: box-shadow 0.5s ease, transform 0.5s ease, border-color 0.5s ease;
+                }
+                .donate-card-0:hover {
+                    box-shadow: 0 0 30px rgba(0, 214, 50, 0.5), 0 0 60px rgba(0, 214, 50, 0.2);
+                    border-color: rgba(0, 214, 50, 0.8) !important;
+                    transform: scale(1.02);
+                }
+                .donate-card-1:hover {
+                    box-shadow: 0 0 30px rgba(61, 149, 206, 0.5), 0 0 60px rgba(61, 149, 206, 0.2);
+                    border-color: rgba(61, 149, 206, 0.8) !important;
+                    transform: scale(1.02);
+                }
+                .donate-card-2:hover {
+                    box-shadow: 0 0 30px rgba(0, 48, 135, 0.5), 0 0 60px rgba(0, 48, 135, 0.3);
+                    border-color: rgba(0, 48, 135, 0.8) !important;
+                    transform: scale(1.02);
+                }
+                @media (max-width: 768px) {
+                    .donate-method-card:hover {
+                        box-shadow: none;
+                        transform: none;
+                    }
+                    .donate-card-0.active {
+                        box-shadow: 0 0 25px rgba(0, 214, 50, 0.4);
+                        border-color: rgba(0, 214, 50, 0.8) !important;
+                    }
+                    .donate-card-1.active {
+                        box-shadow: 0 0 25px rgba(61, 149, 206, 0.4);
+                        border-color: rgba(61, 149, 206, 0.8) !important;
+                    }
+                    .donate-card-2.active {
+                        box-shadow: 0 0 25px rgba(0, 48, 135, 0.4);
+                        border-color: rgba(0, 48, 135, 0.8) !important;
+                    }
+                }
                 .scripture-card { display: flex; flex-direction: column; }
                 .scripture-text { font-size: 1.1rem; font-style: italic; color: var(--text-primary); line-height: 1.5; }
                 .scripture-ref { margin-top: auto; font-weight: bold; letter-spacing: 2px; font-size: 0.9rem; }

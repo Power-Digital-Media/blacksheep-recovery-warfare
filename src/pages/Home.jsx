@@ -1,7 +1,59 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState, useRef, useCallback } from 'react'
+import { useScroll, useTransform } from 'framer-motion'
 import { Shield, Mic, Home as HomeIcon, ShoppingBag, Heart, ArrowRight, Play, ExternalLink } from 'lucide-react'
+import DynamicBackground from '../components/DynamicBackground'
+
+/* ── Scroll-tracked card wrapper ── */
+const HoloCard = ({ bgImage, onActiveChange, children, ...rest }) => {
+    const cardRef = useRef(null);
+    const { scrollYProgress } = useScroll({
+        target: cardRef,
+        offset: ["start end", "end start"]
+    });
+
+    const intensity = useTransform(
+        scrollYProgress,
+        [0, 0.2, 0.5, 0.8, 1],
+        [0, 0.8, 1, 0.8, 0]
+    );
+
+    useEffect(() => {
+        const unsubscribe = intensity.on("change", (latest) => {
+            onActiveChange(bgImage, latest);
+        });
+        return () => unsubscribe();
+    }, [intensity, bgImage, onActiveChange]);
+
+    return (
+        <div
+            ref={cardRef}
+            onMouseEnter={() => onActiveChange(bgImage, 1)}
+            onMouseLeave={() => onActiveChange(bgImage, 0)}
+            {...rest}
+        >
+            {children}
+        </div>
+    );
+};
 
 function Home() {
+    const [bgMap, setBgMap] = useState({});
+
+    const handleActiveChange = useCallback((id, intensity) => {
+        if (!id) return;
+        setBgMap(prev => {
+            const currentIntensity = prev[id] || 0;
+            if (Math.abs(currentIntensity - intensity) < 0.01) return prev;
+            const next = { ...prev };
+            if (intensity <= 0.01) {
+                delete next[id];
+            } else {
+                next[id] = intensity;
+            }
+            return next;
+        });
+    }, []);
+
     useEffect(() => {
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
@@ -16,477 +68,489 @@ function Home() {
     }, []);
 
     return (
-        <div className="animate-in">
-            {/* CINEMATIC HERO */}
-            <section className="cinematic-section" style={{ backgroundImage: 'url("/john_gallagher_host.png")' }}>
-                <div className="image-overlay"></div>
-                <div className="cinematic-content reveal">
-                    <span className="emergency-text">Leaving the 99</span>
-                    <h1>REDEMPTION<br />WARFARE</h1>
-                    <p className="narrative-text">
-                        A Christ-centered offensive strategy for spiritual resilience.
-                        Transforming the grit of addiction into the grace of eternity.
-                    </p>
-                    <div className="hero-button-container">
-                        <button className="donate-btn large-cta">ENLIST NOW</button>
-                    </div>
-                </div>
-            </section>
-
-            <div className="container" style={{ paddingTop: 'clamp(4rem, 8vw, 8rem)' }}>
-                <div className="bento-grid" style={{ marginBottom: 0 }}>
-                    {/* MISSION CORE */}
-                    <div className="bento-card span-8 row-4 reveal">
-                        <span className="emergency-text">The Mission</span>
-                        <h2>The Architecture of Deliverance</h2>
-                        <p className="mission-description">
-                            We are not just a recovery program; we are a mobilization force.
-                            Based in Mississippi, we provide the spiritual intel and horizontal
-                            support needed to liberate souls from chemical and spiritual bondage.
+        <>
+            <DynamicBackground backgrounds={bgMap} blur="4px" />
+            <div className="animate-in" style={{ position: 'relative', zIndex: 1 }}>
+                {/* CINEMATIC HERO */}
+                <section className="cinematic-section" style={{ backgroundImage: 'url("/john_gallagher_host.png")' }}>
+                    <div className="image-overlay"></div>
+                    <div className="cinematic-content reveal">
+                        <span className="emergency-text">Leaving the 99</span>
+                        <h1>REDEMPTION<br />WARFARE</h1>
+                        <p className="narrative-text">
+                            A Christ-centered offensive strategy for spiritual resilience.
+                            Transforming the grit of addiction into the grace of eternity.
                         </p>
-                        <div className="mission-stats">
-                            <div>
-                                <span className="stat-value">REVELATION</span>
-                                <span className="stat-label">12:11</span>
-                            </div>
-                            <div>
-                                <span className="stat-value">ISAIAH</span>
-                                <span className="stat-label">53</span>
-                            </div>
+                        <div className="hero-button-container">
+                            <button className="donate-btn large-cta">ENLIST NOW</button>
                         </div>
                     </div>
+                </section>
 
-                    {/* FEATURED PODCAST */}
-                    <div
-                        className="bento-card span-4 row-4 reveal warfare-report-card"
-                        onClick={() => window.open('https://open.spotify.com/show/6rByCbmShGIZJUWXj7Szim', '_blank')}
-                        style={{
-                            cursor: 'pointer',
-                            backgroundImage: 'url("/images/blacksheep/Blacksheep SP Collection/SP_TALL.png")',
-                            backgroundSize: 'cover',
-                            backgroundPosition: 'center',
-                            position: 'relative',
-                            overflow: 'hidden',
-                            border: '1px solid rgba(29, 185, 84, 0.5)',
-                            display: 'flex',
-                            flexDirection: 'column',
-                            justifyContent: 'flex-end',
-                            padding: '0'
-                        }}
-                    >
-                        <div style={{
-                            position: 'absolute',
-                            inset: 0,
-                            background: 'linear-gradient(to top, rgba(0,0,0,0.9) 0%, transparent 60%)',
-                            zIndex: 1
-                        }}></div>
+                <div className="container" style={{ paddingTop: 'clamp(4rem, 8vw, 8rem)' }}>
+                    <div className="bento-grid" style={{ marginBottom: 0 }}>
+                        {/* MISSION CORE */}
+                        <div className="bento-card span-8 row-4 reveal">
+                            <span className="emergency-text">The Mission</span>
+                            <h2>The Architecture of Deliverance</h2>
+                            <p className="mission-description">
+                                We are not just a recovery program; we are a mobilization force.
+                                Based in Mississippi, we provide the spiritual intel and horizontal
+                                support needed to liberate souls from chemical and spiritual bondage.
+                            </p>
+                            <div className="mission-stats">
+                                <div>
+                                    <span className="stat-value">REVELATION</span>
+                                    <span className="stat-label">12:11</span>
+                                </div>
+                                <div>
+                                    <span className="stat-value">ISAIAH</span>
+                                    <span className="stat-label">53</span>
+                                </div>
+                            </div>
+                        </div>
 
-                        <div style={{ position: 'relative', zIndex: 2, padding: '2rem' }}>
-                            <div style={{
+                        {/* FEATURED PODCAST — Hologram-tracked */}
+                        <HoloCard
+                            bgImage="/images/blacksheep/Blacksheep SP Collection/SP_TALL.png"
+                            onActiveChange={handleActiveChange}
+                            className="bento-card span-4 row-4 reveal warfare-report-card"
+                            onClick={() => window.open('https://open.spotify.com/show/6rByCbmShGIZJUWXj7Szim', '_blank')}
+                            style={{
+                                cursor: 'pointer',
+                                backgroundImage: 'url("/images/blacksheep/Blacksheep SP Collection/SP_TALL.png")',
+                                backgroundSize: 'cover',
+                                backgroundPosition: 'center',
+                                position: 'relative',
+                                overflow: 'hidden',
+                                border: '1px solid rgba(29, 185, 84, 0.5)',
                                 display: 'flex',
-                                alignItems: 'center',
-                                gap: '10px',
-                                marginBottom: '0.5rem'
+                                flexDirection: 'column',
+                                justifyContent: 'flex-end',
+                                padding: '0'
+                            }}
+                        >
+                            <div style={{
+                                position: 'absolute',
+                                inset: 0,
+                                background: 'linear-gradient(to top, rgba(0,0,0,0.9) 0%, transparent 60%)',
+                                zIndex: 1
+                            }}></div>
+
+                            <div style={{ position: 'relative', zIndex: 2, padding: '2rem' }}>
+                                <div style={{
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    gap: '10px',
+                                    marginBottom: '0.5rem'
+                                }}>
+                                    <span style={{
+                                        background: '#1db954',
+                                        color: '#000',
+                                        padding: '2px 8px',
+                                        borderRadius: '4px',
+                                        fontSize: '0.7rem',
+                                        fontWeight: '900',
+                                        letterSpacing: '1px'
+                                    }}>
+                                        LISTEN NOW
+                                    </span>
+                                </div>
+                                <h2 style={{
+                                    fontSize: '2rem',
+                                    textShadow: '0 0 20px rgba(29, 185, 84, 0.6)',
+                                    lineHeight: 1,
+                                    marginBottom: '0.5rem'
+                                }}>
+                                    WARFARE<br />REPORTS
+                                </h2>
+                            </div>
+                        </HoloCard>
+                    </div>
+
+                    {/* SOCIAL FOLLOW SECTION */}
+                    <div style={{
+                        display: 'grid',
+                        gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
+                        gap: '1.5rem',
+                        marginTop: '1.5rem',
+                        marginBottom: 'var(--section-gap)'
+                    }}>
+                        {/* FACEBOOK CARD — Hologram-tracked */}
+                        <HoloCard
+                            bgImage="/images/blacksheep/Blacksheep FB Collection/FB_Tall Both Holding.png"
+                            onActiveChange={handleActiveChange}
+                            className="reveal social-card social-card-fb"
+                            onClick={() => window.open('https://www.facebook.com/profile.php?id=61564077765264', '_blank')}
+                            style={{
+                                position: 'relative',
+                                borderRadius: '28px',
+                                overflow: 'hidden',
+                                cursor: 'pointer',
+                                background: '#000',
+                                border: '1px solid rgba(24, 119, 242, 0.3)',
+                                height: '320px',
+                                display: 'flex',
+                                alignItems: 'flex-end'
+                            }}
+                        >
+                            <img
+                                src="/images/blacksheep/Blacksheep FB Collection/FB_Point Right.png"
+                                alt="Follow on Facebook"
+                                style={{
+                                    position: 'absolute',
+                                    left: '-10px',
+                                    bottom: '0',
+                                    height: '100%',
+                                    objectFit: 'contain',
+                                    objectPosition: 'bottom left',
+                                    zIndex: 1
+                                }}
+                            />
+                            <div style={{
+                                position: 'absolute',
+                                inset: 0,
+                                background: 'linear-gradient(to left, rgba(0,0,0,0.95) 30%, transparent 70%)',
+                                zIndex: 2
+                            }}></div>
+                            <div style={{
+                                position: 'relative',
+                                zIndex: 3,
+                                padding: '2rem',
+                                marginLeft: 'auto',
+                                textAlign: 'right',
+                                maxWidth: '55%'
                             }}>
+                                <h3 style={{ fontSize: '1.5rem', fontWeight: '900', marginBottom: '0.5rem' }}>
+                                    FOLLOW US
+                                </h3>
+                                <p style={{ fontSize: '0.85rem', color: '#86868b', marginBottom: '1.5rem', lineHeight: 1.4 }}>
+                                    Join the community on Facebook for daily encouragement & updates.
+                                </p>
                                 <span style={{
-                                    background: '#1db954',
-                                    color: '#000',
-                                    padding: '2px 8px',
-                                    borderRadius: '4px',
-                                    fontSize: '0.7rem',
+                                    display: 'inline-block',
+                                    background: '#1877f2',
+                                    color: '#fff',
+                                    padding: '10px 24px',
+                                    borderRadius: '8px',
+                                    fontSize: '0.8rem',
                                     fontWeight: '900',
                                     letterSpacing: '1px'
                                 }}>
-                                    LISTEN NOW
+                                    FACEBOOK
                                 </span>
                             </div>
-                            <h2 style={{
-                                fontSize: '2rem',
-                                textShadow: '0 0 20px rgba(29, 185, 84, 0.6)',
-                                lineHeight: 1,
-                                marginBottom: '0.5rem'
-                            }}>
-                                WARFARE<br />REPORTS
-                            </h2>
-                        </div>
-                    </div>
-                </div>
+                        </HoloCard>
 
-                {/* SOCIAL FOLLOW SECTION */}
-                <div style={{
-                    display: 'grid',
-                    gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
-                    gap: '1.5rem',
-                    marginTop: '1.5rem',
-                    marginBottom: 'var(--section-gap)'
-                }}>
-                    {/* FACEBOOK CARD */}
-                    <div
-                        className="reveal social-card social-card-fb"
-                        onClick={() => window.open('#', '_blank')}
-                        style={{
-                            position: 'relative',
-                            borderRadius: '28px',
-                            overflow: 'hidden',
-                            cursor: 'pointer',
-                            background: '#000',
-                            border: '1px solid rgba(24, 119, 242, 0.3)',
-                            height: '320px',
-                            display: 'flex',
-                            alignItems: 'flex-end'
-                        }}
-                    >
-                        <img
-                            src="/images/blacksheep/Blacksheep FB Collection/FB_Point Right.png"
-                            alt="Follow on Facebook"
+                        {/* YOUTUBE CARD — Hologram-tracked */}
+                        <HoloCard
+                            bgImage="/images/blacksheep/Blacksheep YT Collection/YT_TALL.png"
+                            onActiveChange={handleActiveChange}
+                            className="reveal social-card social-card-yt"
+                            onClick={() => window.open('https://www.youtube.com/@BlackSheep_Recovery', '_blank')}
                             style={{
-                                position: 'absolute',
-                                left: '-10px',
-                                bottom: '0',
-                                height: '100%',
-                                objectFit: 'contain',
-                                objectPosition: 'bottom left',
-                                zIndex: 1
+                                position: 'relative',
+                                borderRadius: '28px',
+                                overflow: 'hidden',
+                                cursor: 'pointer',
+                                background: '#000',
+                                border: '1px solid rgba(255, 0, 0, 0.3)',
+                                height: '320px',
+                                display: 'flex',
+                                alignItems: 'flex-end'
                             }}
-                        />
-                        <div style={{
-                            position: 'absolute',
-                            inset: 0,
-                            background: 'linear-gradient(to left, rgba(0,0,0,0.95) 30%, transparent 70%)',
-                            zIndex: 2
-                        }}></div>
-                        <div style={{
-                            position: 'relative',
-                            zIndex: 3,
-                            padding: '2rem',
-                            marginLeft: 'auto',
-                            textAlign: 'right',
-                            maxWidth: '55%'
-                        }}>
-                            <h3 style={{ fontSize: '1.5rem', fontWeight: '900', marginBottom: '0.5rem' }}>
-                                FOLLOW US
-                            </h3>
-                            <p style={{ fontSize: '0.85rem', color: '#86868b', marginBottom: '1.5rem', lineHeight: 1.4 }}>
-                                Join the community on Facebook for daily encouragement & updates.
-                            </p>
-                            <span style={{
-                                display: 'inline-block',
-                                background: '#1877f2',
-                                color: '#fff',
-                                padding: '10px 24px',
-                                borderRadius: '8px',
-                                fontSize: '0.8rem',
-                                fontWeight: '900',
-                                letterSpacing: '1px'
-                            }}>
-                                FACEBOOK
-                            </span>
-                        </div>
-                    </div>
-
-                    {/* YOUTUBE CARD */}
-                    <div
-                        className="reveal social-card social-card-yt"
-                        onClick={() => window.open('#', '_blank')}
-                        style={{
-                            position: 'relative',
-                            borderRadius: '28px',
-                            overflow: 'hidden',
-                            cursor: 'pointer',
-                            background: '#000',
-                            border: '1px solid rgba(255, 0, 0, 0.3)',
-                            height: '320px',
-                            display: 'flex',
-                            alignItems: 'flex-end'
-                        }}
-                    >
-                        <img
-                            src="/images/blacksheep/Blacksheep YT Collection/YT_Point Right.png"
-                            alt="Subscribe on YouTube"
-                            style={{
+                        >
+                            <img
+                                src="/images/blacksheep/Blacksheep YT Collection/YT_Point Right.png"
+                                alt="Subscribe on YouTube"
+                                style={{
+                                    position: 'absolute',
+                                    right: '-10px',
+                                    bottom: '0',
+                                    height: '100%',
+                                    objectFit: 'contain',
+                                    objectPosition: 'bottom right',
+                                    transform: 'scaleX(-1)',
+                                    zIndex: 1
+                                }}
+                            />
+                            <div style={{
                                 position: 'absolute',
-                                right: '-10px',
-                                bottom: '0',
-                                height: '100%',
-                                objectFit: 'contain',
-                                objectPosition: 'bottom right',
-                                transform: 'scaleX(-1)',
-                                zIndex: 1
-                            }}
-                        />
-                        <div style={{
-                            position: 'absolute',
-                            inset: 0,
-                            background: 'linear-gradient(to right, rgba(0,0,0,0.95) 30%, transparent 70%)',
-                            zIndex: 2
-                        }}></div>
-                        <div style={{
-                            position: 'relative',
-                            zIndex: 3,
-                            padding: '2rem',
-                            marginRight: 'auto',
-                            textAlign: 'left',
-                            maxWidth: '55%'
-                        }}>
-                            <h3 style={{ fontSize: '1.5rem', fontWeight: '900', marginBottom: '0.5rem' }}>
-                                SUBSCRIBE
-                            </h3>
-                            <p style={{ fontSize: '0.85rem', color: '#86868b', marginBottom: '1.5rem', lineHeight: 1.4 }}>
-                                Watch full episodes, testimonies & behind-the-scenes warfare content.
-                            </p>
-                            <span style={{
-                                display: 'inline-block',
-                                background: '#ff0000',
-                                color: '#fff',
-                                padding: '10px 24px',
-                                borderRadius: '8px',
-                                fontSize: '0.8rem',
-                                fontWeight: '900',
-                                letterSpacing: '1px'
+                                inset: 0,
+                                background: 'linear-gradient(to right, rgba(0,0,0,0.95) 30%, transparent 70%)',
+                                zIndex: 2
+                            }}></div>
+                            <div style={{
+                                position: 'relative',
+                                zIndex: 3,
+                                padding: '2rem',
+                                marginRight: 'auto',
+                                textAlign: 'left',
+                                maxWidth: '55%'
                             }}>
-                                YOUTUBE
-                            </span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            {/* NARRATIVE BREAK: THE GRIT */}
-            <section className="cinematic-section graphic-hero" style={{ backgroundImage: 'url("/skit_crew_dramatic.jpg")' }}>
-                <div className="image-overlay"></div>
-                <div className="cinematic-content reveal">
-                    <span className="emergency-text light">The Foundation</span>
-                    <h2 className="massive-heading">From the Shadows of Mississippi to the Light of the World.</h2>
-                    <p className="narrative-text narrative-sub">
-                        Real struggle requires real hope. We don't sugarcoat the warfare—we
-                        suit up for it. Our ministry is grounded in the reality of the
-                        crucifixion and the power of the resurrection.
-                    </p>
-                </div>
-            </section>
-
-            <div className="container">
-                <div className="bento-grid" style={{ marginTop: 'clamp(4rem, 10vw, 8rem)' }}>
-                    {/* SOBER LIVING */}
-                    <div className="bento-card span-6 row-4 reveal">
-                        <HomeIcon size={32} className="card-icon red" />
-                        <h2>The Garrison</h2>
-                        <p className="card-text">Safe, faith-based sober living environments where discipleship isn't a program—it's a lifestyle.</p>
-                        <div className="card-link">
-                            VIEW SOBER LIVING <ArrowRight size={16} />
-                        </div>
-                    </div>
-
-                    {/* RESOURCES */}
-                    <div className="bento-card span-6 row-4 reveal">
-                        <Shield size={32} className="card-icon red" />
-                        <h2>Tactical Intel</h2>
-                        <ul className="intel-list">
-                            <li>Daily Spiritual Warfare Devotionals</li>
-                            <li>Curriculum for Recovered Soldiers</li>
-                            <li>Newsletter Archive</li>
-                        </ul>
+                                <h3 style={{ fontSize: '1.5rem', fontWeight: '900', marginBottom: '0.5rem' }}>
+                                    SUBSCRIBE
+                                </h3>
+                                <p style={{ fontSize: '0.85rem', color: '#86868b', marginBottom: '1.5rem', lineHeight: 1.4 }}>
+                                    Watch full episodes, testimonies & behind-the-scenes warfare content.
+                                </p>
+                                <span style={{
+                                    display: 'inline-block',
+                                    background: '#ff0000',
+                                    color: '#fff',
+                                    padding: '10px 24px',
+                                    borderRadius: '8px',
+                                    fontSize: '0.8rem',
+                                    fontWeight: '900',
+                                    letterSpacing: '1px'
+                                }}>
+                                    YOUTUBE
+                                </span>
+                            </div>
+                        </HoloCard>
                     </div>
                 </div>
 
-
-                {/* FINAL CALL TO ACTION */}
-                <div className="bento-grid">
-                    <div className="bento-card span-full row-4 reveal footer-cta-card">
-                        <Heart size={48} color="var(--emergency-red)" className="footer-heart" />
-                        <h1>Support the Offensive</h1>
-                        <p className="footer-cta-text">
-                            Your partnership provides the fuel for this warfare. Help us bring
-                            the message of the Gospel to those currently lost in the ninety-nine.
+                {/* NARRATIVE BREAK: THE GRIT */}
+                <section className="cinematic-section graphic-hero" style={{ backgroundImage: 'url("/skit_crew_dramatic.jpg")' }}>
+                    <div className="image-overlay"></div>
+                    <div className="cinematic-content reveal">
+                        <span className="emergency-text light">The Foundation</span>
+                        <h2 className="massive-heading">From the Shadows of Mississippi to the Light of the World.</h2>
+                        <p className="narrative-text narrative-sub">
+                            Real struggle requires real hope. We don't sugarcoat the warfare—we
+                            suit up for it. Our ministry is grounded in the reality of the
+                            crucifixion and the power of the resurrection.
                         </p>
-                        <div className="footer-button-container">
-                            <button className="donate-btn xl-cta">SUPPORT THE MISSION</button>
+                    </div>
+                </section>
+
+                <div className="container">
+                    <div className="bento-grid" style={{ marginTop: 'clamp(4rem, 10vw, 8rem)' }}>
+                        {/* SOBER LIVING */}
+                        <div className="bento-card span-6 row-4 reveal">
+                            <HomeIcon size={32} className="card-icon red" />
+                            <h2>The Garrison</h2>
+                            <p className="card-text">Safe, faith-based sober living environments where discipleship isn't a program—it's a lifestyle.</p>
+                            <div className="card-link">
+                                VIEW SOBER LIVING <ArrowRight size={16} />
+                            </div>
+                        </div>
+
+                        {/* RESOURCES */}
+                        <div className="bento-card span-6 row-4 reveal">
+                            <Shield size={32} className="card-icon red" />
+                            <h2>Tactical Intel</h2>
+                            <ul className="intel-list">
+                                <li>Daily Spiritual Warfare Devotionals</li>
+                                <li>Curriculum for Recovered Soldiers</li>
+                                <li>Newsletter Archive</li>
+                            </ul>
+                        </div>
+                    </div>
+
+
+                    {/* FINAL CALL TO ACTION */}
+                    <div className="bento-grid">
+                        <div className="bento-card span-full row-4 reveal footer-cta-card">
+                            <Heart size={48} color="var(--emergency-red)" className="footer-heart" />
+                            <h1>Support the Offensive</h1>
+                            <p className="footer-cta-text">
+                                Your partnership provides the fuel for this warfare. Help us bring
+                                the message of the Gospel to those currently lost in the ninety-nine.
+                            </p>
+                            <div className="footer-button-container">
+                                <button className="donate-btn xl-cta">SUPPORT THE MISSION</button>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <style>{`
-                .hero-button-container { 
-                    display: flex; 
-                    gap: 1.5rem; 
-                }
-                .large-cta { 
-                    font-size: 1.1rem; 
-                    padding: 15px 40px !important; 
-                }
-                .mission-description { 
-                    font-size: 1.1rem; 
-                    margin-bottom: 2rem; 
-                    line-height: 1.6;
-                }
-                .mission-stats { 
-                    margin-top: auto; 
-                    display: flex; 
-                    gap: 2.5rem; 
-                }
-                .stat-value { 
-                    font-weight: 900; 
-                    font-size: 1.8rem; 
-                    display: block; 
-                }
-                .stat-label { 
-                    opacity: 0.5; 
-                    font-size: 0.8rem;
-                }
-                .warfare-report-card { 
-                    background: #000;
-                    transition: box-shadow 0.5s ease, transform 0.5s ease, border-color 0.5s ease;
-                }
-                .warfare-report-card:hover {
-                    box-shadow: 0 0 30px rgba(29, 185, 84, 0.5), 0 0 60px rgba(29, 185, 84, 0.2);
-                    border-color: rgba(29, 185, 84, 0.8) !important;
-                    transform: scale(1.02);
-                }
-                @media (max-width: 768px) {
-                    .warfare-report-card:hover {
-                        box-shadow: none;
-                        transform: none;
-                        border-color: rgba(29, 185, 84, 0.5) !important;
+                <style>{`
+                    .hero-button-container { 
+                        display: flex; 
+                        gap: 1.5rem; 
                     }
-                    .warfare-report-card.active {
-                        box-shadow: 0 0 25px rgba(29, 185, 84, 0.4), 0 0 50px rgba(29, 185, 84, 0.15);
-                        border-color: rgba(29, 185, 84, 0.8) !important;
+                    .large-cta { 
+                        font-size: 1.1rem; 
+                        padding: 15px 40px !important; 
                     }
-                }
-                .social-card {
-                    transition: box-shadow 0.5s ease, transform 0.5s ease, border-color 0.5s ease;
-                }
-                .social-card-fb:hover {
-                    box-shadow: 0 0 30px rgba(24, 119, 242, 0.5), 0 0 60px rgba(24, 119, 242, 0.2);
-                    border-color: rgba(24, 119, 242, 0.8) !important;
-                    transform: scale(1.02);
-                }
-                .social-card-yt:hover {
-                    box-shadow: 0 0 30px rgba(255, 0, 0, 0.5), 0 0 60px rgba(255, 0, 0, 0.2);
-                    border-color: rgba(255, 0, 0, 0.8) !important;
-                    transform: scale(1.02);
-                }
-                @media (max-width: 768px) {
-                    .social-card:hover { box-shadow: none; transform: none; }
-                    .social-card-fb.active {
-                        box-shadow: 0 0 25px rgba(24, 119, 242, 0.4);
-                        border-color: rgba(24, 119, 242, 0.8) !important;
-                    }
-                    .social-card-yt.active {
-                        box-shadow: 0 0 25px rgba(255, 0, 0, 0.4);
-                        border-color: rgba(255, 0, 0, 0.8) !important;
-                    }
-                }
-                .card-icon { 
-                    margin-bottom: 1.5rem; 
-                    color: white; 
-                }
-                .card-icon.red { 
-                    color: var(--emergency-red); 
-                }
-                .card-description { 
-                    color: rgba(255,255,255,0.8); 
-                    font-size: 1.05rem; 
-                    line-height: 1.5;
-                }
-                .podcast-player-mock { 
-                    margin-top: 2.5rem; 
-                    width: 100%; 
-                    height: 100px; 
-                    background: rgba(0,0,0,0.2); 
-                    border-radius: 20px; 
-                    display: flex; 
-                    align-items: center; 
-                    justify-content: center; 
-                }
-                .emergency-text.light { 
-                    color: white; 
-                }
-                .massive-heading { 
-                    font-size: clamp(1.8rem, 6vw, 4rem); 
-                    color: white; 
-                    max-width: 800px; 
-                    line-height: 1.1; 
-                }
-                .narrative-sub { 
-                    color: rgba(255,255,255,0.7); 
-                    font-size: 1rem;
-                }
-                .card-text { 
-                    font-size: 1.05rem; 
-                    line-height: 1.5;
-                }
-                .card-link { 
-                    margin-top: auto; 
-                    display: flex; 
-                    align-items: center; 
-                    gap: 8px; 
-                    font-weight: bold; 
-                    cursor: pointer; 
-                }
-                .intel-list { 
-                    list-style: none; 
-                    padding: 0;
-                }
-                .intel-list li { 
-                    padding: 1rem 0; 
-                    border-bottom: 1px solid rgba(255,255,255,0.05); 
-                }
-                .intel-list li:last-child { 
-                    border-bottom: none; 
-                }
-                .footer-cta-card { 
-                    background: var(--charcoal); 
-                    padding: 4rem 2rem; 
-                    text-align: center; 
-                }
-                .footer-heart { 
-                    margin: 0 auto 1.5rem; 
-                }
-                .footer-cta-text { 
-                    font-size: 1.2rem; 
-                    max-width: 800px; 
-                    margin: 0 auto 2.5rem; 
-                    color: var(--text-secondary); 
-                }
-                .footer-button-container { 
-                    display: flex; 
-                    justify-content: center; 
-                    gap: 1.5rem; 
-                }
-                .xl-cta { 
-                    padding: 18px 45px !important; 
-                    font-size: 1.1rem; 
-                }
-
-                @media (max-width: 768px) {
-                    .hero-button-container, .footer-button-container { 
-                        justify-content: center; 
-                        flex-direction: column;
-                        width: 100%;
-                    }
-                    .donate-btn {
-                        width: 100%;
-                        text-align: center;
+                    .mission-description { 
+                        font-size: 1.1rem; 
+                        margin-bottom: 2rem; 
+                        line-height: 1.6;
                     }
                     .mission-stats { 
-                        flex-direction: column; 
-                        gap: 1.5rem; 
-                        margin-top: 2rem;
+                        margin-top: auto; 
+                        display: flex; 
+                        gap: 2.5rem; 
+                    }
+                    .stat-value { 
+                        font-weight: 900; 
+                        font-size: 1.8rem; 
+                        display: block; 
+                    }
+                    .stat-label { 
+                        opacity: 0.5; 
+                        font-size: 0.8rem;
+                    }
+                    .warfare-report-card { 
+                        background: #000;
+                        transition: box-shadow 0.5s ease, transform 0.5s ease, border-color 0.5s ease;
+                    }
+                    .warfare-report-card:hover {
+                        box-shadow: 0 0 30px rgba(29, 185, 84, 0.7), 0 0 60px rgba(29, 185, 84, 0.35);
+                        border-color: rgba(29, 185, 84, 0.8) !important;
+                        transform: scale(1.02);
+                    }
+                    @media (max-width: 768px) {
+                        .warfare-report-card {
+                            min-height: 420px;
+                        }
+                        .warfare-report-card:hover {
+                            box-shadow: none;
+                            transform: none;
+                            border-color: rgba(29, 185, 84, 0.5) !important;
+                        }
+                        .warfare-report-card.active {
+                            box-shadow: 0 0 25px rgba(29, 185, 84, 0.6), 0 0 50px rgba(29, 185, 84, 0.3);
+                            border-color: rgba(29, 185, 84, 0.8) !important;
+                        }
+                    }
+                    .social-card {
+                        transition: box-shadow 0.5s ease, transform 0.5s ease, border-color 0.5s ease;
+                    }
+                    .social-card-fb:hover {
+                        box-shadow: 0 0 30px rgba(24, 119, 242, 0.5), 0 0 60px rgba(24, 119, 242, 0.2);
+                        border-color: rgba(24, 119, 242, 0.8) !important;
+                        transform: scale(1.02);
+                    }
+                    .social-card-yt:hover {
+                        box-shadow: 0 0 30px rgba(255, 0, 0, 0.5), 0 0 60px rgba(255, 0, 0, 0.2);
+                        border-color: rgba(255, 0, 0, 0.8) !important;
+                        transform: scale(1.02);
+                    }
+                    @media (max-width: 768px) {
+                        .social-card:hover { box-shadow: none; transform: none; }
+                        .social-card-fb.active {
+                            box-shadow: 0 0 25px rgba(24, 119, 242, 0.4);
+                            border-color: rgba(24, 119, 242, 0.8) !important;
+                        }
+                        .social-card-yt.active {
+                            box-shadow: 0 0 25px rgba(255, 0, 0, 0.4);
+                            border-color: rgba(255, 0, 0, 0.8) !important;
+                        }
+                    }
+                    .card-icon { 
+                        margin-bottom: 1.5rem; 
+                        color: white; 
+                    }
+                    .card-icon.red { 
+                        color: var(--emergency-red); 
+                    }
+                    .card-description { 
+                        color: rgba(255,255,255,0.8); 
+                        font-size: 1.05rem; 
+                        line-height: 1.5;
+                    }
+                    .podcast-player-mock { 
+                        margin-top: 2.5rem; 
+                        width: 100%; 
+                        height: 100px; 
+                        background: rgba(0,0,0,0.2); 
+                        border-radius: 20px; 
+                        display: flex; 
+                        align-items: center; 
+                        justify-content: center; 
+                    }
+                    .emergency-text.light { 
+                        color: white; 
+                    }
+                    .massive-heading { 
+                        font-size: clamp(1.8rem, 6vw, 4rem); 
+                        color: white; 
+                        max-width: 800px; 
+                        line-height: 1.1; 
+                    }
+                    .narrative-sub { 
+                        color: rgba(255,255,255,0.7); 
+                        font-size: 1rem;
+                    }
+                    .card-text { 
+                        font-size: 1.05rem; 
+                        line-height: 1.5;
+                    }
+                    .card-link { 
+                        margin-top: auto; 
+                        display: flex; 
+                        align-items: center; 
+                        gap: 8px; 
+                        font-weight: bold; 
+                        cursor: pointer; 
+                    }
+                    .intel-list { 
+                        list-style: none; 
+                        padding: 0;
+                    }
+                    .intel-list li { 
+                        padding: 1rem 0; 
+                        border-bottom: 1px solid rgba(255,255,255,0.05); 
+                    }
+                    .intel-list li:last-child { 
+                        border-bottom: none; 
                     }
                     .footer-cta-card { 
-                        padding: 3rem 1.25rem; 
+                        background: var(--charcoal); 
+                        padding: 4rem 2rem; 
+                        text-align: center; 
+                    }
+                    .footer-heart { 
+                        margin: 0 auto 1.5rem; 
                     }
                     .footer-cta-text { 
-                        font-size: 1rem; 
+                        font-size: 1.2rem; 
+                        max-width: 800px; 
+                        margin: 0 auto 2.5rem; 
+                        color: var(--text-secondary); 
                     }
-                    .massive-heading {
-                        font-size: 1.8rem;
+                    .footer-button-container { 
+                        display: flex; 
+                        justify-content: center; 
+                        gap: 1.5rem; 
                     }
-                }
-            `}</style>
-        </div >
+                    .xl-cta { 
+                        padding: 18px 45px !important; 
+                        font-size: 1.1rem; 
+                    }
+
+                    @media (max-width: 768px) {
+                        .hero-button-container, .footer-button-container { 
+                            justify-content: center; 
+                            flex-direction: column;
+                            width: 100%;
+                        }
+                        .donate-btn {
+                            width: 100%;
+                            text-align: center;
+                        }
+                        .mission-stats { 
+                            flex-direction: column; 
+                            gap: 1.5rem; 
+                            margin-top: 2rem;
+                        }
+                        .footer-cta-card { 
+                            padding: 3rem 1.25rem; 
+                        }
+                        .footer-cta-text { 
+                            font-size: 1rem; 
+                        }
+                        .massive-heading {
+                            font-size: 1.8rem;
+                        }
+                    }
+                `}</style>
+            </div>
+        </>
     )
 }
 
