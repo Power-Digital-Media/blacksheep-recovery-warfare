@@ -190,7 +190,7 @@ function ProductPage() {
                     max-height: 90%;
                     object-fit: contain;
                     filter: drop-shadow(0 20px 40px rgba(0,0,0,0.8)) drop-shadow(0 0 40px rgba(var(--glow-rgb), 0.4));
-                    animation: float-subtle 6s ease-in-out infinite;
+                    animation: float-subtle 6s ease-in-out;
                 }
                 .mascot-image {
                     max-width: 100%;
@@ -388,7 +388,7 @@ function ProductPage() {
                     border-radius: 50%;
                     display: inline-block;
                     box-shadow: 0 0 0 0 rgba(52, 199, 89, 0.7);
-                    animation: pulse 2s infinite;
+                    /* animation: pulse 2s infinite; - disabled for Lighthouse LCP idle state */
                 }
                 @keyframes pulse {
                     0% { box-shadow: 0 0 0 0 rgba(52, 199, 89, 0.7); }

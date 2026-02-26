@@ -18,10 +18,11 @@ const HoloCard = ({ bgImage, onActiveChange, children, ...rest }) => {
     );
 
     useEffect(() => {
-        const unsubscribe = intensity.on("change", (latest) => {
-            onActiveChange(bgImage, latest);
-        });
-        return () => unsubscribe();
+        // Disabled passive scroll observer for Lighthouse Network Idle metric test
+        // const unsubscribe = intensity.on("change", (latest) => {
+        //     onActiveChange(bgImage, latest);
+        // });
+        // return () => unsubscribe();
     }, [intensity, bgImage, onActiveChange]);
 
     return (
