@@ -6,7 +6,7 @@ import { fileURLToPath } from 'url';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const IMAGE_DIR = path.join(__dirname, '../public/images');
+const IMAGE_DIR = path.join(__dirname, '../public');
 
 async function getFiles(dir) {
     let results = [];
