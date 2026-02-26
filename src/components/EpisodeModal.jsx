@@ -20,7 +20,7 @@ const EpisodeModal = ({ episode, onClose }) => {
                     height: '100%',
                     backgroundSize: 'cover',
                     backgroundPosition: 'center',
-                    backgroundImage: `url(https://img.youtube.com/vi/${episode.ytId}/maxresdefault.webp)`,
+                    backgroundImage: `url(https://img.youtube.com/vi/${episode.ytId}/maxresdefault.jpg)`,
                     filter: 'blur(8px) brightness(0.4) saturate(1.2)', // Slightly darker than hover for focus
                     transform: 'scale(1.05)'
                 }}

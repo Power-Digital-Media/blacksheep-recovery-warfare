@@ -15,7 +15,7 @@ const EpisodeCard = ({ eps, index, gridClass, onClick }) => {
             <div className="video-thumb-container">
                 <div className="thumb-hover video-link" style={{ pointerEvents: 'none' }}>
                     <img
-                        src={`https://img.youtube.com/vi/${eps.ytId}/maxresdefault.webp`}
+                        src={`https://img.youtube.com/vi/${eps.ytId}/maxresdefault.jpg`}
                         alt={eps.title}
                         className="video-thumb"
                     />
