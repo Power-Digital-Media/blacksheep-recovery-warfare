@@ -66,7 +66,7 @@ function Resources() {
             <div className="animate-in" style={{ position: 'relative', zIndex: 1 }}>
 
                 {/* CINEMATIC HERO */}
-                <section className="cinematic-section graphic-hero" style={{ backgroundImage: 'url("/danny_studio_bg.jpg")' }}>
+                <section className="cinematic-section graphic-hero" style={{ backgroundImage: 'url("/danny_studio_bg.webp")' }}>
                     <div className="image-overlay"></div>
                     <div className="cinematic-content">
                         <span className="emergency-text">Strategic Intelligence</span>

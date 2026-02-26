@@ -46,7 +46,7 @@ const Footer = () => {
                     <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
                         <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
                             <img
-                                src="/logo.png"
+                                src="/logo.webp"
                                 alt="Black Sheep Logo"
                                 style={{
                                     width: '45px',

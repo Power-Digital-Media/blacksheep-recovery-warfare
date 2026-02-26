@@ -15,7 +15,7 @@ const EpisodeCard = ({ eps, index, gridClass, onClick }) => {
             <div className="video-thumb-container">
                 <div className="thumb-hover video-link" style={{ pointerEvents: 'none' }}>
                     <img
-                        src={`https://img.youtube.com/vi/${eps.ytId}/maxresdefault.jpg`}
+                        src={`https://img.youtube.com/vi/${eps.ytId}/maxresdefault.webp`}
                         alt={eps.title}
                         className="video-thumb"
                     />
@@ -37,7 +37,7 @@ const EpisodeCard = ({ eps, index, gridClass, onClick }) => {
 
             {index === 0 && (
                 <img
-                    src="/images/blacksheep/Blacksheep YT Collection/YT_TALL.png"
+                    src="/images/blacksheep/Blacksheep YT Collection/YT_TALL.webp"
                     alt="YouTube Sheep"
                     className="featured-sheep-overlay"
                 />
@@ -65,7 +65,7 @@ function Episodes() {
         offset: ["start end", "end start"]
     });
 
-    // Mobile-only Mid-scroll Hero Integration (/dr_monica_webb_cohost.jpg)
+    // Mobile-only Mid-scroll Hero Integration (/dr_monica_webb_cohost.webp)
     // On mobile, she re-appears in the middle of the scroll journey
     const mobileHeroOpacity = useTransform(scrollYProgress, [0.35, 0.5, 0.6, 0.75], [0, 1, 1, 0]);
 
@@ -95,7 +95,7 @@ function Episodes() {
 
             // Add Hero to hologram sequence IF we are on mobile AND she's in her scroll window
             if (isMobile && vMidHero > 0.01) {
-                next['/dr_monica_webb_cohost.jpg'] = vMidHero;
+                next['/dr_monica_webb_cohost.webp'] = vMidHero;
             }
 
             if (v1 > 0.01) next['_WgBM1YGD-4'] = v1;
@@ -189,12 +189,12 @@ function Episodes() {
                 customPositions={{
                     '_WgBM1YGD-4': 'center center',
                     'IkWcTAop-N8': 'center center',
-                    '/dr_monica_webb_cohost.jpg': 'center center'
+                    '/dr_monica_webb_cohost.webp': 'center center'
                 }}
             />
             <div className="animate-in" style={{ position: 'relative', zIndex: 1 }}>
                 {/* CINEMATIC HERO */}
-                <section className="cinematic-section" style={{ backgroundImage: 'url("/dr_monica_webb_cohost.jpg")' }}>
+                <section className="cinematic-section" style={{ backgroundImage: 'url("/dr_monica_webb_cohost.webp")' }}>
                     <div className="image-overlay"></div>
                     <motion.div
                         initial={{ opacity: 0, y: 30 }}

@@ -5,7 +5,7 @@ const DynamicBackground = ({ backgrounds = {}, customPositions = {}, blur = '8px
         if (!img) return '';
         const src = img.includes('/')
             ? img
-            : `https://img.youtube.com/vi/${img}/maxresdefault.jpg`;
+            : `https://img.youtube.com/vi/${img}/maxresdefault.webp`;
         return `url("${src}")`;
     };
 

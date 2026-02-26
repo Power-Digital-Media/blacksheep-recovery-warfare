@@ -63,7 +63,7 @@ function Events() {
             <div className="animate-in" style={{ position: 'relative', zIndex: 1 }}>
 
                 {/* CINEMATIC HERO */}
-                <section className="cinematic-section graphic-hero" style={{ backgroundImage: 'url("/studio_hero.jpg")' }}>
+                <section className="cinematic-section graphic-hero" style={{ backgroundImage: 'url("/studio_hero.webp")' }}>
                     <div className="image-overlay"></div>
                     <div className="cinematic-content">
                         <span className="emergency-text">Fellowship & Recovery</span>

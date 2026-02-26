@@ -96,15 +96,15 @@ const SponsorCard = ({ sponsor, onActiveChange }) => {
     );
 };
 
-import badgeElite from '../assets/badges/badge_elite.png'
-import badgeMercyHouse from '../assets/badges/badge_mercy_house.png'
-import badgeSuperThrift from '../assets/badges/badge_super_thrift.png'
-import badgeMercyAuto from '../assets/badges/badge_mercy_house_auto.png'
-import badgeElleSalon from '../assets/badges/badge_elle_salon.png'
-import badgeMadDesignist from '../assets/badges/badge_mad_designist.png'
-import badgeShiversCreek from '../assets/badges/badge_shivers_creek.png'
+import badgeElite from '../assets/badges/badge_elite.webp'
+import badgeMercyHouse from '../assets/badges/badge_mercy_house.webp'
+import badgeSuperThrift from '../assets/badges/badge_super_thrift.webp'
+import badgeMercyAuto from '../assets/badges/badge_mercy_house_auto.webp'
+import badgeElleSalon from '../assets/badges/badge_elle_salon.webp'
+import badgeMadDesignist from '../assets/badges/badge_mad_designist.webp'
+import badgeShiversCreek from '../assets/badges/badge_shivers_creek.webp'
 
-import heroAlliance from '../assets/hero_alliance.png'
+import heroAlliance from '../assets/hero_alliance.webp'
 
 function Sponsors() {
     const [bgMap, setBgMap] = useState({});
@@ -132,7 +132,7 @@ function Sponsors() {
             name: 'ELITE',
             image: badgeElite,
             url: 'http://elitecrc.us/',
-            bgImage: '/danny_studio_bg.jpg',
+            bgImage: '/danny_studio_bg.webp',
             bgPosition: '20% center'
         },
         {
@@ -140,28 +140,28 @@ function Sponsors() {
             name: 'MERCY HOUSE',
             image: badgeMercyHouse,
             url: 'https://mercyhouserecovery.org/',
-            bgImage: '/community_selfie.jpg' // Placeholder
+            bgImage: '/community_selfie.webp' // Placeholder
         },
         {
             id: 'ST-03',
             name: 'SUPER THRIFT',
             image: badgeSuperThrift,
             url: 'https://superthrift.com/',
-            bgImage: '/community_large.jpg' // Placeholder
+            bgImage: '/community_large.webp' // Placeholder
         },
         {
             id: 'MA-04',
             name: 'MERCY HOUSE AUTO',
             image: badgeMercyAuto,
             url: 'https://mercyhouseautorepair.com/',
-            bgImage: '/community_studio_small.jpg' // Placeholder
+            bgImage: '/community_studio_small.webp' // Placeholder
         },
         {
             id: 'ES-05',
             name: 'ELLE SALON',
             image: badgeElleSalon,
             url: 'https://www.ellesalon.com/',
-            bgImage: '/hero_alliance.png' // Placeholder
+            bgImage: '/hero_alliance.webp' // Placeholder
         },
         // Bottom Row (2)
         {
@@ -169,14 +169,14 @@ function Sponsors() {
             name: 'SHIVERS CREEK',
             image: badgeShiversCreek,
             url: 'https://www.shiverscreek.com/',
-            bgImage: '/night_of_hope_card.png' // Placeholder
+            bgImage: '/night_of_hope_card.webp' // Placeholder
         },
         {
             id: 'MD-08',
             name: 'THE MAD DESIGNIST',
             image: badgeMadDesignist,
             url: 'https://themaddesignist.com/',
-            bgImage: '/studio_hero.jpg' // Placeholder
+            bgImage: '/studio_hero.webp' // Placeholder
         },
     ];
 

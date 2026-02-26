@@ -9,7 +9,7 @@ function Navbar() {
         <nav className="animate-in mobile-nav-container">
             <div className="container nav-content-wrapper">
                 <Link to="/" style={{ textDecoration: 'none' }}>
-                    <img src="/logo.png" alt="Black Sheep Logo" className="nav-logo" />
+                    <img src="/logo.webp" alt="Black Sheep Logo" className="nav-logo" />
                 </Link>
 
                 <button className="mobile-menu-toggle" onClick={() => setIsMenuOpen(!isMenuOpen)}>

@@ -68,10 +68,10 @@ function Home() {
     }, []);
 
     const bgSizeConfig = {
-        '/images/blacksheep/Blacksheep SP Collection/SP_TALL.png': 'contain',
-        '/images/blacksheep/Blacksheep FB Collection/FB_Tall Both Holding.png': 'contain',
-        '/images/blacksheep/Blacksheep YT Collection/YT_TALL.png': 'contain',
-        '/skit_crew_dramatic.jpg': 'cover'
+        '/images/blacksheep/Blacksheep SP Collection/SP_TALL.webp': 'contain',
+        '/images/blacksheep/Blacksheep FB Collection/FB_Tall Both Holding.webp': 'contain',
+        '/images/blacksheep/Blacksheep YT Collection/YT_TALL.webp': 'contain',
+        '/skit_crew_dramatic.webp': 'cover'
     };
 
     return (
@@ -79,7 +79,7 @@ function Home() {
             <DynamicBackground backgrounds={bgMap} blur="0px" bgSize={bgSizeConfig} />
             <div className="animate-in" style={{ position: 'relative', zIndex: 1 }}>
                 {/* CINEMATIC HERO */}
-                <section className="cinematic-section" style={{ backgroundImage: 'url("/john_gallagher_host.png")' }}>
+                <section className="cinematic-section" style={{ backgroundImage: 'url("/john_gallagher_host.webp")' }}>
                     <div className="image-overlay"></div>
                     <div className="cinematic-content reveal">
                         <span className="emergency-text">Leaving the 99</span>
@@ -119,13 +119,13 @@ function Home() {
 
                         {/* FEATURED PODCAST — Hologram-tracked */}
                         <HoloCard
-                            bgImage="/images/blacksheep/Blacksheep SP Collection/SP_TALL.png"
+                            bgImage="/images/blacksheep/Blacksheep SP Collection/SP_TALL.webp"
                             onActiveChange={handleActiveChange}
                             className="bento-card span-4 row-4 reveal warfare-report-card"
                             onClick={() => window.open('https://open.spotify.com/show/6rByCbmShGIZJUWXj7Szim', '_blank')}
                             style={{
                                 cursor: 'pointer',
-                                backgroundImage: 'url("/images/blacksheep/Blacksheep SP Collection/SP_TALL.png")',
+                                backgroundImage: 'url("/images/blacksheep/Blacksheep SP Collection/SP_TALL.webp")',
                                 backgroundSize: 'cover',
                                 backgroundPosition: 'center',
                                 position: 'relative',
@@ -185,7 +185,7 @@ function Home() {
                     }}>
                         {/* FACEBOOK CARD — Hologram-tracked */}
                         <HoloCard
-                            bgImage="/images/blacksheep/Blacksheep FB Collection/FB_Tall Both Holding.png"
+                            bgImage="/images/blacksheep/Blacksheep FB Collection/FB_Tall Both Holding.webp"
                             onActiveChange={handleActiveChange}
                             className="reveal social-card social-card-fb"
                             onClick={() => window.open('https://www.facebook.com/profile.php?id=61564077765264', '_blank')}
@@ -202,7 +202,7 @@ function Home() {
                             }}
                         >
                             <img
-                                src="/images/blacksheep/Blacksheep FB Collection/FB_Point Right.png"
+                                src="/images/blacksheep/Blacksheep FB Collection/FB_Point Right.webp"
                                 alt="Follow on Facebook"
                                 style={{
                                     position: 'absolute',
@@ -251,7 +251,7 @@ function Home() {
 
                         {/* YOUTUBE CARD — Hologram-tracked */}
                         <HoloCard
-                            bgImage="/images/blacksheep/Blacksheep YT Collection/YT_TALL.png"
+                            bgImage="/images/blacksheep/Blacksheep YT Collection/YT_TALL.webp"
                             onActiveChange={handleActiveChange}
                             className="reveal social-card social-card-yt"
                             onClick={() => window.open('https://www.youtube.com/@BlackSheep_Recovery', '_blank')}
@@ -268,7 +268,7 @@ function Home() {
                             }}
                         >
                             <img
-                                src="/images/blacksheep/Blacksheep YT Collection/YT_Point Right.png"
+                                src="/images/blacksheep/Blacksheep YT Collection/YT_Point Right.webp"
                                 alt="Subscribe on YouTube"
                                 style={{
                                     position: 'absolute',
@@ -320,7 +320,7 @@ function Home() {
 
                 {/* NARRATIVE BREAK: THE GRIT — Hologram-tracked */}
                 <HoloCard
-                    bgImage="/skit_crew_dramatic.jpg"
+                    bgImage="/skit_crew_dramatic.webp"
                     onActiveChange={handleActiveChange}
                     className="cinematic-section graphic-hero"
                     style={{ background: 'transparent' }}

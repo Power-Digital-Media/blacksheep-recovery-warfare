@@ -21,7 +21,7 @@ function Donate() {
             tag: '$blacksheeprecovery',
             url: 'https://cash.app/$blacksheeprecovery',
             color: '#00D632',
-            image: '/images/blacksheep/Blacksheep Cash App Collection/CA_Point Right.png',
+            image: '/images/blacksheep/Blacksheep Cash App Collection/CA_Point Right.webp',
             description: 'Tap to send directly via Cash App. Fast, simple, and every dollar goes to the mission.',
             btnText: 'CASH APP'
         },
@@ -30,7 +30,7 @@ function Donate() {
             tag: '@blacksheeprecovery4311',
             url: 'https://venmo.com/blacksheeprecovery4311',
             color: '#3D95CE',
-            image: '/images/blacksheep/Blacksheep Venmo Collection/VM_Point Right.png',
+            image: '/images/blacksheep/Blacksheep Venmo Collection/VM_Point Right.webp',
             description: 'Send your support through Venmo. Quick giving for the Kingdom offensive.',
             btnText: 'VENMO'
         },
@@ -39,7 +39,7 @@ function Donate() {
             tag: '@BlackSheep1143',
             url: 'https://www.paypal.me/BlackSheep1143',
             color: '#003087',
-            image: '/images/blacksheep/Blacksheep Paypal Collection/PP_Point Right.png',
+            image: '/images/blacksheep/Blacksheep Paypal Collection/PP_Point Right.webp',
             description: 'Contribute securely via PayPal. One-time or recurring — you set the pace.',
             btnText: 'PAYPAL'
         }
