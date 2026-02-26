@@ -6,7 +6,10 @@ import { fileURLToPath } from 'url';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const IMAGE_DIR = path.join(__dirname, '../public');
+const TARGET_DIRS = [
+    path.join(__dirname, '../public'),
+    path.join(__dirname, '../src')
+];
 
 async function getFiles(dir) {
     let results = [];
@@ -27,7 +30,10 @@ async function getFiles(dir) {
 
 async function convertToWebP() {
     console.log('Scanning for images to convert to WebP...');
-    const allFiles = await getFiles(IMAGE_DIR);
+    let allFiles = [];
+    for (const dir of TARGET_DIRS) {
+        allFiles = allFiles.concat(await getFiles(dir));
+    }
 
     // Convert .png, .jpg, .jpeg
     const images = allFiles.filter(f => /\.(png|jpe?g)$/i.test(f));
