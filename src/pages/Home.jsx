@@ -79,9 +79,15 @@ function Home() {
             <DynamicBackground backgrounds={bgMap} blur="0px" bgSize={bgSizeConfig} />
             <div className="animate-in" style={{ position: 'relative', zIndex: 1 }}>
                 {/* CINEMATIC HERO */}
-                <section className="cinematic-section" style={{ backgroundImage: 'url("/john_gallagher_host.webp")' }}>
+                <section className="cinematic-section" style={{ position: 'relative' }}>
+                    <img
+                        src="/john_gallagher_host.webp"
+                        alt="John Gallagher Host"
+                        fetchPriority="high"
+                        style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center', zIndex: -1 }}
+                    />
                     <div className="image-overlay"></div>
-                    <div className="cinematic-content reveal">
+                    <div className="cinematic-content animate-in">
                         <span className="emergency-text">Leaving the 99</span>
                         <h1>REDEMPTION<br />WARFARE</h1>
                         <p className="narrative-text">
