@@ -1,29 +1,37 @@
 import React, { useEffect, useState, useRef, useCallback } from 'react'
-import { useScroll, useTransform } from 'framer-motion'
+
 import { Shield, Mic, Home as HomeIcon, ShoppingBag, Heart, ArrowRight, Play, ExternalLink } from 'lucide-react'
 import DynamicBackground from '../components/DynamicBackground'
 
 /* ── Scroll-tracked card wrapper ── */
 const HoloCard = ({ bgImage, onActiveChange, children, ...rest }) => {
     const cardRef = useRef(null);
-    const { scrollYProgress } = useScroll({
-        target: cardRef,
-        offset: ["start end", "end start"]
-    });
-
-    const intensity = useTransform(
-        scrollYProgress,
-        [0, 0.2, 0.5, 0.8, 1],
-        [0, 0.8, 1, 0.8, 0]
-    );
-
     useEffect(() => {
-        // Disabled passive scroll observer for Lighthouse Network Idle metric test
-        // const unsubscribe = intensity.on("change", (latest) => {
-        //     onActiveChange(bgImage, latest);
-        // });
-        // return () => unsubscribe();
-    }, [intensity, bgImage, onActiveChange]);
+        const thresholds = [];
+        for (let i = 0; i <= 20; i++) {
+            thresholds.push(i / 20);
+        }
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                // Ease the intersection ratio slightly so it hits full opacity smoothly
+                let ratio = entry.intersectionRatio;
+                // Optional easing if needed, but linear ratio is very performant
+                onActiveChange(bgImage, ratio);
+            });
+        }, {
+            threshold: thresholds,
+            rootMargin: "-5% 0px -5% 0px"
+        });
+
+        if (cardRef.current) {
+            observer.observe(cardRef.current);
+        }
+
+        return () => {
+            observer.disconnect();
+        };
+    }, [bgImage, onActiveChange]);
 
     return (
         <div
