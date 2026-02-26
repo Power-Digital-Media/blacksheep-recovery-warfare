@@ -46,7 +46,7 @@ function Donate() {
     ];
 
     return (
-        <div className="animate-in">
+        <div className="">
             {/* CINEMATIC HERO */}
             <section className="cinematic-section" style={{ backgroundImage: 'url("https://images.unsplash.com/photo-1510915228340-29c85a43dcfe?auto=format&fit=crop&q=80&w=2000")' }}>
                 <div className="image-overlay"></div>

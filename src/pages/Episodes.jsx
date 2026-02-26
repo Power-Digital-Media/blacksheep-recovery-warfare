@@ -192,7 +192,7 @@ function Episodes() {
                     '/dr_monica_webb_cohost.webp': 'center center'
                 }}
             />
-            <div className="animate-in" style={{ position: 'relative', zIndex: 1 }}>
+            <div style={{ position: 'relative', zIndex: 1 }}>
                 {/* CINEMATIC HERO */}
                 <section className="cinematic-section" style={{ backgroundImage: 'url("/dr_monica_webb_cohost.webp")' }}>
                     <div className="image-overlay"></div>

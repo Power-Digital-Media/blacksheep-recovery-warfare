@@ -35,7 +35,7 @@ function ProductPage() {
 
     if (!product) {
         return (
-            <div className="animate-in empty-state">
+            <div className="empty-state">
                 <div className="container" style={{ textAlign: 'center', paddingTop: '15vh', paddingBottom: '10vh' }}>
                     <h1 style={{ marginBottom: '1rem' }}>SITREP: ITEM NOT FOUND</h1>
                     <p className="narrative-text" style={{ marginBottom: '2rem' }}>
@@ -50,7 +50,7 @@ function ProductPage() {
     }
 
     return (
-        <div className="animate-in product-page-container">
+        <div className="product-page-container">
             <div className="container">
 
                 {/* BACK NAVIGATION */}

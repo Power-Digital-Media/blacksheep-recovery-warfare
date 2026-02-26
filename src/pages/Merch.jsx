@@ -49,7 +49,7 @@ function Merch() {
     }, []);
 
     return (
-        <div className="animate-in">
+        <div className="">
             {/* CINEMATIC HERO */}
             <section className="cinematic-section" style={{ backgroundImage: 'url("/images/merch_page_hero.webp")' }}>
                 <div className="image-overlay" style={{ background: 'linear-gradient(to bottom, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.2) 50%, rgba(0,0,0,1) 100%)' }}></div>

@@ -60,7 +60,7 @@ function Events() {
     return (
         <>
             <DynamicBackground backgrounds={bgMap} />
-            <div className="animate-in" style={{ position: 'relative', zIndex: 1 }}>
+            <div style={{ position: 'relative', zIndex: 1 }}>
 
                 {/* CINEMATIC HERO */}
                 <section className="cinematic-section graphic-hero" style={{ backgroundImage: 'url("/studio_hero.webp")' }}>

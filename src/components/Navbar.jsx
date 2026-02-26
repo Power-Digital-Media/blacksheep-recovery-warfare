@@ -6,7 +6,7 @@ function Navbar() {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
 
     return (
-        <nav className="animate-in mobile-nav-container">
+        <nav className="mobile-nav-container">
             <div className="container nav-content-wrapper">
                 <Link to="/" style={{ textDecoration: 'none' }}>
                     <img src="/logo.webp" alt="Black Sheep Logo" className="nav-logo" />

@@ -78,7 +78,7 @@ function Home() {
     return (
         <>
             <DynamicBackground backgrounds={bgMap} blur="0px" bgSize={bgSizeConfig} />
-            <div className="animate-in" style={{ position: 'relative', zIndex: 1 }}>
+            <div style={{ position: 'relative', zIndex: 1 }}>
                 {/* CINEMATIC HERO */}
                 <section className="cinematic-section" style={{ position: 'relative' }}>
                     <img
@@ -88,7 +88,7 @@ function Home() {
                         style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center', zIndex: -1 }}
                     />
                     <div className="image-overlay"></div>
-                    <div className="cinematic-content animate-in">
+                    <div className="cinematic-content">
                         <span className="emergency-text">Leaving the 99</span>
                         <h1>REDEMPTION<br />WARFARE</h1>
                         <p className="narrative-text">

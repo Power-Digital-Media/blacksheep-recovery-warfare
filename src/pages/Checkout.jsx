@@ -118,7 +118,7 @@ function Checkout() {
     };
 
     return (
-        <div className="animate-in checkout-page-container">
+        <div className="checkout-page-container">
             <div className="container">
                 <Link to={`/merch/${product.id}`} className="back-link reveal">
                     <ArrowLeft size={18} /> Back to Gear
