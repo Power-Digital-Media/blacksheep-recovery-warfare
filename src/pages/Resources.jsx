@@ -2,6 +2,7 @@ import React, { useEffect, useState, useRef } from 'react'
 import { motion, useScroll, useTransform } from 'framer-motion'
 import { BookOpen, ExternalLink, ShieldCheck, Youtube, ArrowRight, FileText, Mic } from 'lucide-react'
 import DynamicBackground from '../components/DynamicBackground'
+import Schema from '../components/Schema'
 
 const ResourceCard = ({ image, children, className, onActiveChange, style }) => {
     const cardRef = useRef(null);
@@ -60,8 +61,17 @@ function Resources() {
         { name: 'Unashamed Recovery', type: 'Visuals', author: 'YouTube', impact: 'Cultural Warfare' }
     ]
 
+    const resourcesSchema = {
+        "@context": "https://schema.org",
+        "@type": "WebPage",
+        "name": "Tactical Resources - Black Sheep Recovery Warfare",
+        "description": "Strategic intelligence and ministry resources to equip the saints and sustain the recovered life.",
+        "url": "https://blacksheeprecoverywarfare.com/resources"
+    };
+
     return (
         <>
+            <Schema data={resourcesSchema} />
             <DynamicBackground backgrounds={bgMap} />
             <div style={{ position: 'relative', zIndex: 1 }}>
 

@@ -2,6 +2,7 @@ import React, { useEffect } from 'react'
 import { ShoppingBag, ArrowRight, Star } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import { merchItems } from '../data/merchData'
+import Schema from '../components/Schema'
 
 function Merch() {
     useEffect(() => {
@@ -48,8 +49,21 @@ function Merch() {
         };
     }, []);
 
+    const merchSchema = {
+        "@context": "https://schema.org",
+        "@type": "ItemList",
+        "itemListElement": merchItems.map((item, index) => ({
+            "@type": "ListItem",
+            "position": index + 1,
+            "url": `https://blacksheeprecoverywarfare.com/merch/${item.id}`,
+            "name": item.name,
+            "image": `https://blacksheeprecoverywarfare.com${item.image}`
+        }))
+    };
+
     return (
         <div className="">
+            <Schema data={merchSchema} />
             {/* CINEMATIC HERO */}
             <section className="cinematic-section" style={{ backgroundImage: 'url("/images/merch_page_hero.webp")' }}>
                 <div className="image-overlay" style={{ background: 'linear-gradient(to bottom, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.2) 50%, rgba(0,0,0,1) 100%)' }}></div>

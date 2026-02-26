@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { ArrowLeft, ShoppingCart, Star, ShieldCheck } from 'lucide-react';
 import { merchItems } from '../data/merchData';
+import Schema from '../components/Schema';
 
 function ProductPage() {
     const { id } = useParams();
@@ -49,8 +50,25 @@ function ProductPage() {
         );
     }
 
+    const productSchema = product ? {
+        "@context": "https://schema.org",
+        "@type": "Product",
+        "name": product.name,
+        "image": `https://blacksheeprecoverywarfare.com${product.image}`,
+        "description": product.desc,
+        "offers": {
+            "@type": "Offer",
+            "url": `https://blacksheeprecoverywarfare.com/merch/${product.id}`,
+            "priceCurrency": "USD",
+            "price": product.price.replace('$', ''),
+            "itemCondition": "https://schema.org/NewCondition",
+            "availability": "https://schema.org/InStock"
+        }
+    } : null;
+
     return (
         <div className="product-page-container">
+            {productSchema && <Schema data={productSchema} />}
             <div className="container">
 
                 {/* BACK NAVIGATION */}

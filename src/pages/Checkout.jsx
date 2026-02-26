@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation, Link, useNavigate } from 'react-router-dom';
 import { ArrowLeft, ShieldCheck, CreditCard, DollarSign } from 'lucide-react';
+import Schema from '../components/Schema';
 
 function Checkout() {
     const location = useLocation();
@@ -117,8 +118,17 @@ function Checkout() {
         navigate('/merch');
     };
 
+    const checkoutSchema = {
+        "@context": "https://schema.org",
+        "@type": "WebPage",
+        "name": "Checkout - Black Sheep Recovery Warfare",
+        "description": "Secure checkout and direct giving portal.",
+        "url": "https://blacksheeprecoverywarfare.com/checkout"
+    };
+
     return (
-        <div className="checkout-page-container">
+        <div className="checkout-container">
+            <Schema data={checkoutSchema} />
             <div className="container">
                 <Link to={`/merch/${product.id}`} className="back-link reveal">
                     <ArrowLeft size={18} /> Back to Gear

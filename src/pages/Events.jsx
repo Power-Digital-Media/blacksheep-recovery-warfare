@@ -3,6 +3,7 @@ import { motion, useScroll, useTransform } from 'framer-motion'
 import { MapPin, Calendar, Users, ArrowRight } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import DynamicBackground from '../components/DynamicBackground'
+import Schema from '../components/Schema'
 
 const EventCard = ({ id, image, children, className, onActiveChange }) => {
     const cardRef = React.useRef(null);
@@ -56,9 +57,41 @@ function Events() {
         });
     };
 
+    const eventSchema = {
+        "@context": "https://schema.org",
+        "@type": "Event",
+        "name": "NIGHT OF HOPE - Black Sheep Recovery",
+        "startDate": "2025-09-13T19:00:00-05:00",
+        "endDate": "2025-09-13T22:00:00-05:00",
+        "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+        "eventStatus": "https://schema.org/EventScheduled",
+        "location": {
+            "@type": "Place",
+            "name": "Central Mississippi",
+            "address": {
+                "@type": "PostalAddress",
+                "addressLocality": "Jackson",
+                "addressRegion": "MS",
+                "addressCountry": "US"
+            }
+        },
+        "image": [
+            "https://blacksheeprecoverywarfare.com/night_of_hope_card.webp"
+        ],
+        "description": "A powerful evening of raw testimonies, worship, and real talk about recovery and the relentless grace of Jesus Christ.",
+        "offers": {
+            "@type": "Offer",
+            "url": "https://blacksheeprecoverywarfare.com/events",
+            "price": "0",
+            "priceCurrency": "USD",
+            "availability": "https://schema.org/InStock",
+            "validFrom": "2025-01-01T00:00:00-05:00"
+        }
+    };
 
     return (
         <>
+            <Schema data={eventSchema} />
             <DynamicBackground backgrounds={bgMap} />
             <div style={{ position: 'relative', zIndex: 1 }}>
 

@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react'
 import { Heart, ShieldCheck, ExternalLink } from 'lucide-react'
+import Schema from '../components/Schema'
 
 function Donate() {
     useEffect(() => {
@@ -45,8 +46,17 @@ function Donate() {
         }
     ];
 
+    const donateSchema = {
+        "@context": "https://schema.org",
+        "@type": "WebPage",
+        "name": "Donate - Black Sheep Recovery Warfare",
+        "description": "Support the Black Sheep Recovery mission. Every dollar directly impacts lives currently lost in the shadow of addiction.",
+        "url": "https://blacksheeprecoverywarfare.com/donate"
+    };
+
     return (
         <div className="">
+            <Schema data={donateSchema} />
             {/* CINEMATIC HERO */}
             <section className="cinematic-section" style={{ backgroundImage: 'url("https://images.unsplash.com/photo-1510915228340-29c85a43dcfe?auto=format&fit=crop&q=80&w=2000")' }}>
                 <div className="image-overlay"></div>

@@ -6,6 +6,7 @@ import {
     ArrowRight, ShieldCheck, Feather, Brain
 } from 'lucide-react'
 import DynamicBackground from '../components/DynamicBackground'
+import Schema from '../components/Schema'
 
 const SponsorCard = ({ sponsor, onActiveChange }) => {
     const cardRef = React.useRef(null);
@@ -185,8 +186,17 @@ function Sponsors() {
         return acc;
     }, {});
 
+    const sponsorsSchema = {
+        "@context": "https://schema.org",
+        "@type": "WebPage",
+        "name": "Network - Black Sheep Recovery Warfare",
+        "description": "Our network of strategic alliances, kingdom businesses, and ministry partners supporting the recovery mission.",
+        "url": "https://blacksheeprecoverywarfare.com/sponsors"
+    };
+
     return (
         <>
+            <Schema data={sponsorsSchema} />
             <DynamicBackground backgrounds={bgMap} customPositions={customPositions} blur="2px" />
             <div style={{ position: 'relative', zIndex: 1, backgroundColor: 'transparent', minHeight: '100vh', color: '#fff' }}>
                 {/* CINEMATIC HERO */}

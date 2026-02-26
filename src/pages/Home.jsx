@@ -2,6 +2,7 @@ import React, { useEffect, useState, useRef, useCallback } from 'react'
 
 import { Shield, Mic, Home as HomeIcon, ShoppingBag, Heart, ArrowRight, Play, ExternalLink } from 'lucide-react'
 import DynamicBackground from '../components/DynamicBackground'
+import Schema from '../components/Schema'
 
 /* ── Scroll-tracked card wrapper ── */
 const HoloCard = ({ bgImage, onActiveChange, children, ...rest }) => {
@@ -85,6 +86,24 @@ function Home() {
 
     return (
         <>
+            <Schema data={{
+                "@context": "https://schema.org",
+                "@type": "WebSite",
+                "name": "Black Sheep Recovery Warfare",
+                "url": "https://blacksheeprecoverywarfare.com",
+                "description": "A Christ-centered offensive strategy for spiritual resilience. Transforming the chaos of addiction into the grace of vitality."
+            }} />
+            <Schema data={{
+                "@context": "https://schema.org",
+                "@type": "Organization",
+                "name": "Black Sheep Recovery Warfare",
+                "url": "https://blacksheeprecoverywarfare.com",
+                "logo": "https://blacksheeprecoverywarfare.com/logo.webp",
+                "sameAs": [
+                    "https://www.facebook.com/61564077765264/",
+                    "https://www.youtube.com/@BlackSheep_Recovery"
+                ]
+            }} />
             <DynamicBackground backgrounds={bgMap} blur="0px" bgSize={bgSizeConfig} />
             <div style={{ position: 'relative', zIndex: 1 }}>
                 {/* CINEMATIC HERO */}

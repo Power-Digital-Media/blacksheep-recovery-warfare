@@ -1,7 +1,9 @@
 import React, { useState, useRef, useEffect } from 'react'
 import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion'
 import { Play, Youtube, Radio, ArrowRight } from 'lucide-react'
+import { Link } from 'react-router-dom'
 import DynamicBackground from '../components/DynamicBackground'
+import Schema from '../components/Schema'
 import EpisodeModal from '../components/EpisodeModal'
 
 const EpisodeCard = ({ eps, index, gridClass, onClick }) => {
@@ -180,8 +182,28 @@ function Episodes() {
         }
     ]
 
+    const podcastSchema = {
+        "@context": "https://schema.org",
+        "@type": "PodcastSeries",
+        "name": "Warfare Reports - Black Sheep Recovery",
+        "description": "Raw, unfiltered testimonies of spiritual warfare and the relentless transformation of the soul.",
+        "url": "https://blacksheeprecoverywarfare.com/episodes",
+        "hasPart": episodes.map(eps => ({
+            "@type": "PodcastEpisode",
+            "name": eps.title,
+            "description": eps.desc,
+            "datePublished": `2025-${eps.date.split(' ')[0]}-01`, // Fallback format
+            "url": `https://www.youtube.com/watch?v=${eps.ytId}`,
+            "associatedMedia": {
+                "@type": "ImageObject",
+                "url": `https://img.youtube.com/vi/${eps.ytId}/maxresdefault.jpg`
+            }
+        }))
+    };
+
     return (
         <>
+            <Schema data={podcastSchema} />
             <DynamicBackground
                 backgrounds={bgMap}
                 blur="0px"
