@@ -55,10 +55,10 @@ function Resources() {
     };
 
     const resources = [
-        { name: 'Trapped in the Addict', type: 'Literature', author: 'John Gallagher', impact: 'Core Doctrine' },
-        { name: 'Mercy House Teen Challenge', type: 'Residential', author: 'Mississippi', impact: 'Direct Intervention' },
-        { name: 'The Uncommon Christian', type: 'Podcast', author: 'Ministry Partners', impact: 'Spiritual Growth' },
-        { name: 'Unashamed Recovery', type: 'Visuals', author: 'YouTube', impact: 'Cultural Warfare' }
+        { name: 'Friends of Alcoholics', type: 'Recovery Community', author: 'Jackson, MS', impact: 'Faith-Based Support', url: 'https://www.foaministry.org/', image: '/images/Friends_Of_Alcoholics.avif' },
+        { name: 'Trapped in the Addict', type: 'Literature / Group', author: 'John Gallagher', impact: 'Core Doctrine', url: 'https://trappedintheaddict.com/', image: '/images/trapped_in_the_Addict.webp' },
+        { name: 'Elite CRC (Clinical)', type: 'Partnership', author: 'Jackson, MS', impact: 'Medical Integration', url: 'http://elitecrc.us/' },
+        { name: 'The Uncommon Christian', type: 'Podcast', author: 'Ministry Partners', impact: 'Spiritual Growth', url: '#' }
     ]
 
     const resourcesSchema = {
@@ -72,16 +72,16 @@ function Resources() {
     return (
         <>
             <Schema data={resourcesSchema} />
-            <DynamicBackground backgrounds={bgMap} />
+            <DynamicBackground backgrounds={bgMap} blur="3px" />
             <div style={{ position: 'relative', zIndex: 1 }}>
 
                 {/* CINEMATIC HERO */}
-                <section className="cinematic-section graphic-hero" style={{ backgroundImage: 'url("/danny_studio_bg.webp")' }}>
-                    <div className="image-overlay"></div>
-                    <div className="cinematic-content">
+                <section className="cinematic-section graphic-hero" style={{ backgroundImage: 'url("/danny_studio_bg.webp")', justifyContent: 'flex-end', paddingRight: '5%', '--hero-text-align': 'right', maskImage: 'linear-gradient(to bottom, black 50%, transparent 100%)', WebkitMaskImage: 'linear-gradient(to bottom, black 60%, transparent 100%)' }}>
+                    <div className="image-overlay" style={{ background: 'linear-gradient(to left, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.7) 40%, rgba(0,0,0,0.1) 100%)' }}></div>
+                    <div className="cinematic-content" style={{ alignItems: 'flex-end', textAlign: 'right', maxWidth: '600px', marginRight: '5%' }}>
                         <span className="emergency-text">Strategic Intelligence</span>
                         <h1>TACTICAL<br />INTEL</h1>
-                        <p className="narrative-text">
+                        <p className="narrative-text" style={{ textAlign: 'right' }}>
                             Equipping the saints with the knowledge and tools necessary to
                             sustain the recovered life. Every resource is a weapon for the warfare.
                         </p>
@@ -91,45 +91,105 @@ function Resources() {
                 <div className="container" style={{ marginTop: 'clamp(3rem, 10vw, 8rem)' }}>
                     <div className="bento-grid">
 
-                        {/* RESOURCE LIST */}
-                        {resources.map((res, idx) => (
-                            <ResourceCard key={idx} className="span-6 row-3 resource-card">
-                                <div className="resource-header">
-                                    <span className="emergency-text resource-type">{res.type}</span>
-                                    <span className="resource-impact">{res.impact}</span>
-                                </div>
-                                <div style={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-                                    <h2 className="resource-name">{res.name}</h2>
-                                    <p className="resource-author">By {res.author}</p>
-                                </div>
-                                <div className="resource-link">
-                                    ACCESS INTEL <ExternalLink size={14} />
-                                </div>
-                            </ResourceCard>
+                        {/* RESOURCE LIST - TOP ROW */}
+                        {resources.slice(0, 2).map((res, idx) => (
+                            <a
+                                key={idx}
+                                href={res.url}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="span-6 row-3"
+                                style={{ textDecoration: 'none', color: 'inherit', display: 'flex' }}
+                                onMouseEnter={() => res.image && handleActiveChange(res.image, 1)}
+                                onMouseLeave={() => res.image && handleActiveChange(res.image, 0)}
+                            >
+                                <ResourceCard className="resource-card" style={{ flex: 1, width: '100%' }}>
+                                    <div className="resource-header">
+                                        <span className="emergency-text resource-type">{res.type}</span>
+                                        <span className="resource-impact">{res.impact}</span>
+                                    </div>
+                                    <div style={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+                                        <h2 className="resource-name">{res.name}</h2>
+                                        <p className="resource-author">Loc: {res.author}</p>
+                                    </div>
+                                    <div className="resource-link">
+                                        ACCESS BASE <ExternalLink size={14} />
+                                    </div>
+                                </ResourceCard>
+                            </a>
                         ))}
 
-                        {/* FEATURED DOCUMENTARY/PROJECT */}
-                        <div className="bento-card span-full row-4 featured-intel-card">
-                            <div className="featured-overlay"></div>
-                            <div className="featured-content">
-                                <div className="featured-header">
-                                    <Youtube size={32} color="var(--emergency-red)" />
-                                    <span className="emergency-text">Featured Intelligence</span>
+                        {/* FEATURED RECOVERY BASE - ROW 2 */}
+                        <div className="bento-card span-full row-4 featured-intel-card" style={{ backgroundImage: 'url("/community_large.webp")', backgroundSize: 'cover', backgroundPosition: 'center', padding: 0 }}>
+                            <div className="featured-overlay" style={{ background: 'linear-gradient(to right, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.8) 40%, rgba(0,0,0,0.4) 100%)' }}></div>
+                            <div className="featured-content" style={{ padding: '3rem' }}>
+                                {/* Left Side Info */}
+                                <div className="featured-main" style={{ flex: 1, paddingRight: '2rem' }}>
+                                    <div className="featured-header" style={{ marginBottom: '1.5rem' }}>
+                                        <ShieldCheck size={32} color="var(--emergency-red)" />
+                                        <span className="emergency-text">Frontline Recovery Base</span>
+                                    </div>
+                                    <h1 className="featured-title">Mercy House<br />Central Mississippi</h1>
+                                    <p className="featured-desc">
+                                        A faith-based, long-term residential program providing comprehensive, biblical solutions to life-controlling addictions. This is where the warfare becomes tactical recovery.
+                                    </p>
+                                    <a href="https://mercyhouserecovery.org/" target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'none' }}>
+                                        <button className="event-cta">
+                                            ENTER RECOVERY FORCE <ArrowRight size={20} />
+                                        </button>
+                                    </a>
                                 </div>
 
-                                <div className="featured-main">
-                                    <h1 className="featured-title">4 Mics, 13 Teeth, 1 Ankle Monitor</h1>
-                                    <p className="featured-desc">
-                                        A raw, cinematic perspective on the journey from federal oversight
-                                        to spiritual freedom. This project documents the reality of the
-                                        warfare we are engaged in.
-                                    </p>
-                                    <button className="event-cta">
-                                        WATCH PROJECT <ArrowRight size={20} />
-                                    </button>
+                                {/* Right Side Nested Cards */}
+                                <div className="nested-cards-container">
+                                    <a
+                                        href="https://mercyhouserecovery.org/"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="nested-card"
+                                        onMouseEnter={() => handleActiveChange('/images/Teen_Challenge.webp', 1)}
+                                        onMouseLeave={() => handleActiveChange('/images/Teen_Challenge.webp', 0)}
+                                    >
+                                        <h4>Mercy House<br />Teen Challenge</h4>
+                                        <span>Residential Program</span>
+                                    </a>
+                                    <a
+                                        href="https://superthrift.com/"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="nested-card"
+                                        onMouseEnter={() => handleActiveChange('/images/Super_Thrift.webp', 1)}
+                                        onMouseLeave={() => handleActiveChange('/images/Super_Thrift.webp', 0)}
+                                    >
+                                        <h4>Super Thrift</h4>
+                                        <span>Mission Support Enterprise</span>
+                                    </a>
+                                    <a href="https://mercyhouseautorepair.com/" target="_blank" rel="noopener noreferrer" className="nested-card">
+                                        <h4>Mercy House Auto</h4>
+                                        <span>Skill Development Services</span>
+                                    </a>
                                 </div>
                             </div>
                         </div>
+
+                        {/* RESOURCE LIST - ROW 3 */}
+                        {resources.slice(2).map((res, idx) => (
+                            <a key={idx} href={res.url} target="_blank" rel="noopener noreferrer" className="span-6 row-3" style={{ textDecoration: 'none', color: 'inherit', display: 'flex' }}>
+                                <ResourceCard className="resource-card" style={{ flex: 1, width: '100%' }}>
+                                    <div className="resource-header">
+                                        <span className="emergency-text resource-type">{res.type}</span>
+                                        <span className="resource-impact">{res.impact}</span>
+                                    </div>
+                                    <div style={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+                                        <h2 className="resource-name">{res.name}</h2>
+                                        <p className="resource-author">Loc: {res.author}</p>
+                                    </div>
+                                    <div className="resource-link">
+                                        ACCESS BASE <ExternalLink size={14} />
+                                    </div>
+                                </ResourceCard>
+                            </a>
+                        ))}
 
                         {/* CORE PILLAR */}
                         <ResourceCard className="span-4 row-2 pillar-card">
@@ -215,9 +275,10 @@ function Resources() {
                         width: 100%;
                         height: 100%;
                         display: flex;
-                        flex-direction: column;
+                        flex-direction: row;
+                        align-items: center;
                         justify-content: space-between;
-                        padding: 1rem;
+                        padding: 0;
                     }
                     .featured-header {
                         display: flex;
@@ -226,7 +287,50 @@ function Resources() {
                         margin-bottom: 2rem;
                     }
                     .featured-main {
-                        max-width: 800px;
+                        max-width: 700px;
+                    }
+                    .nested-cards-container {
+                        display: flex;
+                        flex-direction: column;
+                        gap: 1.5rem;
+                        width: 340px;
+                        padding-left: 2rem;
+                        border-left: 1px solid rgba(255, 255, 255, 0.1);
+                        height: 100%;
+                        justify-content: space-between;
+                    }
+                    .nested-card {
+                        background: rgba(20, 20, 20, 0.6);
+                        backdrop-filter: blur(10px);
+                        border: 1px solid rgba(255, 255, 255, 0.1);
+                        border-radius: 12px;
+                        padding: 1.5rem;
+                        display: flex;
+                        flex-direction: column;
+                        justify-content: center;
+                        gap: 0.4rem;
+                        text-decoration: none;
+                        color: white;
+                        transition: all 0.3s ease;
+                        flex: 1;
+                    }
+                    .nested-card:hover {
+                        background: rgba(30, 30, 30, 0.9);
+                        border-color: rgba(255, 59, 48, 0.6);
+                        transform: translateX(-5px);
+                    }
+                    .nested-card h4 {
+                        margin: 0;
+                        font-size: 1.1rem;
+                        line-height: 1.2;
+                    }
+                    .nested-card span {
+                        font-family: 'monospace';
+                        font-size: 0.75rem;
+                        color: var(--emergency-red);
+                        text-transform: uppercase;
+                        letter-spacing: 1px;
+                        opacity: 0.9;
                     }
                     .featured-title { 
                         font-size: clamp(2rem, 5vw, 3.5rem); 
@@ -255,8 +359,23 @@ function Resources() {
                     .pillar-card h2 { font-size: 1.4rem; margin-bottom: 0.8rem; }
                     .pillar-card p { font-size: 0.95rem; color: var(--text-secondary); line-height: 1.5; }
 
-                    @media (max-width: 768px) {
+                    @media (max-width: 900px) {
                         .featured-intel-card { min-height: auto; }
+                        .featured-content {
+                            flex-direction: column !important;
+                            padding: 2rem !important;
+                        }
+                        .featured-main {
+                            padding-right: 0 !important;
+                            margin-bottom: 2rem;
+                        }
+                        .nested-cards-container {
+                            width: 100% !important;
+                            padding-left: 0 !important;
+                            padding-top: 2rem;
+                            border-left: none !important;
+                            border-top: 1px solid rgba(255, 255, 255, 0.1);
+                        }
                         .featured-title { font-size: 2rem; }
                         .resource-name { font-size: 1.4rem; }
                     }

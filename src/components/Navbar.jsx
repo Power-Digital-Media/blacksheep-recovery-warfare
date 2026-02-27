@@ -12,7 +12,7 @@ function Navbar() {
                     <img src="/logo.webp" alt="Black Sheep Logo" className="nav-logo" />
                 </Link>
 
-                <button className="mobile-menu-toggle" onClick={() => setIsMenuOpen(!isMenuOpen)}>
+                <button className="mobile-menu-toggle" aria-label="Toggle mobile menu" onClick={() => setIsMenuOpen(!isMenuOpen)}>
                     {isMenuOpen ? <X size={32} /> : <Menu size={32} />}
                 </button>
 

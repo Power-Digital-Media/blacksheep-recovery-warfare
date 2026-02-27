@@ -86,6 +86,7 @@ const EpisodeModal = ({ episode, onClose }) => {
                             <h2 style={{ fontSize: '2rem', fontWeight: 700, margin: 0, lineHeight: 1.1 }}>{episode.title}</h2>
                         </div>
                         <button
+                            aria-label="Close modal"
                             onClick={(e) => { e.stopPropagation(); onClose(); }}
                             style={{
                                 background: 'rgba(255,255,255,0.1)',
