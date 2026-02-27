@@ -17,7 +17,7 @@ const EpisodeCard = ({ eps, index, gridClass, onClick }) => {
             <div className="video-thumb-container">
                 <div className="thumb-hover video-link" style={{ pointerEvents: 'none' }}>
                     <img
-                        src={`https://img.youtube.com/vi/${eps.ytId}/maxresdefault.jpg`}
+                        src={`https://img.youtube.com/vi/${eps.ytId}/maxresdefault.webp`}
                         alt={eps.title}
                         className="video-thumb"
                     />
@@ -198,7 +198,7 @@ function Episodes() {
             "url": `https://www.youtube.com/watch?v=${eps.ytId}`,
             "associatedMedia": {
                 "@type": "ImageObject",
-                "url": `https://img.youtube.com/vi/${eps.ytId}/maxresdefault.jpg`
+                "url": `https://img.youtube.com/vi/${eps.ytId}/maxresdefault.webp`
             }
         }))
     };
