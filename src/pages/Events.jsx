@@ -92,11 +92,15 @@ function Events() {
     return (
         <>
             <Schema data={eventSchema} />
-            <DynamicBackground backgrounds={bgMap} />
+            <DynamicBackground backgrounds={bgMap} blur="1px" />
             <div style={{ position: 'relative', zIndex: 1 }}>
 
                 {/* CINEMATIC HERO */}
-                <section className="cinematic-section graphic-hero" style={{ backgroundImage: 'url("/studio_hero.webp")' }}>
+                <section className="cinematic-section graphic-hero" style={{
+                    backgroundImage: 'url("/studio_hero.webp")',
+                    maskImage: 'linear-gradient(to bottom, black 50%, transparent 100%)',
+                    WebkitMaskImage: 'linear-gradient(to bottom, black 50%, transparent 100%)'
+                }}>
                     <div className="image-overlay"></div>
                     <div className="cinematic-content">
                         <span className="emergency-text">Fellowship & Recovery</span>
@@ -111,7 +115,7 @@ function Events() {
                 <div className="container" style={{ marginTop: 'clamp(3rem, 10vw, 8rem)' }}>
                     <div className="bento-grid">
                         <EventCard
-                            image="/night_of_hope_card.png?v=5"
+                            image="/night_of_hope_card.webp"
                             className="span-8 row-4 featured-event-card"
                             onActiveChange={handleActiveChange}
                         >
@@ -145,7 +149,7 @@ function Events() {
 
                         {/* LOGISTICS */}
                         <EventCard
-                            image="/community_selfie.jpg?v=1"
+                            image="/community_selfie.webp"
                             className="span-4 row-2 logistics-card location-card"
                             onActiveChange={handleActiveChange}
                         >
@@ -156,7 +160,7 @@ function Events() {
                         </EventCard>
 
                         <EventCard
-                            image="/community_large.jpg?v=1"
+                            image="/community_large.webp"
                             className="span-4 row-2 logistics-card invitation-card"
                             onActiveChange={handleActiveChange}
                         >
@@ -167,7 +171,7 @@ function Events() {
                         </EventCard>
 
                         <EventCard
-                            image="/community_studio_small.jpg?v=1"
+                            image="/community_studio_small.webp"
                             className="span-4 row-2 logistics-card community-card"
                             onActiveChange={handleActiveChange}
                         >
@@ -195,7 +199,7 @@ function Events() {
                     content: '';
                     position: absolute;
                     inset: 1.5px; /* The Anti-Bleed Gutter */
-                    background-image: url('/night_of_hope_card.png?v=5');
+                    background-image: url('/night_of_hope_card.webp');
                     background-size: cover;
                     background-position: 65% 15%;
                     border-radius: inherit;
@@ -282,15 +286,14 @@ function Events() {
                     border-radius: inherit;
                     z-index: 1;
                 }
-                
                 .location-card::before { 
-                    background-image: url('/community_selfie.jpg?v=5') !important;
+                    background-image: url('/community_selfie.webp') !important;
                 }
                 .invitation-card::before { 
-                    background-image: url('/community_large.jpg?v=5') !important;
+                    background-image: url('/community_large.webp') !important;
                 }
                 .community-card::before { 
-                    background-image: url('/community_studio_small.jpg?v=5') !important;
+                    background-image: url('/community_studio_small.webp') !important;
                 }
 
                 .card-overlay {

@@ -22,6 +22,7 @@ function Donate() {
             tag: '$blacksheeprecovery',
             url: 'https://cash.app/$blacksheeprecovery',
             color: '#00D632',
+            glowRgb: '0, 214, 50',
             image: '/images/blacksheep/Blacksheep Cash App Collection/CA_Point Right.webp',
             description: 'Tap to send directly via Cash App. Fast, simple, and every dollar goes to the mission.',
             btnText: 'CASH APP'
@@ -31,6 +32,7 @@ function Donate() {
             tag: '@blacksheeprecovery4311',
             url: 'https://venmo.com/blacksheeprecovery4311',
             color: '#3D95CE',
+            glowRgb: '61, 149, 206',
             image: '/images/blacksheep/Blacksheep Venmo Collection/VM_Point Right.webp',
             description: 'Send your support through Venmo. Quick giving for the Kingdom offensive.',
             btnText: 'VENMO'
@@ -40,6 +42,7 @@ function Donate() {
             tag: '@BlackSheep1143',
             url: 'https://www.paypal.me/BlackSheep1143',
             color: '#003087',
+            glowRgb: '0, 48, 135',
             image: '/images/blacksheep/Blacksheep Paypal Collection/PP_Point Right.webp',
             description: 'Contribute securely via PayPal. One-time or recurring — you set the pace.',
             btnText: 'PAYPAL'
@@ -81,9 +84,11 @@ function Donate() {
                     {paymentMethods.map((method, index) => (
                         <div
                             key={method.name}
-                            className={`reveal donate-method-card donate-card-${index}`}
+                            className="bento-card reveal"
                             onClick={() => window.open(method.url, '_blank')}
                             style={{
+                                '--glow-rgb': method.glowRgb,
+                                padding: 0,
                                 position: 'relative',
                                 borderRadius: '28px',
                                 overflow: 'hidden',
@@ -188,42 +193,6 @@ function Donate() {
             </div>
 
             <style>{`
-                .donate-method-card {
-                    transition: box-shadow 0.5s ease, transform 0.5s ease, border-color 0.5s ease;
-                }
-                .donate-card-0:hover {
-                    box-shadow: 0 0 30px rgba(0, 214, 50, 0.5), 0 0 60px rgba(0, 214, 50, 0.2);
-                    border-color: rgba(0, 214, 50, 0.8) !important;
-                    transform: scale(1.02);
-                }
-                .donate-card-1:hover {
-                    box-shadow: 0 0 30px rgba(61, 149, 206, 0.5), 0 0 60px rgba(61, 149, 206, 0.2);
-                    border-color: rgba(61, 149, 206, 0.8) !important;
-                    transform: scale(1.02);
-                }
-                .donate-card-2:hover {
-                    box-shadow: 0 0 30px rgba(0, 48, 135, 0.5), 0 0 60px rgba(0, 48, 135, 0.3);
-                    border-color: rgba(0, 48, 135, 0.8) !important;
-                    transform: scale(1.02);
-                }
-                @media (max-width: 768px) {
-                    .donate-method-card:hover {
-                        box-shadow: none;
-                        transform: none;
-                    }
-                    .donate-card-0.active {
-                        box-shadow: 0 0 25px rgba(0, 214, 50, 0.4);
-                        border-color: rgba(0, 214, 50, 0.8) !important;
-                    }
-                    .donate-card-1.active {
-                        box-shadow: 0 0 25px rgba(61, 149, 206, 0.4);
-                        border-color: rgba(61, 149, 206, 0.8) !important;
-                    }
-                    .donate-card-2.active {
-                        box-shadow: 0 0 25px rgba(0, 48, 135, 0.4);
-                        border-color: rgba(0, 48, 135, 0.8) !important;
-                    }
-                }
                 .scripture-card { display: flex; flex-direction: column; }
                 .scripture-text { font-size: 1.1rem; font-style: italic; color: var(--text-primary); line-height: 1.5; }
                 .scripture-ref { margin-top: auto; font-weight: bold; letter-spacing: 2px; font-size: 0.9rem; }

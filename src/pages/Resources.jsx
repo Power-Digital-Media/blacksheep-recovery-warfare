@@ -57,7 +57,7 @@ function Resources() {
     const resources = [
         { name: 'Friends of Alcoholics', type: 'Recovery Community', author: 'Jackson, MS', impact: 'Faith-Based Support', url: 'https://www.foaministry.org/', image: '/images/Friends_Of_Alcoholics.avif' },
         { name: 'Trapped in the Addict', type: 'Literature / Group', author: 'John Gallagher', impact: 'Core Doctrine', url: 'https://trappedintheaddict.com/', image: '/images/trapped_in_the_Addict.webp' },
-        { name: 'Elite CRC (Clinical)', type: 'Partnership', author: 'Jackson, MS', impact: 'Medical Integration', url: 'http://elitecrc.us/' },
+        { name: 'Gateway Rescue Mission', type: 'Facility', author: 'Jackson, MS', impact: 'Rescue & Recovery', url: 'https://gatewaymission.org/' },
         { name: 'The Uncommon Christian', type: 'Podcast', author: 'Ministry Partners', impact: 'Spiritual Growth', url: '#' }
     ]
 

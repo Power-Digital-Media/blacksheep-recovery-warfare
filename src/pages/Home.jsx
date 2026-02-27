@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef, useCallback } from 'react'
-
+import { Link } from 'react-router-dom'
 import { Shield, Mic, Home as HomeIcon, ShoppingBag, Heart, ArrowRight, Play, ExternalLink } from 'lucide-react'
 import DynamicBackground from '../components/DynamicBackground'
 import Schema from '../components/Schema'
@@ -405,7 +405,9 @@ function Home() {
                                 the message of the Gospel to those currently lost in the ninety-nine.
                             </p>
                             <div className="footer-button-container">
-                                <button className="donate-btn xl-cta">SUPPORT THE MISSION</button>
+                                <Link to="/support" style={{ textDecoration: 'none' }}>
+                                    <button className="donate-btn xl-cta">SUPPORT THE MISSION</button>
+                                </Link>
                             </div>
                         </div>
                     </div>
