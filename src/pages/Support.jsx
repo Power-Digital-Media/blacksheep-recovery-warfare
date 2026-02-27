@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
-import { Target, ShieldAlert, Crosshair, Users, ArrowRight, Activity, Flame } from 'lucide-react';
+import { Flame, Star, ShieldCheck, Heart, Users, Target } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import Schema from '../components/Schema';
+import SEO from '../components/SEO';
 
 function Support() {
     useEffect(() => {
@@ -27,7 +27,13 @@ function Support() {
 
     return (
         <div className="support-page" style={{ paddingBottom: 'var(--section-gap)' }}>
-            <Schema data={supportSchema} />
+            <SEO
+                title="Support the Mission - Black Sheep Recovery Warfare"
+                description="Join the offensive. Your partnership fuels our mission to bring the Gospel to the lost and equip the recovered."
+                url="https://blacksheeprecoverywarfare.com/support"
+                image="https://blacksheeprecoverywarfare.com/danny_studio_bg.webp"
+                schemaData={supportSchema}
+            />
 
             {/* CINEMATIC HERO */}
             <section className="cinematic-section graphic-hero" style={{

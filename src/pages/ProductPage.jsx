@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
-import { ArrowLeft, ShoppingCart, Star, ShieldCheck } from 'lucide-react';
+import { ArrowLeft, ShoppingCart, Star, ShieldCheck, Heart, Share2, Package, RefreshCw } from 'lucide-react';
 import { merchItems } from '../data/merchData';
+import SEO from '../components/SEO';
 import Schema from '../components/Schema';
 
 function ProductPage() {
@@ -68,7 +69,15 @@ function ProductPage() {
 
     return (
         <div className="product-page-container">
-            {productSchema && <Schema data={productSchema} />}
+            {product && (
+                <SEO
+                    title={`${product.name} - Black Sheep Recovery Warfare`}
+                    description={product.desc}
+                    url={`https://blacksheeprecoverywarfare.com/merch/${product.id}`}
+                    image={`https://blacksheeprecoverywarfare.com${product.image}`}
+                    schemaData={productSchema}
+                />
+            )}
             <div className="container">
 
                 {/* BACK NAVIGATION */}

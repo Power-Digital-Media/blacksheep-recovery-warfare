@@ -3,14 +3,14 @@ import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion'
 import { Play, Youtube, Radio, ArrowRight } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import DynamicBackground from '../components/DynamicBackground'
-import Schema from '../components/Schema'
 import EpisodeModal from '../components/EpisodeModal'
+import SEO from '../components/SEO'
 
 const EpisodeCard = ({ eps, index, gridClass, onClick }) => {
     return (
         <motion.div
-            layoutId={`card-${eps.id}`}
-            className={`${gridClass} bento-card episode-card`}
+            layoutId={`card - ${eps.id} `}
+            className={`${gridClass} bento - card episode - card`}
             onClick={onClick}
             style={{ cursor: 'pointer', position: 'relative' }}
         >
@@ -24,8 +24,8 @@ const EpisodeCard = ({ eps, index, gridClass, onClick }) => {
                     <div className="play-overlay">
                         <Play fill="white" color="white" size={index === 0 ? 44 : 32} />
                     </div>
-                </div>
-            </div>
+                </div >
+            </div >
 
             <div className="episode-content">
                 <span className="emergency-text episode-date">{eps.date}</span>
@@ -37,14 +37,16 @@ const EpisodeCard = ({ eps, index, gridClass, onClick }) => {
                 </div>
             </div>
 
-            {index === 0 && (
-                <img
-                    src="/images/blacksheep/Blacksheep YT Collection/YT_TALL.webp"
-                    alt="YouTube Sheep"
-                    className="featured-sheep-overlay"
-                />
-            )}
-        </motion.div>
+            {
+                index === 0 && (
+                    <img
+                        src="/images/blacksheep/Blacksheep YT Collection/YT_TALL.webp"
+                        alt="YouTube Sheep"
+                        className="featured-sheep-overlay"
+                    />
+                )
+            }
+        </motion.div >
     );
 };
 
@@ -203,7 +205,13 @@ function Episodes() {
 
     return (
         <>
-            <Schema data={podcastSchema} />
+            <SEO
+                title="Episodes - Black Sheep Recovery Warfare"
+                description="Listen to real conversations about addiction, redemption, and fighting back."
+                url="https://blacksheeprecoverywarfare.com/episodes"
+                image="https://blacksheeprecoverywarfare.com/dr_monica_webb_cohost.webp"
+                schemaData={podcastSchema}
+            />
             <DynamicBackground
                 backgrounds={bgMap}
                 blur="0px"

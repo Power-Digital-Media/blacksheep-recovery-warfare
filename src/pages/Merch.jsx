@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import { ShoppingBag, ArrowRight, Star } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import { merchItems } from '../data/merchData'
-import Schema from '../components/Schema'
+import SEO from '../components/SEO'
 
 function Merch() {
     useEffect(() => {
@@ -38,7 +38,13 @@ function Merch() {
 
     return (
         <div className="">
-            <Schema data={merchSchema} />
+            <SEO
+                title="Tactical Apparel & Gear - Black Sheep Recovery Warfare"
+                description="Premium gear designed for the recovered life. Every purchase fuels the warfare against addiction. Wear the message. Support the mission."
+                url="https://blacksheeprecoverywarfare.com/merch"
+                image="https://blacksheeprecoverywarfare.com/images/merch_page_hero.webp"
+                schemaData={merchSchema}
+            />
             {/* CINEMATIC HERO */}
             <section className="cinematic-section" style={{ backgroundImage: 'url("/images/merch_page_hero.webp")' }}>
                 <div className="image-overlay" style={{ background: 'linear-gradient(to bottom, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.2) 50%, rgba(0,0,0,1) 100%)' }}></div>

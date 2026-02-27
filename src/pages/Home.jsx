@@ -2,6 +2,7 @@ import React, { useEffect, useState, useRef, useCallback } from 'react'
 import { Link } from 'react-router-dom'
 import { Shield, Mic, Home as HomeIcon, ShoppingBag, Heart, ArrowRight, Play, ExternalLink } from 'lucide-react'
 import DynamicBackground from '../components/DynamicBackground'
+import SEO from '../components/SEO'
 import Schema from '../components/Schema'
 
 /* ── Scroll-tracked card wrapper ── */
@@ -86,13 +87,19 @@ function Home() {
 
     return (
         <>
-            <Schema data={{
-                "@context": "https://schema.org",
-                "@type": "WebSite",
-                "name": "Black Sheep Recovery Warfare",
-                "url": "https://blacksheeprecoverywarfare.com",
-                "description": "A Christ-centered offensive strategy for spiritual resilience. Transforming the chaos of addiction into the grace of vitality."
-            }} />
+            <SEO
+                title="Black Sheep Recovery Warfare - Out of the Shadows, Into the Fight"
+                description="A Christ-centered offensive strategy for spiritual resilience. Transforming the chaos of addiction into the grace of vitality."
+                url="https://blacksheeprecoverywarfare.com"
+                image="https://blacksheeprecoverywarfare.com/john_gallagher_host.webp"
+                schemaData={{
+                    "@context": "https://schema.org",
+                    "@type": "WebSite",
+                    "name": "Black Sheep Recovery Warfare",
+                    "url": "https://blacksheeprecoverywarfare.com",
+                    "description": "A Christ-centered offensive strategy for spiritual resilience. Transforming the chaos of addiction into the grace of vitality."
+                }}
+            />
             <Schema data={{
                 "@context": "https://schema.org",
                 "@type": "Organization",

@@ -1,5 +1,8 @@
 import React, { useEffect } from 'react'
-import { Heart, ShieldCheck, ExternalLink } from 'lucide-react'
+import { ExternalLink, CreditCard, DollarSign } from 'lucide-react'
+import { useNavigate } from 'react-router-dom'
+import DynamicBackground from '../components/DynamicBackground'
+import SEO from '../components/SEO'
 import Schema from '../components/Schema'
 
 function Donate() {
@@ -59,7 +62,13 @@ function Donate() {
 
     return (
         <div className="">
-            <Schema data={donateSchema} />
+            <SEO
+                title="Donate - Black Sheep Recovery Warfare"
+                description="Support the Black Sheep Recovery mission. Every dollar directly impacts lives currently lost in the shadow of addiction. Join the offensive."
+                url="https://blacksheeprecoverywarfare.com/donate"
+                image="https://images.unsplash.com/photo-1510915228340-29c85a43dcfe?auto=format&fit=crop&q=80&w=2000"
+                schemaData={donateSchema}
+            />
             {/* CINEMATIC HERO */}
             <section className="cinematic-section" style={{ backgroundImage: 'url("https://images.unsplash.com/photo-1510915228340-29c85a43dcfe?auto=format&fit=crop&q=80&w=2000")' }}>
                 <div className="image-overlay"></div>
@@ -94,7 +103,7 @@ function Donate() {
                                 overflow: 'hidden',
                                 cursor: 'pointer',
                                 background: '#000',
-                                border: `1px solid ${method.color}33`,
+                                border: `1px solid ${method.color} 33`,
                                 height: '380px',
                                 display: 'flex',
                                 alignItems: 'flex-end'
@@ -102,7 +111,7 @@ function Donate() {
                         >
                             <img
                                 src={method.image}
-                                alt={`Donate via ${method.name}`}
+                                alt={`Donate via ${method.name} `}
                                 style={{
                                     position: 'absolute',
                                     left: '-10px',
@@ -193,12 +202,12 @@ function Donate() {
             </div>
 
             <style>{`
-                .scripture-card { display: flex; flex-direction: column; }
-                .scripture-text { font-size: 1.1rem; font-style: italic; color: var(--text-primary); line-height: 1.5; }
-                .scripture-ref { margin-top: auto; font-weight: bold; letter-spacing: 2px; font-size: 0.9rem; }
-                .contact-pillar { background: var(--charcoal); }
-                .contact-text { font-size: 0.9rem; line-height: 1.5; }
-            `}</style>
+    .scripture - card { display: flex; flex - direction: column; }
+                .scripture - text { font - size: 1.1rem; font - style: italic; color: var(--text - primary); line - height: 1.5; }
+                .scripture - ref { margin - top: auto; font - weight: bold; letter - spacing: 2px; font - size: 0.9rem; }
+                .contact - pillar { background: var(--charcoal); }
+                .contact - text { font - size: 0.9rem; line - height: 1.5; }
+`}</style>
         </div>
     )
 }

@@ -1,7 +1,8 @@
 import React, { useEffect, useState, useRef } from 'react'
 import { motion, useScroll, useTransform } from 'framer-motion'
-import { BookOpen, ExternalLink, ShieldCheck, Youtube, ArrowRight, FileText, Mic } from 'lucide-react'
+import { ExternalLink, BookOpen, Video, MapPin, Heart, ShieldAlert, GraduationCap, Map, ShieldCheck, Youtube, ArrowRight, FileText, Mic } from 'lucide-react'
 import DynamicBackground from '../components/DynamicBackground'
+import SEO from '../components/SEO'
 import Schema from '../components/Schema'
 
 const ResourceCard = ({ image, children, className, onActiveChange, style }) => {
@@ -71,7 +72,13 @@ function Resources() {
 
     return (
         <>
-            <Schema data={resourcesSchema} />
+            <SEO
+                title="Resources | Tactical Intel - Black Sheep Recovery Warfare"
+                description="Equipping the saints with the knowledge and tools necessary to sustain the recovered life. Every resource is a weapon for the warfare."
+                url="https://blacksheeprecoverywarfare.com/resources"
+                image="https://blacksheeprecoverywarfare.com/danny_studio_bg.webp"
+                schemaData={resourcesSchema}
+            />
             <DynamicBackground backgrounds={bgMap} blur="3px" />
             <div style={{ position: 'relative', zIndex: 1 }}>
 
