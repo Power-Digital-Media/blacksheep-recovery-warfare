@@ -202,12 +202,12 @@ function Donate() {
             </div>
 
             <style>{`
-    .scripture - card { display: flex; flex - direction: column; }
-                .scripture - text { font - size: 1.1rem; font - style: italic; color: var(--text - primary); line - height: 1.5; }
-                .scripture - ref { margin - top: auto; font - weight: bold; letter - spacing: 2px; font - size: 0.9rem; }
-                .contact - pillar { background: var(--charcoal); }
-                .contact - text { font - size: 0.9rem; line - height: 1.5; }
-`}</style>
+                .scripture-card { display: flex; flex-direction: column; }
+                .scripture-text { font-size: 1.1rem; font-style: italic; color: var(--text-primary); line-height: 1.5; }
+                .scripture-ref { margin-top: auto; font-weight: bold; letter-spacing: 2px; font-size: 0.9rem; }
+                .contact-pillar { background: var(--charcoal); }
+                .contact-text { font-size: 0.9rem; line-height: 1.5; }
+            `}</style>
         </div>
     )
 }

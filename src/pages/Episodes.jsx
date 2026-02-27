@@ -9,8 +9,8 @@ import SEO from '../components/SEO'
 const EpisodeCard = ({ eps, index, gridClass, onClick }) => {
     return (
         <motion.div
-            layoutId={`card - ${eps.id} `}
-            className={`${gridClass} bento - card episode - card`}
+            layoutId={`card-${eps.id}`}
+            className={`${gridClass} bento-card episode-card`}
             onClick={onClick}
             style={{ cursor: 'pointer', position: 'relative' }}
         >

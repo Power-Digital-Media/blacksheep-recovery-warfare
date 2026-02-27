@@ -13,13 +13,11 @@ import Checkout from './pages/Checkout'
 import Support from './pages/Support'
 import Footer from './components/Footer'
 import ScrollToTop from './components/ScrollToTop'
-import GlobalScrollGlow from './components/GlobalScrollGlow'
 
 function App() {
   return (
     <div className="app-wrapper">
       <ScrollToTop />
-      <GlobalScrollGlow />
       <div className="noise-overlay"></div>
 
       <Navbar />

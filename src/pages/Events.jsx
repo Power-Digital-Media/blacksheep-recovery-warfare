@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from 'react'
-import { motion, useScroll, useTransform } from 'framer-motion'
-import { Calendar, MapPin, Search } from 'lucide-react'
+import React, { useState } from 'react'
+import { useScroll, useTransform } from 'framer-motion'
+import { MapPin, Calendar, Users, ArrowRight } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import DynamicBackground from '../components/DynamicBackground'
 import SEO from '../components/SEO'
 import Schema from '../components/Schema'
 
-const EventCard = ({ id, image, children, className, onActiveChange }) => {
+const EventCard = ({ image, children, className, onActiveChange }) => {
     const cardRef = React.useRef(null);
     const { scrollYProgress } = useScroll({
         target: cardRef,
@@ -29,7 +29,7 @@ const EventCard = ({ id, image, children, className, onActiveChange }) => {
     return (
         <div
             ref={cardRef}
-            className={`bento - card ${className} `}
+            className={`bento-card ${className}`}
             onMouseEnter={() => onActiveChange(image, 1)}
             onMouseLeave={() => onActiveChange(image, 0)}
         >
@@ -103,11 +103,7 @@ function Events() {
             <div style={{ position: 'relative', zIndex: 1 }}>
 
                 {/* CINEMATIC HERO */}
-                <section className="cinematic-section graphic-hero" style={{
-                    backgroundImage: 'url("/studio_hero.webp")',
-                    maskImage: 'linear-gradient(to bottom, black 50%, transparent 100%)',
-                    WebkitMaskImage: 'linear-gradient(to bottom, black 50%, transparent 100%)'
-                }}>
+                <section className="cinematic-section graphic-hero" style={{ backgroundImage: 'url("/studio_hero.webp")' }}>
                     <div className="image-overlay"></div>
                     <div className="cinematic-content">
                         <span className="emergency-text">Fellowship & Recovery</span>
@@ -191,175 +187,176 @@ function Events() {
                 </div>
 
                 <style>{`
-    .featured - event - card {
-    background: #000!important;
-    box - shadow: 0 0 30px rgba(0, 0, 0, 0.3);
-    display: flex;
-    flex - direction: column;
-    justify - content: space - between;
-    padding: 0;
-    overflow: hidden;
-    position: relative;
-}
+                .featured-event-card { 
+                    background: #000 !important;
+                    box-shadow: 0 0 30px rgba(0,0,0,0.3);
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: space-between;
+                    padding: 0;
+                    overflow: hidden;
+                    position: relative;
+                }
 
-                .featured - event - card::before {
-    content: '';
-    position: absolute;
-    inset: 1.5px; /* The Anti-Bleed Gutter */
-    background - image: url('/night_of_hope_card.webp');
-    background - size: cover;
-    background - position: 65 % 15 %;
-    border - radius: inherit;
-    z - index: 1;
-}
+                .featured-event-card::before {
+                    content: '';
+                    position: absolute;
+                    inset: 1.5px; /* The Anti-Bleed Gutter */
+                    background-image: url('/night_of_hope_card.webp');
+                    background-size: cover;
+                    background-position: 65% 15%;
+                    border-radius: inherit;
+                    z-index: 1;
+                }
 
-                 .featured - event - card:: after, .logistics - card::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    border: 1px solid rgba(255, 255, 255, 0.12);
-    box - shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.5); /* Inner shadow to hide gutter transition */
-    pointer - events: none;
-    z - index: 10;
-    border - radius: inherit;
-}
+                 .featured-event-card::after, .logistics-card::after {
+                    content: '';
+                    position: absolute;
+                    inset: 0;
+                    border: 1px solid rgba(255, 255, 255, 0.12);
+                    box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.5); /* Inner shadow to hide gutter transition */
+                    pointer-events: none;
+                    z-index: 10;
+                    border-radius: inherit;
+                }
                 
-                .featured - overlay {
-    width: 100 %;
-    padding: 2.5rem;
-    position: relative;
-    z - index: 2;
-}
+                .featured-overlay {
+                    width: 100%;
+                    padding: 2.5rem;
+                    position: relative;
+                    z-index: 2;
+                }
 
-                .top - smoke {
-    background: linear - gradient(to bottom, rgba(0, 0, 0, 0.8) 0 %, rgba(0, 0, 0, 0.4) 60 %, transparent 100 %);
-}
+                .top-smoke {
+                    background: linear-gradient(to bottom, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.4) 60%, transparent 100%);
+                }
 
-                .bottom - smoke {
-    background: linear - gradient(to top, rgba(0, 0, 0, 0.95) 0 %, rgba(0, 0, 0, 0.6) 50 %, transparent 100 %);
-    padding - top: 5rem; /* Room for gradient to breathe */
-}
+                .bottom-smoke {
+                    background: linear-gradient(to top, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.6) 50%, transparent 100%);
+                    padding-top: 5rem; /* Room for gradient to breathe */
+                }
                 
-                .event - date { color: var(--warfare - red); opacity: 1; font - weight: 700; letter - spacing: 0.15em; }
-                .event - title {
-    color: white;
-    line - height: 0.9;
-    margin: 0.5rem 0 0 0;
-    font - size: clamp(2.5rem, 6vw, 4rem);
-    text - shadow: 0 0 20px rgba(255, 61, 48, 0.3);
-}
-                .event - description { color: rgba(255, 255, 255, 0.9); fontSize: 1.1rem; max - width: 700px; margin - bottom: 2rem; line - height: 1.6; }
-                .event - details - row { display: flex; gap: 4rem; margin - bottom: 2rem; }
-                .detail - title { color: white; font - size: 0.9rem; margin - bottom: 0.3rem; letter - spacing: 0.1em; opacity: 0.8; }
-                .detail - text { color: white; font - size: 1.1rem; font - weight: 500; }
-                .event - cta {
-    background: var(--warfare - red);
-    color: white;
-    border: none;
-    padding: 14px 32px;
-    border - radius: 99px;
-    font - weight: 700;
-    font - size: 0.95rem;
-    cursor: pointer;
-    display: flex;
-    align - items: center;
-    gap: 10px;
-    width: fit - content;
-    box - shadow: 0 4px 20px rgba(255, 61, 48, 0.4);
-    transition: transform 0.2s ease, box - shadow 0.2s ease;
-}
-                .event - cta:hover {
-    transform: translateY(-2px);
-    box - shadow: 0 6px 25px rgba(255, 61, 48, 0.6);
-}
+                .event-date { color: var(--warfare-red); opacity: 1; font-weight: 700; letter-spacing: 0.15em; }
+                .event-title { 
+                    color: white; 
+                    line-height: 0.9; 
+                    margin: 0.5rem 0 0 0; 
+                    font-size: clamp(2.5rem, 6vw, 4rem); 
+                    text-shadow: 0 0 20px rgba(255, 61, 48, 0.3);
+                }
+                .event-description { color: rgba(255,255,255,0.9); fontSize: 1.1rem; max-width: 700px; margin-bottom: 2rem; line-height: 1.6; }
+                .event-details-row { display: flex; gap: 4rem; margin-bottom: 2rem; }
+                .detail-title { color: white; font-size: 0.9rem; margin-bottom: 0.3rem; letter-spacing: 0.1em; opacity: 0.8; }
+                .detail-text { color: white; font-size: 1.1rem; font-weight: 500; }
+                .event-cta {
+                    background: var(--warfare-red);
+                    color: white;
+                    border: none;
+                    padding: 14px 32px;
+                    border-radius: 99px;
+                    font-weight: 700;
+                    font-size: 0.95rem;
+                    cursor: pointer;
+                    display: flex;
+                    align-items: center;
+                    gap: 10px;
+                    width: fit-content;
+                    box-shadow: 0 4px 20px rgba(255, 61, 48, 0.4);
+                    transition: transform 0.2s ease, box-shadow 0.2s ease;
+                }
+                .event-cta:hover {
+                    transform: translateY(-2px);
+                    box-shadow: 0 6px 25px rgba(255, 61, 48, 0.6);
+                }
                 
-                .logistics - card {
-    padding: 0!important;
-    overflow: hidden;
-    position: relative;
-    background - color: #000!important;
-    display: flex;
-    flex - direction: column;
-    will - change: transform;
-}
+                .logistics-card {
+                    padding: 0 !important;
+                    overflow: hidden;
+                    position: relative;
+                    background-color: #000 !important;
+                    display: flex;
+                    flex-direction: column;
+                    will-change: transform; 
+                }
 
-                .logistics - card::before {
-    content: '';
-    position: absolute;
-    inset: 1.5px; /* The Anti-Bleed Gutter */
-    background - size: cover!important;
-    background - position: center!important;
-    background - repeat: no - repeat!important;
-    border - radius: inherit;
-    z - index: 1;
-}
-                .location - card::before {
-    background - image: url('/community_selfie.webp')!important;
-}
-                .invitation - card::before {
-    background - image: url('/community_large.webp')!important;
-}
-                .community - card::before {
-    background - image: url('/community_studio_small.webp')!important;
-}
+                .logistics-card::before {
+                    content: '';
+                    position: absolute;
+                    inset: 1.5px; /* The Anti-Bleed Gutter */
+                    background-size: cover !important;
+                    background-position: center !important;
+                    background-repeat: no-repeat !important;
+                    border-radius: inherit;
+                    z-index: 1;
+                }
+                
+                .location-card::before { 
+                    background-image: url('/community_selfie.webp') !important;
+                }
+                .invitation-card::before { 
+                    background-image: url('/community_large.webp') !important;
+                }
+                .community-card::before { 
+                    background-image: url('/community_studio_small.webp') !important;
+                }
 
-                .card - overlay {
-    position: relative;
-    z - index: 5;
-    background: linear - gradient(to top, rgba(0, 0, 0, 0.98) 0 %, rgba(0, 0, 0, 0.5) 30 %, transparent 100 %);
-    width: 100 %;
-    flex: 1;
-    padding: 1.5rem;
-    display: flex;
-    flex - direction: column;
-    justify - content: flex - end;
-}
+                .card-overlay {
+                    position: relative;
+                    z-index: 5;
+                    background: linear-gradient(to top, rgba(0,0,0,0.98) 0%, rgba(0,0,0,0.5) 30%, transparent 100%);
+                    width: 100%;
+                    flex: 1;
+                    padding: 1.5rem;
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: flex-end;
+                }
 
-                .logistics - card h2 {
-    font - size: 1.5rem; /* Significantly smaller than featured */
-    margin - bottom: 0.35rem;
-    text - shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
-}
-                .logistics - card p {
-    font - size: 0.95rem; /* Tighter for small cards */
-    opacity: 0.9;
-    text - shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
-    line - height: 1.4;
-}
+                .logistics-card h2 { 
+                    font-size: 1.5rem; /* Significantly smaller than featured */
+                    margin-bottom: 0.35rem; 
+                    text-shadow: 0 2px 4px rgba(0,0,0,0.8); 
+                }
+                .logistics-card p { 
+                    font-size: 0.95rem; /* Tighter for small cards */
+                    opacity: 0.9; 
+                    text-shadow: 0 2px 4px rgba(0,0,0,0.8); 
+                    line-height: 1.4;
+                }
 
-                .bento - grid {
-    gap: 3rem; /* Cinematic separation */
-}
+                .bento-grid {
+                    gap: 3rem; /* Cinematic separation */
+                }
 
-@media(max - width: 768px) {
-                    .event - title { font - size: 2.2rem; }
-                    .event - description { font - size: 0.95rem; margin - bottom: 1.5rem; }
-                    .event - details - row { flex - direction: row; flex - wrap: wrap; gap: 2rem; margin - bottom: 1.5rem; }
-                    .event - cta { width: 100 %; justify - content: center; margin - top: 1rem; }
+                @media (max-width: 768px) {
+                    .event-title { font-size: 2.2rem; }
+                    .event-description { font-size: 0.95rem; margin-bottom: 1.5rem; }
+                    .event-details-row { flex-direction: row; flex-wrap: wrap; gap: 2rem; margin-bottom: 1.5rem; }
+                    .event-cta { width: 100%; justify-content: center; margin-top: 1rem; }
                     
-                    .bento - grid { gap: 2.5rem; } /* Higher separation on mobile too */
+                    .bento-grid { gap: 2.5rem; } /* Higher separation on mobile too */
                     
-                    .featured - event - card {
-        min - height: 600px; /* Taller for mobile full-bg */
-    }
-                    .featured - overlay {
-        padding: 1.5rem;
-    }
-                    .bottom - smoke {
-        padding - top: 8rem;
-    }
+                    .featured-event-card { 
+                        min-height: 600px; /* Taller for mobile full-bg */
+                    }
+                    .featured-overlay {
+                        padding: 1.5rem;
+                    }
+                    .bottom-smoke {
+                        padding-top: 8rem;
+                    }
                     
-                    .logistics - card {
-        aspect - ratio: 1 / 1;
-        min - height: 380px; /* Slightly taller for text safety */
-    }
-                    .logistics - card.card - overlay {
-        padding: 1.25rem; /* Even tighter for mobile */
-    }
-                    .logistics - card h2 { font - size: 1.4rem; }
-                    .logistics - card p { font - size: 0.9rem; }
-}
-`}</style>
+                    .logistics-card { 
+                        aspect-ratio: 1/1; 
+                        min-height: 380px; /* Slightly taller for text safety */
+                    }
+                    .logistics-card .card-overlay {
+                        padding: 1.25rem; /* Even tighter for mobile */
+                    }
+                    .logistics-card h2 { font-size: 1.4rem; }
+                    .logistics-card p { font-size: 0.9rem; }
+                }
+            `}</style>
             </div>
         </>
     )
