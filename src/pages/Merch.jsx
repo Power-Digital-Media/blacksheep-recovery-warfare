@@ -186,7 +186,12 @@ function Merch() {
                     .product-card, .review-card, .logistics-card {
                         grid-column: span 12;
                     }
-                    /* Dynamic Mobile Scroll Glow for inner image (card glow handled globally) */
+                    /* Dynamic Mobile Scroll Glow for outer card wrapper */
+                    .product-card {
+                        border-color: rgba(var(--glow-rgb), calc(0.8 * var(--scroll-intensity, 0))) !important;
+                        box-shadow: 0 0 calc(50px * var(--scroll-intensity, 0)) rgba(var(--glow-rgb), calc(0.35 * var(--scroll-intensity, 0))), inset 0 0 calc(20px * var(--scroll-intensity, 0)) rgba(var(--glow-rgb), calc(0.15 * var(--scroll-intensity, 0)));
+                    }
+                    /* Dynamic Mobile Scroll Glow for inner image */
                     .product-card .product-image {
                         /* Amplify mascot shadow as well */
                         filter: drop-shadow(0 20px 40px rgba(0,0,0,0.8)) drop-shadow(0 0 calc(40px * var(--scroll-intensity, 0)) rgba(var(--glow-rgb), calc(0.8 * var(--scroll-intensity, 0))));

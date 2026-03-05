@@ -10,14 +10,15 @@ import Merch from './pages/Merch'
 import ProductPage from './pages/ProductPage'
 import Donate from './pages/Donate'
 import Checkout from './pages/Checkout'
-import Support from './pages/Support'
 import Footer from './components/Footer'
 import ScrollToTop from './components/ScrollToTop'
+import GlobalScrollGlow from './components/GlobalScrollGlow'
 
 function App() {
   return (
     <div className="app-wrapper">
       <ScrollToTop />
+      <GlobalScrollGlow />
       <div className="noise-overlay"></div>
 
       <Navbar />
@@ -33,7 +34,6 @@ function App() {
           <Route path="/merch/:id" element={<ProductPage />} />
           <Route path="/checkout" element={<Checkout />} />
           <Route path="/donate" element={<Donate />} />
-          <Route path="/support" element={<Support />} />
         </Routes>
       </main>
 

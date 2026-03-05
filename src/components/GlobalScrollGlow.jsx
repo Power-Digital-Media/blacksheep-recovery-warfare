@@ -15,16 +15,25 @@ export default function GlobalScrollGlow() {
                 const rect = card.getBoundingClientRect();
                 const cardCenter = rect.top + rect.height / 2;
 
-                // Calculate distance from center (0 = perfectly centered)
+                // Calculate distance from center
                 const distance = Math.abs(windowCenter - cardCenter);
-                const maxDistance = window.innerHeight / 2.5; // Starts glowing earlier
 
-                let intensity = 1 - (distance / maxDistance);
-                intensity = Math.max(0, Math.min(1, intensity));
+                // Max distance from center before glow completely fades 
+                // (Set to about 40% of screen height)
+                const maxDistance = window.innerHeight * 0.4;
 
-                // Apply a slight curve to the intensity so it pops more in the middle
-                const curvedIntensity = Math.pow(intensity, 1.5).toFixed(2);
-                card.style.setProperty('--scroll-intensity', curvedIntensity);
+                let intensity = 0;
+
+                if (distance < maxDistance) {
+                    // Normalize distance
+                    const normalizedDistance = distance / maxDistance;
+
+                    // Create a bell-curve like falloff so it's strongest in the center
+                    // and drops off smoothly
+                    intensity = Math.pow(1 - normalizedDistance, 1.8);
+                }
+
+                card.style.setProperty('--scroll-intensity', intensity.toFixed(3));
             });
         };
 

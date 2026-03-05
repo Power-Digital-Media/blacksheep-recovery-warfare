@@ -130,7 +130,9 @@ function Home() {
                             Transforming the grit of addiction into the grace of eternity.
                         </p>
                         <div className="hero-button-container">
-                            <button className="donate-btn large-cta">ENLIST NOW</button>
+                            <Link to="/donate" style={{ textDecoration: 'none' }}>
+                                <button className="donate-btn large-cta">ENLIST NOW</button>
+                            </Link>
                         </div>
                     </div>
                 </section>
@@ -412,7 +414,7 @@ function Home() {
                                 the message of the Gospel to those currently lost in the ninety-nine.
                             </p>
                             <div className="footer-button-container">
-                                <Link to="/support" style={{ textDecoration: 'none' }}>
+                                <Link to="/donate" style={{ textDecoration: 'none' }}>
                                     <button className="donate-btn xl-cta">SUPPORT THE MISSION</button>
                                 </Link>
                             </div>
