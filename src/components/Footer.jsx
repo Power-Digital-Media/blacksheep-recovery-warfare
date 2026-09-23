@@ -170,12 +170,19 @@ const Footer = () => {
                 }}>
                     <div style={{
                         fontSize: '0.7rem',
-                        letterSpacing: '5px',
+                        letterSpacing: '3px',
                         color: '#666',
                         textAlign: 'center',
-                        fontFamily: 'monospace'
+                        fontFamily: 'monospace',
+                        display: 'flex',
+                        flexWrap: 'wrap',
+                        justifyContent: 'center',
+                        gap: '10px',
+                        alignItems: 'center'
                     }}>
-                        © {currentYear} BLACK SHEEP RECOVERY WARFARE
+                        <span>© {currentYear} BLACK SHEEP RECOVERY WARFARE</span>
+                        <span>•</span>
+                        <span>DESIGNED &amp; ENGINEERED BY <a href="https://powerdigitalmedia.org" target="_blank" rel="noopener noreferrer" style={{ color: '#888', textDecoration: 'underline' }}>POWER DIGITAL MEDIA</a></span>
                     </div>
                 </div>
             </div>
