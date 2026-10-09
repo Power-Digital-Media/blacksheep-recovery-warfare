@@ -81,7 +81,7 @@ function MilesOfSmiles() {
     }
 
     return (
-        <div>
+        <div className="mos-page">
             <SEO
                 title="Miles of Smiles - Black Sheep Recovery Warfare"
                 description="Miles of Smiles is an outreach initiative of Black Sheep Recovery Warfare restoring smiles, confidence, and dignity for men and women in recovery."
@@ -91,7 +91,7 @@ function MilesOfSmiles() {
             />
 
             {/* HERO */}
-            <section className="cinematic-section" style={{ backgroundImage: 'url("/images/miles-of-smiles/hero.webp")', backgroundPosition: 'center 30%', minHeight: '90vh' }}>
+            <section className="cinematic-section mos-hero" style={{ backgroundImage: 'url("/images/miles-of-smiles/hero.webp")', backgroundPosition: 'center 30%' }}>
                 <div className="image-overlay" style={{ background: 'radial-gradient(circle at 50% 40%, rgba(212,160,23,0.22), rgba(0,0,0,0.88) 65%), linear-gradient(to bottom, rgba(0,0,0,0.6), #000)' }}></div>
                 <div className="cinematic-content reveal">
                     <h1 className="mos-sr">Miles of Smiles - Black Sheep Recovery Warfare</h1>
@@ -110,17 +110,17 @@ function MilesOfSmiles() {
 
                 {/* COUNTER */}
                 <div className="bento-grid" style={{ marginBottom: '4rem' }}>
-                    <div className="bento-card span-4 reveal mos-stat">
+                    <div className="bento-card span-4 reveal mos-stat mos-glow mos-red">
                         <Smile size={40} color="var(--emergency-red)" />
                         <h2>{recipients.length}</h2>
                         <span>Smiles Restored</span>
                     </div>
-                    <div className="bento-card span-4 reveal mos-stat" style={{ transitionDelay: '0.1s' }}>
+                    <div className="bento-card span-4 reveal mos-stat mos-glow mos-gold" style={{ transitionDelay: '0.1s' }}>
                         <Sparkles size={40} color="var(--emergency-red)" />
                         <h2 style={{ fontSize: '2rem' }}>{nextSmile.name.toUpperCase()}</h2>
                         <span>Next Smile</span>
                     </div>
-                    <div className="bento-card span-4 reveal mos-stat" style={{ transitionDelay: '0.2s' }}>
+                    <div className="bento-card span-4 reveal mos-stat mos-glow mos-red" style={{ transitionDelay: '0.2s' }}>
                         <Target size={40} color="var(--emergency-red)" />
                         <h2>{SMILES_GOAL}</h2>
                         <span>Smiles Goal · We Are the 99</span>
@@ -163,7 +163,7 @@ function MilesOfSmiles() {
 
                 <div className="mos-recipients">
                     {recipients.map((r) => (
-                        <div key={r.name} className="bento-card reveal mos-recipient">
+                        <div key={r.name} className="bento-card reveal mos-recipient mos-glow mos-gold">
                             <BeforeAfter before={r.before} after={r.after} name={r.name} />
                             <div className="mos-info">
                                 <span className="mos-num">SMILE #{r.number}</span>
@@ -177,7 +177,7 @@ function MilesOfSmiles() {
                         </div>
                     ))}
 
-                    <div className="bento-card reveal mos-recipient mos-soon">
+                    <div className="bento-card reveal mos-recipient mos-soon mos-glow mos-red">
                         <div className="mos-soon-photo"><Smile size={64} color="var(--emergency-red)" /></div>
                         <div className="mos-info">
                             <span className="mos-num">SMILE #{nextSmile.number}</span>
@@ -202,19 +202,19 @@ function MilesOfSmiles() {
                         </ul>
                     </div>
 
-                    <div className="bento-card span-4 reveal mos-cta">
+                    <div className="bento-card span-4 reveal mos-cta mos-glow mos-red">
                         <Send size={32} color="var(--emergency-red)" />
                         <h3>NOMINATE SOMEONE</h3>
                         <p>Know someone who has fought their way out of addiction and is rebuilding their life but desperately needs dental help? Tell us their story.</p>
                         <a href={NOMINATE_MAIL} className="mos-btn">NOMINATE <ArrowRight size={16} /></a>
                     </div>
-                    <div className="bento-card span-4 reveal mos-cta" style={{ transitionDelay: '0.1s' }}>
+                    <div className="bento-card span-4 reveal mos-cta mos-glow mos-gold" style={{ transitionDelay: '0.1s' }}>
                         <HandHeart size={32} color="var(--emergency-red)" />
                         <h3>SPONSOR A SMILE</h3>
                         <p>Businesses, churches, dental professionals, and individuals can directly help restore someone's smile and confidence.</p>
                         <a href={SPONSOR_MAIL} className="mos-btn">SPONSOR <ArrowRight size={16} /></a>
                     </div>
-                    <div className="bento-card span-4 reveal mos-cta" style={{ transitionDelay: '0.2s' }}>
+                    <div className="bento-card span-4 reveal mos-cta mos-glow mos-red" style={{ transitionDelay: '0.2s' }}>
                         <Heart size={32} color="var(--emergency-red)" />
                         <h3>SUPPORT THE MISSION</h3>
                         <p>Your support lets us keep meeting people where they are and restoring what addiction tried to destroy.</p>
@@ -228,6 +228,32 @@ function MilesOfSmiles() {
             </div>
 
             <style>{`
+                .mos-red { --glow-rgb: 255, 59, 48; }
+                .mos-gold { --glow-rgb: 212, 160, 23; }
+                .bento-card.mos-glow {
+                    background: #000 !important;
+                    border: 1px solid rgba(var(--glow-rgb), 0.35) !important;
+                    border-radius: 28px !important;
+                    transition: box-shadow 0.4s ease, border-color 0.4s ease, transform 0.4s ease;
+                }
+                .bento-card.mos-glow:hover {
+                    border-color: rgba(var(--glow-rgb), 0.9) !important;
+                    box-shadow: 0 0 30px rgba(var(--glow-rgb), 0.5), 0 0 60px rgba(var(--glow-rgb), 0.2);
+                    transform: translateY(-4px);
+                }
+                @media (max-width: 768px) {
+                    .bento-card.mos-glow:hover { transform: none; }
+                    .bento-card.mos-glow {
+                        border-color: rgba(var(--glow-rgb), calc(0.25 + 0.65 * var(--scroll-intensity, 0.5))) !important;
+                        box-shadow: 0 0 calc(15px + 25px * var(--scroll-intensity, 0.5)) rgba(var(--glow-rgb), calc(0.25 + 0.35 * var(--scroll-intensity, 0.5))) !important;
+                    }
+                }
+                .mos-hero { min-height: 90vh; }
+                @media (max-width: 600px) {
+                    .mos-hero { min-height: 0 !important; padding: 3rem 0 2rem !important; }
+                    .mos-hero + .container { margin-top: 1rem !important; }
+                    .mos-hero-btns { margin-top: 1.25rem; }
+                }
                 .mos-sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
                 .mos-hero-logo { width: min(520px, 80vw); height: auto; margin: 0 auto 1rem; display: block; filter: drop-shadow(0 0 40px rgba(212,160,23,0.35)); }
                 .mos-hero-btns { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; margin-top: 2rem; }
