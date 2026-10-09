@@ -29,7 +29,11 @@ const recipients = [
     }
 ]
 
-const nextSmile = { number: 3, name: 'Eddie Poole' }
+const nextSmile = {
+    number: 3,
+    name: 'Ashley Greene',
+    note: 'Had her first appointment today! Follow along as her transformation unfolds.'
+}
 
 const ways = [
     { icon: HandHeart, text: 'Sponsoring dental work for a recipient' },
@@ -182,7 +186,7 @@ function MilesOfSmiles() {
                         <div className="mos-info">
                             <span className="mos-num">SMILE #{nextSmile.number}</span>
                             <h3>{nextSmile.name.toUpperCase()}</h3>
-                            <p>Coming soon. Follow along as the next transformation unfolds.</p>
+                            <p>{nextSmile.note || 'Coming soon. Follow along as the next transformation unfolds.'}</p>
                         </div>
                     </div>
                 </div>
