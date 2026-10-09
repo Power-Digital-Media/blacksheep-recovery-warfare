@@ -9,6 +9,7 @@ import Resources from './pages/Resources'
 import Merch from './pages/Merch'
 import ProductPage from './pages/ProductPage'
 import Donate from './pages/Donate'
+import MilesOfSmiles from './pages/MilesOfSmiles'
 import Checkout from './pages/Checkout'
 import Footer from './components/Footer'
 import ScrollToTop from './components/ScrollToTop'
@@ -34,6 +35,7 @@ function App() {
           <Route path="/merch/:id" element={<ProductPage />} />
           <Route path="/checkout" element={<Checkout />} />
           <Route path="/donate" element={<Donate />} />
+          <Route path="/miles-of-smiles" element={<MilesOfSmiles />} />
         </Routes>
       </main>
 

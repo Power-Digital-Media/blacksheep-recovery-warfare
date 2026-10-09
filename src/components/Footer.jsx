@@ -13,6 +13,7 @@ const Footer = () => {
                 { name: 'EPISODES', path: '/episodes' },
                 { name: 'GATHERINGS', path: '/events' },
                 { name: 'SPONSORS', path: '/sponsors' },
+                { name: 'MILES OF SMILES', path: '/miles-of-smiles' },
                 { name: 'DONATE', path: '/donate' }
             ]
         },

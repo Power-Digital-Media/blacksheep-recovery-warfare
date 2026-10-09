@@ -20,6 +20,7 @@ function Navbar() {
                     <Link to="/episodes" className="nav-link" onClick={() => setIsMenuOpen(false)}>Episodes</Link>
                     <Link to="/events" className="nav-link" onClick={() => setIsMenuOpen(false)}>Gatherings</Link>
                     <Link to="/sponsors" className="nav-link" onClick={() => setIsMenuOpen(false)}>Sponsors</Link>
+                    <Link to="/miles-of-smiles" className="nav-link" onClick={() => setIsMenuOpen(false)}>Miles of Smiles</Link>
                     <Link to="/resources" className="nav-link" onClick={() => setIsMenuOpen(false)}>Resources</Link>
                     <Link to="/merch" className="nav-link" onClick={() => setIsMenuOpen(false)}>Gear</Link>
                     <Link to="/donate" className="donate-btn" onClick={() => setIsMenuOpen(false)}>DONATE</Link>
