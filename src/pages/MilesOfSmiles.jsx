@@ -57,8 +57,8 @@ function BeforeAfter({ before, after, name }) {
     return (
         <div className="mos-slider" ref={ref} role="img" aria-label={`${name}: before and after`}>
             <motion.div className="mos-layer" style={{ scale }}>
-                <img src={after} alt={`${name} after`} className="mos-img" loading="lazy" />
-                <motion.img src={before} alt={`${name} before`} className="mos-img" loading="lazy" style={{ opacity: beforeOpacity }} />
+                <img src={after} alt={`${name} after`} className="mos-img" width="500" height="625" loading="lazy" decoding="async" />
+                <motion.img src={before} alt={`${name} before`} className="mos-img" width="500" height="625" loading="lazy" decoding="async" style={{ opacity: beforeOpacity }} />
             </motion.div>
             <motion.span className="mos-tag mos-tag-l" style={{ opacity: beforeTag }}>BEFORE</motion.span>
             <motion.span className="mos-tag mos-tag-r" style={{ opacity: afterTag }}>AFTER</motion.span>
@@ -111,7 +111,15 @@ function MilesOfSmiles() {
                 <div className="image-overlay" style={{ background: 'radial-gradient(circle at 50% 40%, rgba(212,160,23,0.22), rgba(0,0,0,0.88) 65%), linear-gradient(to bottom, rgba(0,0,0,0.6), #000)' }}></div>
                 <div className="cinematic-content reveal">
                     <h1 className="mos-sr">Miles of Smiles - Black Sheep Recovery Warfare</h1>
-                    <img src="/images/miles-of-smiles/logo.webp" alt="Miles of Smiles Initiative - Black Sheep Recovery Warfare" className="mos-hero-logo" />
+                    <img
+                        src="/images/miles-of-smiles/logo.webp"
+                        alt="Miles of Smiles Initiative - Black Sheep Recovery Warfare"
+                        className="mos-hero-logo"
+                        width="520"
+                        height="520"
+                        fetchpriority="high"
+                        decoding="async"
+                    />
                     <p className="narrative-text">
                         Restoring Smiles. Restoring Confidence.<br />Reminding People They Matter.
                     </p>
