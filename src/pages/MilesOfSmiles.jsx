@@ -84,6 +84,18 @@ function MilesOfSmiles() {
         "url": "https://blacksheeprecoverywarfare.com/miles-of-smiles"
     }
 
+    const scrollTo = (id) => (e) => {
+        e.preventDefault()
+        const el = document.getElementById(id)
+        if (el) el.scrollIntoView({ behavior: 'smooth' })
+    }
+
+    useEffect(() => {
+        if (window.location.hash) {
+            window.history.replaceState(null, '', window.location.pathname)
+        }
+    }, [])
+
     return (
         <div className="mos-page">
             <SEO
@@ -104,8 +116,8 @@ function MilesOfSmiles() {
                         Restoring Smiles. Restoring Confidence.<br />Reminding People They Matter.
                     </p>
                     <div className="mos-hero-btns">
-                        <a href="#nominate" className="donate-btn">GET INVOLVED</a>
-                        <a href="#smiles" className="mos-ghost">MEET THE SMILES</a>
+                        <button type="button" onClick={scrollTo('nominate')} className="donate-btn" style={{ cursor: 'pointer', border: 'none' }}>GET INVOLVED</button>
+                        <button type="button" onClick={scrollTo('smiles')} className="mos-ghost" style={{ cursor: 'pointer', background: 'transparent' }}>MEET THE SMILES</button>
                     </div>
                 </div>
             </section>
