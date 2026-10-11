@@ -272,7 +272,7 @@ function Episodes() {
                                 <h3 className="watch-all-title">Ready for more warfare?</h3>
                                 <div className="watch-all-buttons">
                                     <a
-                                        href="https://www.youtube.com/@Brother_Phoenix/videos"
+                                        href="https://www.youtube.com/@BlackSheep_Recovery"
                                         target="_blank"
                                         rel="noopener noreferrer"
                                         className="donate-btn youtube-btn"
